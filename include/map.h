@@ -10,7 +10,7 @@
     #include <stdint.h>
 
     typedef struct map_s {
-        uint8_t map[4096];
+        uint8_t map[112];
         uint16_t width;
         uint16_t height;
         uint16_t size;

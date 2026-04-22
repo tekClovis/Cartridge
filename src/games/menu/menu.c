@@ -35,7 +35,9 @@ void init_menu(game_t *this)
 {
     this->update = &update_menu;
     init_map(this);
-    set_bkg_data(0, 112, menu_tilesets_tiles);
+    SWITCH_ROM(BANK(menu_tilesets)); 
+    set_bkg_data(0, menu_tilesets_TILE_COUNT, menu_tilesets_tiles);
+    SWITCH_ROM(BANK(menu_tilemap));
     set_bkg_tiles(0, 0, 32, 32, map_menu);
     init_window(this);
 }
