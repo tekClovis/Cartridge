@@ -31,33 +31,54 @@
 //     }
 // }
 
+static void player_scroll_bg(game_t *this)
+{
+    int8_t rel_coord_x = this->entities[0].x >> 3;
+    int8_t rel_coord_y = this->entities[0].y >> 3;
+
+    if (rel_coord_x > 8 && rel_coord_x < (map_menu_width))
+        this->window[0].x = this->entities[0].x - 6 << 3;
+    else
+        this->entities[0].x_sprite = this->entities[0].x + 1;
+    if (rel_coord_y > 8 && rel_coord_y < (map_menu_height))
+        this->window[0].y = this->entities[0].y - 7 << 3;
+    else
+        this->entities[0].y_sprite = this->entities[0].y + 1;
+    move_bkg(this->window[0].x, this->window[0].y);
+}
+
 static void handleInput(game_t *this){
     (void)this;
     switch (joypad())
     {
         case J_UP:
+            this->entities[0].y -= 1;
+            player_scroll_bg(this);
             break;
         case J_DOWN:
+            this->entities[0].y += 1;
+            player_scroll_bg(this);
             break;
         case J_LEFT:
+            this->entities[0].x -= 1;
+            player_scroll_bg(this);
             break;
         case J_RIGHT:
+            this->entities[0].x += 1;
+            player_scroll_bg(this);
             break;
         case J_A:
             break;
         case J_B:
             break;
         default:
-            break;
+            return;
     }
 }
 
 void update_menu(game_t *this)
 {
     handleInput(this);
-    SWITCH_ROM(BANK(menu_tilemap));
-    set_bkg_tiles(0, 0, 32, 32, map_menu);
-    SWITCH_ROM(BANK(menu_tilesets));
     draw_ent16(this->entities[0]);
 }
 
@@ -71,10 +92,8 @@ static void init_map(game_t *this)
 
 static void init_window(game_t *this)
 {
-    this->window[0].x = 0;
-    this->window[0].y = 0;
-    this->window[1].x = 0;
-    this->window[1].y = 0;
+    get_bkg_xy_addr(this->window[0].x, this->window[0].y);
+    get_win_xy_addr(this->window[1].x, this->window[1].y);
 }
 
 static void init_entities(game_t *this){
@@ -86,6 +105,8 @@ static void init_entities(game_t *this){
     this->entities[0].sprite_nb = 2;
     this->entities[0].x = 80;
     this->entities[0].y = 72;
+    this->entities[0].x_sprite = this->entities[0].x;
+    this->entities[0].y_sprite = this->entities[0].y;
     for (int i = 0; i < 2; i++){
         this->entities[0].sprite_ids[i] = i;
         set_sprite_tile(this->entities[0].sprite_ids[i], this->entities[0].sprite_ids[i] * 2);
@@ -95,20 +116,21 @@ static void init_entities(game_t *this){
 static void init_graphiques(game_t *this){
     (void)this;
     // apply_color_mapping();
-    SPRITES_8x16;
     SWITCH_ROM(BANK(metamorph));
     set_sprite_data(0, metamorph_TILE_COUNT, metamorph_tiles);
     SWITCH_ROM(BANK(menu_tilesets)); 
     set_bkg_data(0, menu_tilesets_TILE_COUNT, menu_tilesets_tiles);
     SWITCH_ROM(BANK(menu_tilemap));
-    set_bkg_tiles(0, 0, 32, 32, map_menu); 
+    set_bkg_tiles(0, 0, 32, 32, map_menu);
+
+    move_bkg(6 << 3, 7 << 3);
 }
 
 void init_menu(game_t *this)
 {
     this->update = &update_menu;
     init_map(this);
-    init_window(this);
     init_graphiques(this);
+    init_window(this);
     init_entities(this);
 }

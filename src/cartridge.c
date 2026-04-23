@@ -22,7 +22,7 @@ int main(void){
     DISPLAY_OFF;
     HIDE_BKG;
     HIDE_WIN;
-    SPRITES_8x8;
+    SPRITES_8x16;
     init(&core);
 
     SHOW_BKG;
