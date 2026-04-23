@@ -30,6 +30,7 @@ int main(void){
     // SHOW_WIN;
     // move_window(0, 6);
     DISPLAY_ON;
+    uint8_t count = 0;
     while (1){
         vsync();
         update_core(&core);
