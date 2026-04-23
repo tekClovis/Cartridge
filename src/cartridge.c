@@ -32,7 +32,7 @@ int main(void){
     DISPLAY_ON;
     uint8_t count = 0;
     while (1){
-        vsync();
         update_core(&core);
+        vsync();
     }
 }
