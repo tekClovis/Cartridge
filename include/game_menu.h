@@ -9,6 +9,9 @@
     #define menu_tilesets_WIDTH 112
     #define menu_tilesets_HEIGHT 104
     #define menu_tilesets_TILE_COUNT 140
+    #define metamorph_TILE_COUNT 64
+    #define metamorph_WIDTH 48
+    #define metamorph_HEIGHT 32
     #define menu_tilesets_PALETTE_COUNT 1
     #define menu_tilesets_COLORS_PER_PALETTE 4
     #define menu_tilesets_TOTAL_COLORS 4
@@ -18,9 +21,11 @@
     #include "game.h"
     BANKREF_EXTERN(menu_tilesets)
     BANKREF_EXTERN(menu_tilemap)
-
+    BANKREF_EXTERN(metamorph)
+    
     extern const uint8_t menu_tilesets_tiles[2240];
     extern const uint8_t map_menu[2048];
+    extern const uint8_t metamorph_tiles[1024];
     extern const uint16_t map_menu_width;
     extern const uint16_t map_menu_height;
     extern const uint16_t map_menu_size;

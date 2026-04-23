@@ -6,6 +6,7 @@
 */
 #include "core.h"
 #include <gb/cgb.h>
+#include <gb/sgb.h>
 #include <string.h>
 
 void init(core_t *core)
@@ -26,8 +27,11 @@ int main(void){
 
     SHOW_BKG;
     SHOW_SPRITES;
+    // SHOW_WIN;
+    // move_window(0, 6);
     DISPLAY_ON;
     while (1){
         vsync();
+        update_core(&core);
     }
 }
