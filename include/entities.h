@@ -8,8 +8,6 @@
 #ifndef ENTITIES_H_
     #define ENTITIES_H_
     #include <stdint.h>
-    #include <gb/cgb.h>
-
 
 
 typedef struct entities_s {
@@ -19,4 +17,6 @@ typedef struct entities_s {
     uint8_t sprite_nb;
 } entities_t;
 
+void draw_ent16(const entities_t ent);
+void draw_ent8(const entities_t ent);
 #endif
