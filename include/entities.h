@@ -16,6 +16,9 @@ typedef struct entities_s {
     uint8_t x_sprite;
     uint8_t y_sprite;
     uint8_t sprite_ids[4];
+    uint8_t sprite_tile[4];
+    uint8_t direction;
+    uint8_t animation;
     uint8_t sprite_nb;
 } entities_t;
 

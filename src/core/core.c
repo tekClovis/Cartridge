@@ -31,5 +31,6 @@ void init_core(core_t *core)
 
 void update_core(core_t *core)
 {
+    core->actual_game->actual_frame += 1;
     core->actual_game->update(core->actual_game);
 }

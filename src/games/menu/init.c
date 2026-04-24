@@ -39,9 +39,11 @@ static void init_entities(game_t *this){
     this->entities[0].y = 32 << 2;
     this->entities[0].x_sprite = 80;
     this->entities[0].y_sprite = 72;
+    this->actual_frame = 0;
     for (int i = 0; i < 2; i++){
         this->entities[0].sprite_ids[i] = i;
-        set_sprite_tile(this->entities[0].sprite_ids[i], this->entities[0].sprite_ids[i] * 2);
+        this->entities[0].sprite_tile[i] = i * 2;
+        set_sprite_tile(i, i * 2);
     }
 }
 

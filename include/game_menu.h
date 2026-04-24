@@ -25,12 +25,13 @@
     
     extern const uint8_t menu_tilesets_tiles[2240];
     extern const uint8_t map_menu[2048];
-    extern const uint8_t metamorph_tiles[1024];
+    extern const uint8_t metamorph_tiles[512];
     extern const uint16_t map_menu_width;
     extern const uint16_t map_menu_height;
     extern const uint16_t map_menu_size;
 
     void init_menu(game_t *this);
     void update_menu(game_t *this);
+    void handleInput(game_t *this);
 
 #endif

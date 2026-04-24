@@ -20,6 +20,7 @@ struct game_s {
     entities_t entities[16];
     window_t window[2];
     map_t map;
+    uint8_t actual_frame; 
     void (*init)(game_t *this);
     void (*update)(game_t *this);
 };
