@@ -20,20 +20,19 @@ static void scroll_x(game_t *this, uint8_t action)
         rel_coord_x = 21;
     if (rel_coord_y > 54)
         rel_coord_y = 55;
-    if (rel_coord_x > 10 && rel_coord_x < (map_menu_width - 11)){
-        this->window[0].x = this->entities[0].x - 10 * 8;
+    if (this->entities[0].x > (10 << 3) && this->entities[0].x < (map_menu_width - 11) << 3){
+        this->window[0].x = this->entities[0].x - (10 << 3);
         if (action == J_RIGHT)    
             set_bkg_submap(rel_coord_x + 10, rel_coord_y - 9, 1, 19u
-                , map_menu
-                , map_menu_width);
+                , map_menu, map_menu_width);
         if (action == J_LEFT)
             set_bkg_submap(rel_coord_x - 10, rel_coord_y - 9, 1, 19u
-                ,map_menu
-                , map_menu_width);
-    } else
+                , map_menu, map_menu_width);
+    }
+    if (this->entities[0].x < (10 << 3) + 1 || this->entities[0].x > ((map_menu_width - 11) << 3) - 1)
         this->entities[0].x_sprite = (uint8_t)this->entities[0].x;
     if (this->entities[0].x_sprite > 20 << 3)
-        this->entities[0].x_sprite -= 12 << 3;
+        this->entities[0].x_sprite -= 11 << 3;
 }
 
 static void scroll_y(game_t *this, uint8_t action)
@@ -46,18 +45,19 @@ static void scroll_y(game_t *this, uint8_t action)
    if (rel_coord_y > 54)
         rel_coord_y = 55;
 
-    if (rel_coord_y > 9 && rel_coord_y < (map_menu_height - 10)){
-        this->window[0].y = this->entities[0].y - 9 * 8;
+    if (this->entities[0].y > (9 << 3) && this->entities[0].y < (map_menu_height - 10) << 3){
+        this->window[0].y = this->entities[0].y - (9 << 3);
         if (action == J_UP)
             set_bkg_submap(rel_coord_x < 11 ? 0 : rel_coord_x - 11, rel_coord_y - 9
                 , 22u, 1, map_menu, map_menu_width);
         if (action == J_DOWN)
             set_bkg_submap(rel_coord_x < 11 ? 0 : rel_coord_x - 11, rel_coord_y + 9
             , 22u, 1 ,map_menu, map_menu_width);
-    } else
+    }
+    if (this->entities[0].y < (9 << 3) + 2 || this->entities[0].y > ((map_menu_height - 10) << 3) - 1)
         this->entities[0].y_sprite = (uint8_t)this->entities[0].y;
     if (this->entities[0].y_sprite > 18 << 3)
-        this->entities[0].y_sprite -= 14  << 3;
+        this->entities[0].y_sprite -= 13  << 3;
 }
 
 static void trying_to_enter_game(game_t *this)
