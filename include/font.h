@@ -8,6 +8,7 @@
 #ifndef FONT_H_
     #define FONT_H_
     #include <stdint.h>
+    
     #include <gbdk/platform.h>
     #include <gbdk/metasprites.h>
     #define font_TILE_ORIGIN 0
@@ -15,7 +16,7 @@
     #define font_TILE_H 8
     #define font_WIDTH 128
     #define font_HEIGHT 24
-    #define font_TILE_COUNT 48
+    #define font_TILE_COUNT (uint8_t)48
     #define font_PALETTE_COUNT 1
     #define font_COLORS_PER_PALETTE 4
     #define font_TOTAL_COLORS 4

@@ -11,26 +11,21 @@
 
 void init(core_t *core)
 {
+    HIDE_BKG;
+    HIDE_WIN;
+    HIDE_SPRITES;
+    SPRITES_8x16;
     cpu_fast();
     init_core(core);
+    SHOW_BKG;
+    SHOW_SPRITES;
 }
 
 int main(void){
     core_t core;
     memset(&core, 0, sizeof(core));
 
-    DISPLAY_OFF;
-    HIDE_BKG;
-    HIDE_WIN;
-    SPRITES_8x16;
     init(&core);
-
-    SHOW_BKG;
-    SHOW_SPRITES;
-    // SHOW_WIN;
-    // move_window(0, 6);
-    DISPLAY_ON;
-    uint8_t count = 0;
     while (1){
         update_core(&core);
         vsync();

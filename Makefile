@@ -11,6 +11,7 @@ LCCFLAGS = -Wa-l -Wl-m -Wl-yt0x1B -Wl-yo16 \
 
 SRC = src/core/core.c \
 	src/games/utils.c \
+	src/games/anims.c \
 	src/games/menu/menu.c \
 	src/games/menu/init.c \
 	src/games/menu/handle_input.c \

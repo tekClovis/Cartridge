@@ -2,6 +2,7 @@
 // Conversion args: /cozy_8x8_mono.png -c /font.c -bpp 2 -spr8x8 -sprite_no_optimize -keep_palette_order
 
 #include <stdint.h>
+#include <gb/cgb.h>
 #include <gbdk/platform.h>
 #include <gbdk/metasprites.h>
 
@@ -9,7 +10,7 @@ BANKREF(font)
 
 const palette_color_t font_palettes[4] = {
 	RGB8(241,241,241), RGB8(177,177,177), RGB8( 93, 93, 93), RGB8( 22, 22, 22)
-	};
+};
 
 const uint8_t font_tiles[768] = {
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,

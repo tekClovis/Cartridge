@@ -25,7 +25,15 @@ struct game_s {
     void (*update)(game_t *this);
 };
 
+
+//utils
 void init_game(game_t *game, uint8_t id);
 void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[255]);
+void printToWin(const game_t *game, uint8_t x, uint8_t y, char string[255]);
+
+//anims
+void blink_sprite(void);
+void blink_bg(void);
+void restore_pal(void);
 
 #endif /* !GAME_H_ */

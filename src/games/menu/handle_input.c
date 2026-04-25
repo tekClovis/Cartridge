@@ -37,21 +37,20 @@ static void scroll_x(game_t *this, uint8_t action)
 
 static void scroll_y(game_t *this, uint8_t action)
 {
-    uint8_t rel_coord_x = (uint8_t)(this->entities[0].x >> 3) < 10 ? 10 : (uint8_t)(this->entities[0].x >> 3);
+    uint8_t rel_coord_x = (uint8_t)(this->entities[0].x >> 3) < 11 ? 11 : (uint8_t)(this->entities[0].x >> 3);
     uint8_t rel_coord_y = (uint8_t)(this->entities[0].y >> 3) < 9 ? 9 : (uint8_t)(this->entities[0].y >> 3);
 
     if (rel_coord_x > 21)
         rel_coord_x = 21;
-   if (rel_coord_y > 54)
+    if (rel_coord_y > 54)
         rel_coord_y = 54;
-
     if (this->entities[0].y > (9 << 3) && this->entities[0].y < (map_menu_height - 10) << 3){
         this->window[0].y = this->entities[0].y - (9 << 3);
         if (action == J_UP)
-            set_bkg_submap(rel_coord_x < 11 ? 0 : rel_coord_x > 10 ? rel_coord_x - 11 : 0, rel_coord_y - 9
+            set_bkg_submap(rel_coord_x - 11, rel_coord_y - 9
                 , 22u, 1, map_menu, map_menu_width);
         if (action == J_DOWN)
-            set_bkg_submap(rel_coord_x < 11 ? 0 : rel_coord_x > 10 ? rel_coord_x - 11 : 0, rel_coord_y + 9
+            set_bkg_submap(rel_coord_x - 11, rel_coord_y + 9
             , 22u, 1 ,map_menu, map_menu_width);
     }
     if (this->entities[0].y + 1 < (9 << 3) || this->entities[0].y > ((map_menu_height - 10) << 3))

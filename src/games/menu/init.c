@@ -25,10 +25,15 @@ static void init_window(game_t *this)
 {
     this->window[0].x = 6 << 3;
     this->window[0].y = 7 << 3;
+    this->window[1].x = 0;
+    this->window[1].y = 144;
     move_bkg(this->window[0].x, this->window[0].y);
+    move_win(this->window[1].x, this->window[1].y);
 }
 
-static void init_entities(game_t *this){
+static void init_entities(game_t *this)
+{
+    SPRITES_8x16;
     for (int i = 0; i < 16; i++){
         this->entities[i].sprite_nb = 0;
         this->entities[i].x = 0;

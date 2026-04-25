@@ -14,7 +14,9 @@
 
 void init_core(core_t *core)
 {
-    set_bkg_data(sizeof(uint8_t) - font_TILE_COUNT, font_TILE_COUNT, font_tiles);
+    set_bkg_data(sizeof(uint8_t) - font_TILE_COUNT
+        , (uint8_t)font_TILE_COUNT
+        , font_tiles);
     core->actual_game = &core->game[4];
     init_game(core->actual_game, 4);
 }

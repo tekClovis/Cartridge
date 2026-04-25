@@ -6,8 +6,10 @@
 */
 
 #include "game.h"
+#include "font.h"
 #include "game_start_screen.h"
 #include <gb/gb.h>
+#include <gb/cgb.h>
 
 
 static
@@ -18,24 +20,56 @@ void handle_input(game_t *this)
     }
 }
 
+static const uint16_t spritetiles[9] =
+{
+    ASCII_TO_TILE('P'),
+    ASCII_TO_TILE('R'),
+    ASCII_TO_TILE('E'),
+    ASCII_TO_TILE('S'),
+    ASCII_TO_TILE('S'),
+    ASCII_TO_TILE(' '),
+    220,
+    221,
+    222,
+};
+
+static void init_sprites(void)
+{
+    SPRITES_8x8;
+    for (uint8_t i = 0; i < 9; i++){
+        set_sprite_tile(i, spritetiles[i]);
+        move_sprite(i, (5 + (i + 1)) << 3, 96);
+    }
+}
+
+static void move_cred(game_t *this)
+{
+    if (this->window[1].x < 24)
+        return;
+    this->window[1].x -= 1;
+    move_win(this->window[1].x, this->window[1].y);
+}
+
 void update_start_screen(game_t *this)
 {
     if (this->actual_frame >> 1 && this->window[0].y > 0){
         this->window[0].y -= 1;
         SCY_REG = this->window[0].y;
         this->actual_frame = 0;
-        if (this->window[0].y == 0)
-            printToMap(this, 5, 11, "PRESS ");
+        if (this->window[0].y == 0){
+            init_sprites();
+            printToWin(this, 0, 0, "MADE BY C R AND T");
+            SHOW_WIN;
+        }
     }
-    if (this->actual_frame >> 2 && this->window[0].y == 0){
-        this->actual_frame = 0;
+    if (this->window[0].y == 0){
         handle_input(this);
+        move_cred(this);
+        if (this->actual_frame >> 4){
+            blink_sprite();
+            this->actual_frame = 0;
+        }
     }
-}
-
-static void init_entities(game_t *this)
-{
-    (void)this;
 }
 
 void init_start_screen(game_t *this)
@@ -43,7 +77,9 @@ void init_start_screen(game_t *this)
     this->actual_frame = 0;
     this->update = &update_start_screen;
     this->window[0].x = 0;
-    this->window[0].y = 12 << 3;
+    this->window[0].y = 96;
+    this->window[1].x = 255;
+    this->window[1].y = 136;
     SCY_REG = this->window[0].y;
     SWITCH_ROM(BANK(pokopie_tileset));
     set_bkg_data(0, pokopie_tileset_TILE_COUNT, pokopie_tileset_tiles);
