@@ -17,15 +17,17 @@ static void (* const init_game_funcs[5])(game_t *game) = {
     &init_start_screen
 };
 
-void printToMap(uint8_t x, uint8_t y, char string[255])
+void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[256])
 {
-    for (uint8_t i = 0; string[i] != '\0'; i++){
-        set_bkg_tile_xy(x + i, y, ASCII_TO_TILE(string[i]));
+    for (uint8_t i = 0; string[i] && i < 256; i++){
+        set_bkg_tile_xy(game->window[0].x + x + i, game->window[0].y + y, ASCII_TO_TILE(string[i]));
     }
 }
 
 void init_game(game_t *game, uint8_t id){
-    if (id >= 5 || init_game_funcs[id] == NULL)
+    DISPLAY_OFF;
+    if (id > 4 || init_game_funcs[id] == NULL)
         return;
     init_game_funcs[id](game);
+    DISPLAY_ON;
 }

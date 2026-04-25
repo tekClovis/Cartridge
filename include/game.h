@@ -26,6 +26,6 @@ struct game_s {
 };
 
 void init_game(game_t *game, uint8_t id);
-void printToMap(uint8_t x, uint8_t y, char string[255]);
+void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[255]);
 
 #endif /* !GAME_H_ */

@@ -14,9 +14,7 @@ static
 void handle_input(game_t *this)
 {
     if (joypad() & J_START){
-        DISPLAY_OFF;
         init_game(this, 0);
-        DISPLAY_ON;
     }
 }
 
@@ -27,7 +25,7 @@ void update_start_screen(game_t *this)
         SCY_REG = this->window[0].y;
         this->actual_frame = 0;
         if (this->window[0].y == 0)
-            printToMap(5, 11, "PRESS START");
+            printToMap(this, 5, 11, "PRESS ");
     }
     if (this->actual_frame >> 2 && this->window[0].y == 0){
         this->actual_frame = 0;
