@@ -7,26 +7,16 @@
 
 #include "core.h"
 #include "game_menu.h"
+#include "game_start_screen.h"
+#include "font.h"
 #include <stdio.h>
 #include <string.h>
 
-static void (* const init_game_funcs[4])(game_t *game) = {
-    &init_menu,
-    NULL,
-    NULL,
-    NULL
-};
-
-void init_game(game_t *game, uint8_t id){
-    if (id >= 4 || init_game_funcs[id] == NULL)
-        return;
-    init_game_funcs[id](game);
-}
-
 void init_core(core_t *core)
 {
-    core->actual_game = &core->game[0];
-    init_game(core->actual_game, 0);
+    set_bkg_data(sizeof(uint8_t) - font_TILE_COUNT, font_TILE_COUNT, font_tiles);
+    core->actual_game = &core->game[4];
+    init_game(core->actual_game, 4);
 }
 
 void update_core(core_t *core)

@@ -1,5 +1,5 @@
 LCC      = $(GBDKDIR)/bin/lcc
-EXEC     = sleeper.gb
+EXEC     = pokopie.gb
 GBDKDIR ?= $(HOME)/.local/opt/gbdk-4.5.0
 
 # MBC5 + RAM + BATTERY: -Wl-yt0x1B
@@ -10,14 +10,19 @@ LCCFLAGS = -Wa-l -Wl-m -Wl-yt0x1B -Wl-yo16 \
 	-Iinclude
 
 SRC = src/core/core.c \
+	src/games/utils.c \
 	src/games/menu/menu.c \
 	src/games/menu/init.c \
 	src/games/menu/handle_input.c \
+	src/games/starting_screen/starting_screen.c \
 	src/entities/entities.c \
 	src/cartridge.c \
 	src/assets/menu/menu_tilemap.c \
 	src/assets/menu/menu_tilesets.c \
 	src/assets/menu/metamorph.c \
+	src/assets/starting_screen/pokopie_tilemap.c \
+	src/assets/starting_screen/pokopie_tileset.c	\
+	src/assets/font.c
 
 .PHONY: all clean play
 
