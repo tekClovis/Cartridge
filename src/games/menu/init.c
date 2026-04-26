@@ -50,6 +50,7 @@ static void init_entities(game_t *this)
         this->entities[0].sprite_tile[i] = i * 2;
         set_sprite_tile(i, i * 2);
     }
+    draw_ent16(this->entities[0]);
 }
 
 static void init_graphiques(game_t *this){

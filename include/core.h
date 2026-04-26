@@ -12,8 +12,7 @@
 //@game list of games including menu
 //@window list of windows (background and layers) stat
 typedef struct core_s {
-    game_t game[5];
-    game_t *actual_game;
+    game_t actual_game;
 } core_t;
 
 void init_core(core_t *core);

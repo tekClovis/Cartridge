@@ -9,7 +9,7 @@
 #include <gb/sgb.h>
 #include <string.h>
 
-void init(core_t *core)
+static const void init(core_t *core)
 {
     HIDE_BKG;
     HIDE_WIN;
@@ -23,7 +23,6 @@ void init(core_t *core)
 
 int main(void){
     core_t core;
-    memset(&core, 0, sizeof(core));
 
     init(&core);
     while (1){

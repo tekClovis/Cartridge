@@ -1,2 +1,4 @@
 .vscode
 tilemap_studio
+*.gb
+*.map

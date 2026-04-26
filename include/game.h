@@ -11,14 +11,15 @@
     #include "window.h"
     #include "map.h"
     #include <gb/gb.h>
+    #define MAX_ENTITIES 16
+    #define MAX_WINDOWS 2
+    #define NORMAL_PAL 0xE4
 
-// max 16 entities including the player
-// max 2 windows (background and layers) static for now
 typedef struct game_s game_t;
 
 struct game_s {
-    entities_t entities[16];
-    window_t window[2];
+    entities_t entities[MAX_ENTITIES];
+    window_t window[MAX_WINDOWS];
     map_t map;
     uint8_t actual_frame; 
     void (*init)(game_t *this);
@@ -27,13 +28,15 @@ struct game_s {
 
 
 //utils
-void init_game(game_t *game, uint8_t id);
-void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[255]);
-void printToWin(const game_t *game, uint8_t x, uint8_t y, char string[255]);
+const void init_game(game_t *game, uint8_t id);
+const void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[255]);
+const void printToWin(const game_t *game, uint8_t x, uint8_t y, char string[255]);
 
 //anims
-void blink_sprite(void);
-void blink_bg(void);
-void restore_pal(void);
+const void blink_sprite(void);
+const void blink_bg(void);
+const void restore_pal(void);
+const void fade_out(void);
+const void fade_in(void);
 
 #endif /* !GAME_H_ */

@@ -12,7 +12,7 @@
 #include <string.h>
 #include <gb/cgb.h>
 
-static void (* const init_game_funcs[5])(game_t *game) = {
+static const void (* const init_game_funcs[5])(game_t *game) = {
     &init_menu,
     NULL,
     NULL,
@@ -20,7 +20,7 @@ static void (* const init_game_funcs[5])(game_t *game) = {
     &init_start_screen
 };
 
-void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[256])
+const void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[256])
 {
     int pc = 0;
 
@@ -36,7 +36,7 @@ void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[256])
     }
 }
 
-void printToWin(const game_t *game, uint8_t x, uint8_t y, char string[256])
+const void printToWin(const game_t *game, uint8_t x, uint8_t y, char string[256])
 {
     int pc = 0;
 
@@ -59,13 +59,15 @@ static void clear_sprite_tiles(void) {
     }
 }
 
-void init_game(game_t *game, uint8_t id){
+const void init_game(game_t *game, uint8_t id){
+    if (id != 4)
+        fade_out();
     DISPLAY_OFF;
     clear_sprite_tiles();
-    restore_pal();
     if (id > 4 || init_game_funcs[id] == NULL)
         return;
     init_game_funcs[id](game);
     DISPLAY_ON;
+    fade_in();
 }
 
