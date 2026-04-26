@@ -24,17 +24,26 @@ SRC = src/games/utils.c \
 	src/assets/starting_screen/pokopie_tileset.c	\
 	src/assets/font.c
 
+OBJ = $(SRC:.c=.o)
+LST = $(OBJ:.o=.lst)
+ASM = $(OBJ:.o=.asm)
+SYM = $(OBJ:.o=.sym)
+
+
 .PHONY: all clean play
 
 all: $(EXEC)
 
-$(EXEC): $(SRC)
-	$(LCC) $(LCCFLAGS) -o $@ $(SRC)
+$(EXEC): $(OBJ)
+	$(LCC) $(LCCFLAGS) -o $@ $(OBJ)
+
+%.o: %.c
+	$(LCC) $(LCCFLAGS) -c -o $@ $<
 
 clean:
-	rm -rf *.o *.lst *.map *.gb *.ihx *.sym *.noi *.asm
+	rm -rf $(OBJ) $(LST) $(ASM) $(EXEC) $(SYM) *.map *.ihx *.sym *.noi
 
-play:
+play: $(EXEC)
 	retroarch -L /usr/lib/x86_64-linux-gnu/libretro/gambatte_libretro.so $(EXEC)
 
 re: clean all

@@ -2,3 +2,9 @@
 tilemap_studio
 *.gb
 *.map
+*.sym
+*.asm
+*.o
+*.lst
+*.ihx
+.venv

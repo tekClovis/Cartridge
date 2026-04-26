@@ -37,13 +37,13 @@ static const void init_sprites(void)
     SPRITES_8x8;
     for (uint8_t i = 0; i < 9; i++){
         set_sprite_tile(i, spritetiles[i]);
-        move_sprite(i, (5 + (i + 1)) << 3, 120);
+        move_sprite(i, (5 + (i + 1)) << 3, 104);
     }
 }
 
 static const void move_cred(game_t *this)
 {
-    if (this->window[1].x < 24)
+    if (this->window[1].x < 20)
         return;
     this->window[1].x -= 1;
     move_win(this->window[1].x, this->window[1].y);
@@ -77,9 +77,9 @@ void init_start_screen(game_t *this)
     this->update = &update_start_screen;
     this->window[0].x = 0;
     this->window[0].y = 96;
-    this->window[1].x = 220;
+    this->window[1].x = 160;
     this->window[1].y = 128;
-    SCY_REG = this->window[0].y;
+    move_win(this->window[1].x, this->window[1].y);
     SWITCH_ROM(BANK(pokopie_tileset));
     set_bkg_data(0, pokopie_tileset_TILE_COUNT, pokopie_tileset_tiles);
     set_bkg_tiles(0, 0, 20, 18, pokopie_tilemap);

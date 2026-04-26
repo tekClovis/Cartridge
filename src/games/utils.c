@@ -31,7 +31,7 @@ const void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[256]
             y++;
             pc = 0;
         }
-        set_bkg_tile_xy(game->window[0].x + x + pc, game->window[0].y + y, ASCII_TO_TILE(string[i]));
+        set_bkg_tile_xy(x + pc, y, ASCII_TO_TILE(string[i]));
         pc++;
     }
 }
@@ -40,6 +40,7 @@ const void printToWin(const game_t *game, uint8_t x, uint8_t y, char string[256]
 {
     int pc = 0;
 
+
     for (uint8_t i = 0; string[i]; i++){
         if (string[i] == '\n')
             x = 21;
@@ -47,7 +48,7 @@ const void printToWin(const game_t *game, uint8_t x, uint8_t y, char string[256]
             y++;
             pc = 0;
         }
-        set_win_tile_xy(game->window[0].x + x + pc, game->window[0].y + y, ASCII_TO_TILE(string[i]));
+        set_win_tile_xy(x + pc, y, ASCII_TO_TILE(string[i]));
         pc++;
     }
 }
