@@ -6,18 +6,18 @@
 */
 #include "game.h"
 #include "game_menu.h"
-#include "font.h"
 #include "game_start_screen.h"
+#include "font.h"
 #include <stdio.h>
 #include <string.h>
 #include <gb/cgb.h>
 
 static const void (* const init_game_funcs[5])(game_t *game) = {
+    &init_start_screen,
     &init_menu,
     NULL,
     NULL,
     NULL,
-    &init_start_screen
 };
 
 const void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[256])
@@ -59,12 +59,12 @@ static void clear_sprite_tiles(void) {
     }
 }
 
-const void init_game(game_t *game, uint8_t id){
-    if (id != 4)
+const void init_game(game_t *game, game_id id){
+    if (id != START_SCREEN)
         fade_out();
     DISPLAY_OFF;
     clear_sprite_tiles();
-    if (id > 4 || init_game_funcs[id] == NULL)
+    if (id > sizeof(game_id) || init_game_funcs[id] == NULL)
         return;
     init_game_funcs[id](game);
     DISPLAY_ON;

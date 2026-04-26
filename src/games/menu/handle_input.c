@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 
-static void scroll_x(game_t *this, uint8_t action)
+static const void scroll_x(game_t *this, uint8_t action)
 {
     uint8_t rel_coord_x = (uint8_t)(this->entities[0].x >> 3) < 10 ? 10 : (uint8_t)(this->entities[0].x >> 3);
     uint8_t rel_coord_y = (uint8_t)(this->entities[0].y >> 3) < 9 ? 9 : (uint8_t)(this->entities[0].y >> 3);
@@ -35,7 +35,7 @@ static void scroll_x(game_t *this, uint8_t action)
         this->entities[0].x_sprite -= 11 << 3;
 }
 
-static void scroll_y(game_t *this, uint8_t action)
+static const void scroll_y(game_t *this, uint8_t action)
 {
     uint8_t rel_coord_x = (uint8_t)(this->entities[0].x >> 3) < 11 ? 11 : (uint8_t)(this->entities[0].x >> 3);
     uint8_t rel_coord_y = (uint8_t)(this->entities[0].y >> 3) < 9 ? 9 : (uint8_t)(this->entities[0].y >> 3);
@@ -59,7 +59,7 @@ static void scroll_y(game_t *this, uint8_t action)
         this->entities[0].y_sprite -= 13  << 3;
 }
 
-static void trying_to_enter_game(game_t *this)
+static const void trying_to_enter_game(game_t *this)
 {
     uint8_t rel_coord_x = (uint8_t)(this->entities[0].x >> 3);
     uint8_t rel_coord_y = (uint8_t)(this->entities[0].y >> 3);
@@ -69,7 +69,7 @@ static void trying_to_enter_game(game_t *this)
     }
 }
 
-static void handle_up(game_t *this)
+static const void handle_up(game_t *this)
 {
     scroll_y(this, J_UP);
     if (this->entities[0].y >> 3 > 0){
@@ -82,7 +82,7 @@ static void handle_up(game_t *this)
     }
 }
 
-static void handle_down(game_t *this)
+static const void handle_down(game_t *this)
 {
     scroll_y(this, J_DOWN);
     if (this->entities[0].y < (this->map.height - 2) << 3){
@@ -95,7 +95,7 @@ static void handle_down(game_t *this)
     }
 }
 
-static void handle_left(game_t *this)
+static const void handle_left(game_t *this)
 {
     scroll_x(this, J_LEFT);
     if (this->entities[0].x >> 3 > 0){
@@ -108,7 +108,7 @@ static void handle_left(game_t *this)
     }
 }
 
-static void handle_right(game_t *this)
+static const void handle_right(game_t *this)
 {
     scroll_x(this, J_RIGHT);
     if (this->entities[0].x < (this->map.width - 2) << 3 ){
@@ -123,9 +123,22 @@ static void handle_right(game_t *this)
     }
 }
 
-void handleInput(game_t *this){
-    switch (joypad())
-    {
+static const void handle_direction(game_t *this, uint8_t direction)
+{
+    if (direction && this->entities[0].direction != direction){
+        if (this->entities[0].direction == J_RIGHT){
+            set_sprite_prop(this->entities[0].sprite_ids[0], 0);
+            set_sprite_prop(this->entities[0].sprite_ids[1], 0);
+        }
+        set_sprite_tile(this->entities[0].sprite_ids[0], this->entities[0].sprite_tile[0]);
+        set_sprite_tile(this->entities[0].sprite_ids[1], this->entities[0].sprite_tile[1]);
+    }
+    this->entities[0].direction = direction;
+}
+
+void handleInput(game_t *this)
+{
+    switch (joypad()) {
         case J_UP:
             handle_up(this);
             break;
@@ -138,21 +151,11 @@ void handleInput(game_t *this){
         case J_RIGHT:
             handle_right(this);
             break;
-        case J_A:
+        case J_A | J_START:
             trying_to_enter_game(this);
-            return;
-        case J_B:
             break;
         default:
             return;
     }
-    if (this->entities[0].direction != joypad()){
-        if (this->entities[0].direction == J_RIGHT){
-            set_sprite_prop(this->entities[0].sprite_ids[0], 0);
-            set_sprite_prop(this->entities[0].sprite_ids[1], 0);
-        }
-        set_sprite_tile(this->entities[0].sprite_ids[0], this->entities[0].sprite_tile[0]);
-        set_sprite_tile(this->entities[0].sprite_ids[1], this->entities[0].sprite_tile[1]);
-    }
-    this->entities[0].direction = joypad();
+    handle_direction(this, joypad());
 }

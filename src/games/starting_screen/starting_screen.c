@@ -12,11 +12,10 @@
 #include <gb/cgb.h>
 
 
-static
-void handle_input(game_t *this)
+static const void handle_input(game_t *this)
 {
     if (joypad() & J_START){
-        init_game(this, 0);
+        init_game(this, MENU);
     }
 }
 
@@ -33,16 +32,16 @@ static const uint16_t spritetiles[9] =
     222,
 };
 
-static void init_sprites(void)
+static const void init_sprites(void)
 {
     SPRITES_8x8;
     for (uint8_t i = 0; i < 9; i++){
         set_sprite_tile(i, spritetiles[i]);
-        move_sprite(i, (5 + (i + 1)) << 3, 96);
+        move_sprite(i, (5 + (i + 1)) << 3, 120);
     }
 }
 
-static void move_cred(game_t *this)
+static const void move_cred(game_t *this)
 {
     if (this->window[1].x < 24)
         return;
@@ -78,8 +77,8 @@ void init_start_screen(game_t *this)
     this->update = &update_start_screen;
     this->window[0].x = 0;
     this->window[0].y = 96;
-    this->window[1].x = 255;
-    this->window[1].y = 136;
+    this->window[1].x = 220;
+    this->window[1].y = 128;
     SCY_REG = this->window[0].y;
     SWITCH_ROM(BANK(pokopie_tileset));
     set_bkg_data(0, pokopie_tileset_TILE_COUNT, pokopie_tileset_tiles);
