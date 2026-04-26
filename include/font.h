@@ -24,7 +24,9 @@
     #define font_PIVOT_Y 12
     #define font_PIVOT_W 128
     #define font_PIVOT_H 24
-    # define ASCII_TO_TILE(c) ((c) - 65 + 225)
+    #define font_BLANK_TILE 207
+    #define ASCII_TO_TILE(c) ((c) - 65 + 225)
+    #define NUMBER_TO_TILE(c) (210 + c - '0')
 extern const metasprite_t* const font_metasprites[1];
 
 

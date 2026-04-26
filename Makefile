@@ -9,7 +9,8 @@ LCCFLAGS = -Wa-l -Wl-m -Wl-yt0x1B -Wl-yo16 \
 	-Wf--max-allocs-per-node5000 \
 	-Iinclude
 
-SRC = src/games/utils.c \
+SRC = src/games/utils/utils.c \
+	src/games/utils/print.c \
 	src/games/anims.c \
 	src/games/menu/menu.c \
 	src/games/menu/init.c \

@@ -13,13 +13,14 @@
 
 static const void scroll_x(game_t *this, uint8_t action)
 {
-    uint8_t rel_coord_x = (uint8_t)(this->entities[0].x >> 3) < 10 ? 10 : (uint8_t)(this->entities[0].x >> 3);
-    uint8_t rel_coord_y = (uint8_t)(this->entities[0].y >> 3) < 9 ? 9 : (uint8_t)(this->entities[0].y >> 3);
-    
-    if (rel_coord_x > 22)
-        rel_coord_x = 22;
+    uint8_t rel_coord_x = this->entities[0].x >> 3 < 10 ? 10 : this->entities[0].x >> 3;
+    uint8_t rel_coord_y = this->entities[0].y >> 3 < 9 ? 9 : this->entities[0].y >> 3;
+
+    if (rel_coord_x > 21)
+        rel_coord_x = 21;
     if (rel_coord_y > 54)
         rel_coord_y = 54;
+    
     if (this->entities[0].x > (10 << 3) && this->entities[0].x < (map_menu_width - 10) << 3){
         this->window[0].x = this->entities[0].x - (10 << 3);
         if (action == J_RIGHT)    
@@ -37,8 +38,8 @@ static const void scroll_x(game_t *this, uint8_t action)
 
 static const void scroll_y(game_t *this, uint8_t action)
 {
-    uint8_t rel_coord_x = (uint8_t)(this->entities[0].x >> 3) < 11 ? 11 : (uint8_t)(this->entities[0].x >> 3);
-    uint8_t rel_coord_y = (uint8_t)(this->entities[0].y >> 3) < 9 ? 9 : (uint8_t)(this->entities[0].y >> 3);
+    uint8_t rel_coord_x = this->entities[0].x >> 3 < 11 ? 11 : this->entities[0].x >> 3;
+    uint8_t rel_coord_y = this->entities[0].y >> 3 < 9 ? 9 : this->entities[0].y >> 3;
 
     if (rel_coord_x > 21)
         rel_coord_x = 21;
@@ -61,11 +62,11 @@ static const void scroll_y(game_t *this, uint8_t action)
 
 static const void trying_to_enter_game(game_t *this)
 {
-    uint8_t rel_coord_x = (uint8_t)(this->entities[0].x >> 3);
-    uint8_t rel_coord_y = (uint8_t)(this->entities[0].y >> 3);
+    uint8_t rel_coord_x = this->entities[0].x >> 3;
+    uint8_t rel_coord_y = this->entities[0].y >> 3;
 
-    if (rel_coord_x == 6 && rel_coord_y == 12){
-        printf("entering game\n"); 
+    if (rel_coord_x > 4  && rel_coord_x < 10 && rel_coord_y > 8 && rel_coord_y < 14){
+        init_game(this, GAME_1);
     }
 }
 
@@ -151,7 +152,10 @@ void handleInput(game_t *this)
         case J_RIGHT:
             handle_right(this);
             break;
-        case J_A | J_START:
+        case J_A:
+            trying_to_enter_game(this);
+            break;
+        case J_START:
             trying_to_enter_game(this);
             break;
         default:

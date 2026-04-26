@@ -11,6 +11,25 @@
 #include "map.h"
 #include <gb/gb.h>
 
+static const void show_game_stat(game_t *this)
+{
+    char str[256];
+    uint8_t rel_coord_x = this->entities[0].x >> 3;
+    uint8_t rel_coord_y = this->entities[0].y >> 3;
+
+    if (rel_coord_x > 4  && rel_coord_x < 10 && rel_coord_y > 8 && rel_coord_y < 14){
+        if (this->window[1].y == 144){
+            sprintf(str, game_names[GAME_1]);
+            printToWin(this, 0, 0, str);
+            SHOW_WIN;
+        }
+        if (this->window[1].y > 120)
+            this->window[1].y -= 1;
+    } else if (this->window[1].y < 144)
+        this->window[1].y += 1;
+    move_win(0, this->window[1].y);
+}
+
 void update_menu(game_t *this)
 {
     handleInput(this);
@@ -22,5 +41,6 @@ void update_menu(game_t *this)
         set_sprite_tile(this->entities[0].sprite_ids[1], this->entities[0].sprite_tile[1]);
         this->actual_frame = 0;
     }
+    show_game_stat(this);
     draw_ent16(this->entities[0]);
 }

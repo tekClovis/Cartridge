@@ -29,6 +29,7 @@ static void init_window(game_t *this)
     this->window[1].y = 144;
     move_bkg(this->window[0].x, this->window[0].y);
     move_win(this->window[1].x, this->window[1].y);
+    reset_win();
 }
 
 static void init_entities(game_t *this)
