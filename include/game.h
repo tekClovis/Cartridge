@@ -42,6 +42,7 @@
     const void printToMap(uint8_t x, uint8_t y, char string[256]);
     const void printToWin(uint8_t x, uint8_t y, char string[256]);
     const void reset_win(void);
+    const void reset_bkg(void);
 
     //anims
     const void blink_sprite(void);

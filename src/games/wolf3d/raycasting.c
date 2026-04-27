@@ -28,7 +28,7 @@ const uint8_t raycaster_tiles[128] = {
 };
 
 /* tile index defines */
-#define TILE_BLANK           0U
+#define TILE_BLANK           font_BLANK_TILE
 #define TILE_WALL_FAR        1U
 #define TILE_WALL_MED        2U
 #define TILE_WALL_NEAR       3U
@@ -98,10 +98,15 @@ static uint8_t cast_ray(const game_t *game, uint8_t ray_id)
 const void draw_background(game_t *game)
 {
     uint8_t ray_dist;
+    uint8_t frame_buffer[20 * 18];
 
     // reset_bkg();
     for (uint8_t i = 0; i < 20; i++) {
         ray_dist = cast_ray(game, i);
-        set_bkg_tiles(i, 0, 1, 18, wall_col_map + (ray_dist << 3));
+        if (ray_dist > 7)
+            ray_dist = 7;
+        for (uint8_t j = 0; j < 18; j++)
+            frame_buffer[(j << 4) + i] = wall_col_map[(ray_dist << 4) + j];
     }
+    set_bkg_tiles(0, 0, 20, 18, frame_buffer);
 }

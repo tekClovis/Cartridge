@@ -19,6 +19,13 @@ const char game_names[GAME_ID_COUNT][32] = {
     "GAME 3"
 };
 
+
+static void clear_sprite_tiles(void) {
+    uint8_t i;
+    for (i = 0; i < 40; i++) {
+        set_sprite_tile(i, font_BLANK_TILE);
+}
+}
 static const void (* const init_game_funcs[GAME_ID_COUNT])(game_t *game) = {
     &init_start_screen,
     &init_menu,
@@ -26,13 +33,6 @@ static const void (* const init_game_funcs[GAME_ID_COUNT])(game_t *game) = {
     NULL,
     NULL,
 };
-
-static void clear_sprite_tiles(void) {
-    uint8_t i;
-    for (i = 0; i < 40; i++) {
-        set_sprite_tile(i, font_BLANK_TILE);
-    }
-}
 
 const void init_game(game_t *game, game_id id){
     if (id != START_SCREEN)

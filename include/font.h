@@ -11,7 +11,7 @@
     
     #include <gbdk/platform.h>
     #include <gbdk/metasprites.h>
-    #define font_TILE_ORIGIN 0
+    #define font_TILE_ORIGIN 209
     #define font_TILE_W 8
     #define font_TILE_H 8
     #define font_WIDTH 128

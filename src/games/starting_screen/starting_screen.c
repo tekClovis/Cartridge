@@ -79,8 +79,11 @@ void init_start_screen(game_t *this)
     this->window[0].y = 96;
     this->window[1].x = 160;
     this->window[1].y = 128;
+    SCX_REG = this->window[0].x;
+    SCY_REG = this->window[0].y;
     move_win(this->window[1].x, this->window[1].y);
-    SWITCH_ROM(BANK(pokopie_tileset));
+    reset_win();
     set_bkg_data(0, pokopie_tileset_TILE_COUNT, pokopie_tileset_tiles);
+    reset_bkg();
     set_bkg_tiles(0, 0, 20, 18, pokopie_tilemap);
 }
