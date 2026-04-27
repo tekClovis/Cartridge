@@ -30,7 +30,7 @@
     typedef enum game_id_e {
         START_SCREEN,
         MENU,
-        GAME_1,
+        WOLF_3D,
         GAME_2,
         GAME_3,
         GAME_ID_COUNT
@@ -39,8 +39,8 @@
     extern const char game_names[GAME_ID_COUNT][32];
     //utils
     const void init_game(game_t *game, game_id id);
-    const void printToMap(const game_t *game, uint8_t x, uint8_t y, char string[256]);
-    const void printToWin(const game_t *game, uint8_t x, uint8_t y, char string[256]);
+    const void printToMap(uint8_t x, uint8_t y, char string[256]);
+    const void printToWin(uint8_t x, uint8_t y, char string[256]);
     const void reset_win(void);
 
     //anims

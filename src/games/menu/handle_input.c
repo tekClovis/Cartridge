@@ -66,7 +66,7 @@ static const void trying_to_enter_game(game_t *this)
     uint8_t rel_coord_y = this->entities[0].y >> 3;
 
     if (rel_coord_x > 4  && rel_coord_x < 10 && rel_coord_y > 8 && rel_coord_y < 14){
-        init_game(this, GAME_1);
+        init_game(this, WOLF_3D);
     }
 }
 

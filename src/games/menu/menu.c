@@ -19,8 +19,8 @@ static const void show_game_stat(game_t *this)
 
     if (rel_coord_x > 4  && rel_coord_x < 10 && rel_coord_y > 8 && rel_coord_y < 14){
         if (this->window[1].y == 144){
-            sprintf(str, game_names[GAME_1]);
-            printToWin(this, 0, 0, str);
+            sprintf(str, game_names[WOLF_3D]);
+            printToWin(0, 0, str);
             SHOW_WIN;
         }
         if (this->window[1].y > 120)

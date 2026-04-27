@@ -7,13 +7,14 @@
 #include "game.h"
 #include "game_menu.h"
 #include "game_start_screen.h"
+#include "game_wolf3d.h"
 #include "font.h"
 #include <stdlib.h>
 
 const char game_names[GAME_ID_COUNT][32] = {
     "START_SCREEN",
     "MENU",
-    "GAME 1",
+    "WOLF 3D",
     "GAME 2",
     "GAME 3"
 };
@@ -21,7 +22,7 @@ const char game_names[GAME_ID_COUNT][32] = {
 static const void (* const init_game_funcs[GAME_ID_COUNT])(game_t *game) = {
     &init_start_screen,
     &init_menu,
-    NULL,
+    &init_wolf3d,
     NULL,
     NULL,
 };
@@ -29,7 +30,7 @@ static const void (* const init_game_funcs[GAME_ID_COUNT])(game_t *game) = {
 static void clear_sprite_tiles(void) {
     uint8_t i;
     for (i = 0; i < 40; i++) {
-        set_sprite_tile(i, 207);
+        set_sprite_tile(i, font_BLANK_TILE);
     }
 }
 

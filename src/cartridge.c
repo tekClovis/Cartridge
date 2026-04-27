@@ -19,7 +19,7 @@ static const void init(game_t *game)
     memset(game, 0, sizeof(*game));
     set_bkg_data(sizeof(uint8_t) - font_TILE_COUNT
     , (uint8_t)font_TILE_COUNT, font_tiles);
-    init_game(game, START_SCREEN);
+    init_game(game, WOLF_3D);
     SHOW_BKG;
     SHOW_SPRITES;
 }

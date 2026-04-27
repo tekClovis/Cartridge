@@ -57,7 +57,7 @@ void update_start_screen(game_t *this)
         this->actual_frame = 0;
         if (this->window[0].y == 0){
             init_sprites();
-            printToWin(this, 0, 0, "MADE BY C R AND T");
+            printToWin(0, 0, "MADE BY C R AND T");
             SHOW_WIN;
         }
     }
