@@ -9,10 +9,12 @@
 
 void init_tyrunt(game_t *this)
 {
+    (void)this;
     //TODO
 }
 
 void update_tyrunt(game_t *this)
 {
+    (void)this;
     //TODO
 }
