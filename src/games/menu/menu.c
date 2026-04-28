@@ -17,14 +17,22 @@ static const void show_game_stat(game_t *this)
     uint8_t rel_coord_x = this->entities[0].x >> 3;
     uint8_t rel_coord_y = this->entities[0].y >> 3;
 
-    if (rel_coord_x > 4  && rel_coord_x < 10 && rel_coord_y > 8 && rel_coord_y < 14){
+    if (rel_coord_x > 4  && rel_coord_x < 10 && rel_coord_y > 8 && rel_coord_y < 14) {
         if (this->window[1].y == 144){
-            sprintf(str, game_names[WOLF_3D]);
-            printToWin(0, 0, str);
+            reset_win();
+            printToWin(1, 0, (char *)game_names[WOLF_3D]);
             SHOW_WIN;
         }
         if (this->window[1].y > 120)
             this->window[1].y -= 1;
+        } else if (rel_coord_x > 22 && rel_coord_x < 30 && rel_coord_y > 18 && rel_coord_y < 22) {
+            if (this->window[1].y == 144){
+                reset_win();
+                printToWin(1, 0, (char *)game_names[TYRUNT]);
+                SHOW_WIN;
+            }
+            if (this->window[1].y > 120)
+                this->window[1].y -= 1;
     } else if (this->window[1].y < 144)
         this->window[1].y += 1;
     move_win(0, this->window[1].y);
