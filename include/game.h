@@ -31,7 +31,7 @@
         START_SCREEN,
         MENU,
         WOLF_3D,
-        GAME_2,
+        TYRUNT,
         GAME_3,
         GAME_ID_COUNT
     } game_id;
