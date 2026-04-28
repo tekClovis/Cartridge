@@ -8,6 +8,7 @@
 #include "game_menu.h"
 #include "game_start_screen.h"
 #include "game_wolf3d.h"
+#include "game_tyrunt.h"
 #include "font.h"
 #include <stdlib.h>
 
@@ -15,7 +16,7 @@ const char game_names[GAME_ID_COUNT][32] = {
     "START_SCREEN",
     "MENU",
     "WOLF 3D",
-    "GAME 2",
+    "TYRUNT",
     "GAME 3"
 };
 
@@ -30,7 +31,7 @@ static const void (* const init_game_funcs[GAME_ID_COUNT])(game_t *game) = {
     &init_start_screen,
     &init_menu,
     &init_wolf3d,
-    NULL,
+    &init_tyrunt,
     NULL,
 };
 
