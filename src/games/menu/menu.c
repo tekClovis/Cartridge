@@ -13,7 +13,6 @@
 
 static const void show_game_stat(game_t *this)
 {
-    char str[256];
     uint8_t rel_coord_x = this->entities[0].x >> 3;
     uint8_t rel_coord_y = this->entities[0].y >> 3;
 
