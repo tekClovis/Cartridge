@@ -10,15 +10,19 @@ LCCFLAGS = -Wa-l -Wl-m -Wl-yt0x1B -Wl-yo$(ROM_BANKS) \
 	-Wf--max-allocs-per-node5000 \
 	-Iinclude
 
+WOLD3D_SRC = src/games/wolf3d/raycasting.c \
+			 src/games/wolf3d/wolf3d.c \
+			 src/games/wolf3d/handle_input.c \
+			 src/assets/wolf3d/map.c
+
+TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
+
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
 	src/games/anims.c \
 	src/games/menu/menu.c \
 	src/games/menu/init.c \
 	src/games/menu/handle_input.c \
-	src/games/wolf3d/raycasting.c \
-	src/games/wolf3d/wolf3d.c \
-	src/games/wolf3d/handle_input.c \
 	src/games/starting_screen/starting_screen.c \
 	src/entities/entities.c \
 	src/cartridge.c \
@@ -27,8 +31,9 @@ SRC = src/games/utils/utils.c \
 	src/assets/menu/metamorph.c \
 	src/assets/starting_screen/pokopie_tilemap.c \
 	src/assets/starting_screen/pokopie_tileset.c	\
-	src/assets/wolf3d/map.c \
-	src/assets/font.c
+	src/assets/font.c \
+	$(WOLD3D_SRC) \
+	$(TYRUNT_SRC)
 
 OBJ = $(SRC:.c=.o)
 LST = $(OBJ:.o=.lst)
