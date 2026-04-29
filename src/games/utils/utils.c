@@ -40,6 +40,8 @@ const void init_game(game_t *game, game_id id){
         fade_out();
     DISPLAY_OFF;
     clear_sprite_tiles();
+    reset_bkg();
+    reset_win();
     if (id >= GAME_ID_COUNT || init_game_funcs[id] == NULL)
         return;
     init_game_funcs[id](game);
