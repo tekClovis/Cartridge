@@ -16,7 +16,7 @@
         TILE_EFFECT_COUNT
     } tile_id;
     typedef struct map_s {
-        uint8_t map[4096];
+        uint8_t map[1024];
         uint16_t width;
         uint16_t height;
         uint16_t size;
