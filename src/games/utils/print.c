@@ -49,7 +49,6 @@ const void printToWin(uint8_t x, uint8_t y, char string[256])
 {
     int pc = 0;
 
-
     for (uint8_t i = 0; string[i]; i++){
         if (string[i] == '\n')
             x = 21;

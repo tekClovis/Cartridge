@@ -9,3 +9,4 @@ tilemap_studio
 *.ihx
 .venv
 *.md
+tilemap-studio/*

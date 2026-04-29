@@ -12,15 +12,6 @@
 #include "font.h"
 #include <stdlib.h>
 
-const char game_names[GAME_ID_COUNT][32] = {
-    "START_SCREEN",
-    "MENU",
-    "WOLF 3D",
-    "TYRUNT",
-    "GAME 3"
-};
-
-
 static void clear_sprite_tiles(void) {
     uint8_t i;
     for (i = 0; i < 40; i++) {
@@ -47,4 +38,11 @@ const void init_game(game_t *game, game_id id){
     init_game_funcs[id](game);
     DISPLAY_ON;
     fade_in();
+}
+
+const int8_t point_in_rect(const uint8_t x, const uint8_t y,
+    const rectangle_t *rect)
+{
+    return (x >= rect->x && x < rect->x + rect->width &&
+        y >= rect->y && y < rect->y + rect->height);
 }

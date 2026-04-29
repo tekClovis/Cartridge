@@ -35,15 +35,22 @@
         GAME_3,
         GAME_ID_COUNT
     } game_id;
+
+    typedef struct rectangle_s {
+        uint8_t x;
+        uint8_t y;
+        uint8_t width;
+        uint8_t height;
+    } rectangle_t;
     
-    extern const char game_names[GAME_ID_COUNT][32];
     //utils
     const void init_game(game_t *game, game_id id);
     const void printToMap(uint8_t x, uint8_t y, char string[256]);
     const void printToWin(uint8_t x, uint8_t y, char string[256]);
     const void reset_win(void);
     const void reset_bkg(void);
-
+    const int8_t point_in_rect(const uint8_t x, const uint8_t y,
+        const rectangle_t *rect);
     //anims
     const void blink_sprite(void);
     const void blink_bg(void);

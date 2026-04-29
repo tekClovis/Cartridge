@@ -27,7 +27,7 @@ TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
 
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
-	src/games/anims.c \
+	src/games/utils/anims.c \
 	src/games/menu/menu.c \
 	src/games/menu/init.c \
 	src/games/menu/handle_input.c \
@@ -75,6 +75,10 @@ rom-usage:
 clean:
 	rm -rf $(OBJ) $(LST) $(ASM) $(EXEC) $(SYM) *.map *.ihx *.sym *.noi
 	@printf '$(COL_BLUE)[INFO]$(COL_RESET) Cleaned build artifacts.\n'
+
+fclean: clean
+	rm -rf $(EXEC)
+	@printf '$(COL_BLUE)[INFO]$(COL_RESET) Cleaned everything.\n'
 
 play: $(EXEC)
 	@printf '$(COL_GREEN)[INFO]$(COL_RESET) Launching game in RetroArch...\n'

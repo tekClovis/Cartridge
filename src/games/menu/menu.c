@@ -11,30 +11,41 @@
 #include "map.h"
 #include <gb/gb.h>
 
+static const rectangle_t infos_rect[3] = {
+    {.x = 5, .y = 11, .width = 2, .height = 2},
+    {.x = 25, .y = 19, .width = 2, .height = 2},
+    {0}
+};
+
+static const char game_names[GAME_ID_COUNT][32] = {
+    "START_SCREEN",
+    "MENU        ",
+    "WOLF 3D     ",
+    "TYRUNT      ",
+    "GAME 3      "
+};
+
 static const void show_game_stat(game_t *this)
 {
     uint8_t rel_coord_x = this->entities[0].x >> 3;
     uint8_t rel_coord_y = this->entities[0].y >> 3;
+    game_id _game_id = 0;
 
-    if (rel_coord_x > 4  && rel_coord_x < 10 && rel_coord_y > 8 && rel_coord_y < 14) {
-        if (this->window[1].y == 144){
-            reset_win();
-            printToWin(1, 0, (char *)game_names[WOLF_3D]);
-            SHOW_WIN;
+    for (uint8_t i = 0; infos_rect[i].width != 0; i++)
+        if (point_in_rect(rel_coord_x, rel_coord_y, &infos_rect[i])){
+            _game_id = i + 2;
+            break;
         }
-        if (this->window[1].y > 120)
-            this->window[1].y -= 1;
-        } else if (rel_coord_x > 22 && rel_coord_x < 30 && rel_coord_y > 18 && rel_coord_y < 22) {
-            if (this->window[1].y == 144){
-                reset_win();
-                printToWin(1, 0, (char *)game_names[TYRUNT]);
-                SHOW_WIN;
-            }
-            if (this->window[1].y > 120)
-                this->window[1].y -= 1;
-    } else if (this->window[1].y < 144)
+    if (_game_id == 0 && this->window[1].y < 144){
         this->window[1].y += 1;
-    move_win(0, this->window[1].y);
+        move_win(0, this->window[1].y);
+    }
+    if (_game_id && this->window[1].y == 144)
+        printToWin(1, 0, (char *)game_names[_game_id]);
+    if (_game_id && this->window[1].y > 120){
+        this->window[1].y -= 1;
+        move_win(0, this->window[1].y);
+    }
 }
 
 void update_menu(game_t *this)
