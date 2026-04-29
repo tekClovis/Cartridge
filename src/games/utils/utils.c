@@ -48,4 +48,3 @@ const void init_game(game_t *game, game_id id){
     DISPLAY_ON;
     fade_in();
 }
-
