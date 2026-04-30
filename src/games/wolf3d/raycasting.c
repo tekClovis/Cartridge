@@ -60,15 +60,21 @@ static const uint8_t wall_col_map[144] = {
     0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 };
 
-
-static uint8_t cast_ray(const game_t *game, int8_t ray_id)
+const uint8_t calc_dist(const uint8_t x1, const uint8_t y1, const uint8_t x2, const uint8_t y2)
 {
-    const uint8_t angle = game->entities[0].angle + ray_id - 10 > 255
-        ? game->entities[0].angle + ray_id - 266
-        : game->entities[0].angle + ray_id - 10;
-    // Instead of DDA, we step 1/2 of a tile at a time along our angle
-    int16_t ray_x_sub = game->entities[0].x << 4; // Add extra precision zeroes
-    int16_t ray_y_sub = game->entities[0].y << 4;
+    uint8_t d = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+
+    d = (d >> 3) + (d >> 5) + (d >> 7);
+    return d;
+}
+
+static uint8_t cast_ray(const game_t *game, uint8_t ray_id)
+{
+    const uint8_t angle = ray_id;
+    const int8_t dir_x = COS(angle);
+    const int8_t dir_y = SIN(angle);
+    int16_t pos_x = game->entities[0].x;
+    int16_t pos_y = game->entities[0].y;
 
     // Calculate our exact step increment (Scaled by Cos/Sin)
     int16_t step_x = COS(angle); 
@@ -77,16 +83,16 @@ static uint8_t cast_ray(const game_t *game, int8_t ray_id)
     uint8_t distance = 0;
 
     while (distance < 9) {
-        ray_x_sub += step_x;
-        ray_y_sub += step_y;
+        // ray_x_sub += step_x;
+        // ray_y_sub += step_y;
         
-        // Shift back down to calculate exactly which tile we are standing in
-        uint16_t tile_x = ray_x_sub >> (5); 
-        uint16_t tile_y = ray_y_sub >> (5);
+        // // Shift back down to calculate exactly which tile we are standing in
+        // uint16_t tile_x = ray_x_sub >> (5); 
+        // uint16_t tile_y = ray_y_sub >> (5);
         
-        if (map_level_1.map[(tile_y << 5) + tile_x] == WALL) {
-            return distance;
-        }
+        // if (map_level_1.map[(tile_y << 5) + tile_x] == WALL) {
+        //     return distance;
+        // }
         distance++;
     }
     return distance;
