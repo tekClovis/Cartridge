@@ -20,6 +20,6 @@
     extern const palette_color_t pokopie_tileset_palettes[32];
     extern const uint8_t pokopie_tileset_tiles[1280];
     extern const uint8_t pokopie_tilemap[360];
-    void init_start_screen(game_t *this);
-    void update_start_screen(game_t *this);
+    const void init_start_screen(game_t *this);
+    const void update_start_screen(game_t *this);
 #endif /* !GAME_START_SCREEN_H_ */

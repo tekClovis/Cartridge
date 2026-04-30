@@ -7,7 +7,6 @@
 #include <gb/gb.h>
 #include <gb/sgb.h>
 #include "game.h"
-
 const void restore_pal(void)
 {
     OBP0_REG = NORMAL_PAL;

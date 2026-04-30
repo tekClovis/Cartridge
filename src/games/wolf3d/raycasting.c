@@ -38,7 +38,7 @@ const uint8_t raycaster_tiles[128] = {
 #define TILE_CAP_BOT_NEAR    7U
 
 /* distance → tile lookup */
-const uint8_t wall_shade[] = {
+static const uint8_t wall_shade[] = {
     TILE_WALL_FAR,   /* dist 7+ */
     TILE_WALL_FAR,
     TILE_WALL_MED,   /* dist 4-5 */
@@ -60,12 +60,7 @@ static const uint8_t wall_col_map[144] = {
     0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 };
 
-static const int8_t sin_tab[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, -7, -6, -5, -4, -3, -2, -1};
-
-#define COS(angle) sin_tab[((angle) + 4) >> 4]
-#define SIN(angle) sin_tab[(angle) & 15 >> 4]
-
-const uint8_t calc_dist(const uint8_t x1, const uint8_t y1, const uint8_t x2, const uint8_t y2)
+static const uint8_t calc_dist(const uint8_t x1, const uint8_t y1, const uint8_t x2, const uint8_t y2)
 {
     uint8_t d = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
 
@@ -73,7 +68,7 @@ const uint8_t calc_dist(const uint8_t x1, const uint8_t y1, const uint8_t x2, co
     return d;
 }
 
-static uint8_t cast_ray(const game_t *game, uint8_t ray_id)
+static const uint8_t cast_ray(const game_t *game, uint8_t ray_id)
 {
     const uint8_t angle = ray_id;
     const int8_t dir_x = COS(angle);

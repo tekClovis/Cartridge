@@ -7,7 +7,7 @@
 #include "game_wolf3d.h"
 #include <gb/gb.h>
 
-void handle_input(game_t *this)
+const void handle_input(game_t *this)
 {
     if (joypad() & J_LEFT)
         this->entities[0].x = 0;

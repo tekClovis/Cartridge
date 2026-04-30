@@ -5,7 +5,6 @@
 #include <gbdk/platform.h>
 #include <gbdk/metasprites.h>
 
-BANKREF(menu_tilesets)
 
 const palette_color_t menu_tilesets_palettes[8] = {
 	RGB8(231,255,206), RGB8(132,198,107), RGB8( 49,107, 82), RGB8(  0, 24, 33),

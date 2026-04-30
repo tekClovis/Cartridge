@@ -15,16 +15,27 @@
     #define MAX_ENTITIES 16
     #define MAX_WINDOWS 2
     #define NORMAL_PAL 0xE4
+    #define MAX_PLUG_IN_BYTES 128
 
     typedef struct game_s game_t;
 
+    typedef struct w3d_plug_in_s {
+        uint8_t last_rays[20];
+    } w3d_plug_in_t;
+
+    typedef union {
+        uint8_t data[MAX_PLUG_IN_BYTES];
+        w3d_plug_in_t wolf3d;
+    } active_game_data_t;
+
+    extern active_game_data_t g_game_data;
     struct game_s {
         entities_t entities[MAX_ENTITIES];
         window_t window[MAX_WINDOWS];
         map_t map;
         uint8_t actual_frame; 
-        void (*init)(game_t *this);
-        void (*update)(game_t *this);
+        const void (*init)(game_t *this);
+        const void (*update)(game_t *this);
         void *personal_data;
     };
 

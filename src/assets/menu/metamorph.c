@@ -5,8 +5,6 @@
 #include <gbdk/platform.h>
 #include <gbdk/metasprites.h>
 
-BANKREF(metamorph)
-
 const palette_color_t metamorph_palettes[4] = {
 	RGB8(164,175,123), RGB8(162,167,183), RGB8( 37, 66,126), RGB8(  0,  0,  0)
 	};
