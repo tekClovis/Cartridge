@@ -23,6 +23,19 @@
     
     #define SIN_RAW(angle) (SIN_TABLE[(angle)])
     #define COS_RAW(angle) (COS_TABLE[(angle)])
+    
+
+    typedef struct ray_s {
+        uint8_t distance;
+        uint8_t height;
+        uint8_t sub_tile_id;
+
+    } ray_t;
+
+    typedef struct raycaster_s {
+        ray_t rays[20];
+        ray_t last_rays[20];
+    } raycaster_t;
 
     static const uint8_t SIN_TABLE[221] = {
         40, 41, 41, 42, 43, 43, 44, 45, 46, 46, 47,
@@ -71,17 +84,5 @@
         5,  5,  6,  6,  6,  7,  7,  8,  8,  8,  9,
         9
     };
-
-    typedef struct ray_s {
-        uint8_t distance;
-        uint8_t height;
-        uint8_t sub_tile_id;
-    } ray_t;
-
-    typedef struct raycaster_s {
-        ray_t rays[20];
-        ray_t last_rays[20];
-    } raycaster_t;
-
 
 #endif /* !GAME_WOLF3D_H_ */
