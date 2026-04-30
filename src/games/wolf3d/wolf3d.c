@@ -28,13 +28,13 @@ static const void init_ent(game_t *game)
     game->entities[0].angle = 20;
 }
 
-void update_wolf3d(game_t *this)
+const void update_wolf3d(game_t *this)
 {
-    handle_input(this);
-    draw_background(this);
+    // handle_input(this);
+    // draw_background(this);
 }
 
-void init_wolf3d(game_t *this)
+const void init_wolf3d(game_t *this)
 {
     this->update = &update_wolf3d;
     SWITCH_ROM(BANK(_map_level_1_bank));

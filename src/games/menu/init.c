@@ -13,15 +13,14 @@
 #include <stdio.h>
 
 
-static void init_map(game_t *this)
+static const void init_map(game_t *this)
 {
-    
     this->map.width = map_menu_width;
     this->map.height = map_menu_height;
     this->map.size = map_menu_size;
 }
 
-static void init_window(game_t *this)
+static const void init_window(game_t *this)
 {
     this->window[0].x = 6 << 3;
     this->window[0].y = 7 << 3;
@@ -32,7 +31,7 @@ static void init_window(game_t *this)
     reset_win();
 }
 
-static void init_entities(game_t *this)
+static const void init_entities(game_t *this)
 {
     SPRITES_8x16;
     for (int i = 0; i < 16; i++){
@@ -54,22 +53,18 @@ static void init_entities(game_t *this)
     draw_ent16(this->entities[0]);
 }
 
-static void init_graphiques(game_t *this){
-    (void)this;
-    // apply_color_mapping();
-    SWITCH_ROM(BANK(metamorph));
-    set_sprite_data(0, metamorph_TILE_COUNT, metamorph_tiles);
-    SWITCH_ROM(BANK(menu_tilesets)); 
+static const void init_graphiques(void)
+{
+    set_sprite_data(0, metamorph_TILE_COUNT, metamorph_tiles); 
     set_bkg_data(0, menu_tilesets_TILE_COUNT, menu_tilesets_tiles);
-    SWITCH_ROM(BANK(menu_tilemap));
     set_bkg_submap(0, 0, 32, 32, map_menu, map_menu_width);
 }
 
-void init_menu(game_t *this)
+const void init_menu(game_t *this)
 {
     this->update = &update_menu;
     init_map(this);
-    init_graphiques(this);
+    init_graphiques();
     init_window(this);
     init_entities(this);
 }

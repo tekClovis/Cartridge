@@ -12,7 +12,7 @@
 #include "font.h"
 #include <stdlib.h>
 
-static void clear_sprite_tiles(void) {
+static const void clear_sprite_tiles(void) {
     uint8_t i;
     for (i = 0; i < 40; i++) {
         set_sprite_tile(i, font_BLANK_TILE);

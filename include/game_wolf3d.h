@@ -9,10 +9,9 @@
     #define GAME_WOLF3D_H_
     #define ray_TILE_COUNT 8
     #include "game.h"
-    void init_wolf3d(game_t *this);
-    void update_wolf3d(game_t *this);
+    const void init_wolf3d(game_t *this);
+    const void update_wolf3d(game_t *this);
     
-    const void reset_bkg(void);
     const void draw_background(game_t *game);
     const void handle_input(game_t *this);
     
@@ -24,19 +23,6 @@
     
     #define SIN_RAW(angle) (SIN_TABLE[(angle)])
     #define COS_RAW(angle) (COS_TABLE[(angle)])
-    
-
-    typedef struct ray_s {
-        uint8_t distance;
-        uint8_t height;
-        uint8_t sub_tile_id;
-
-    } ray_t;
-
-    typedef struct raycaster_s {
-        ray_t rays[20];
-        ray_t last_rays[20];
-    } raycaster_t;
 
     static const uint8_t SIN_TABLE[221] = {
         40, 41, 41, 42, 43, 43, 44, 45, 46, 46, 47,

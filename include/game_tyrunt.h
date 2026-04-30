@@ -10,10 +10,9 @@
 
     #include "game.h"
 
-    void init_tyrunt(game_t *this);
-    void update_tyrunt(game_t *this);
+    const void init_tyrunt(game_t *this);
+    const void update_tyrunt(game_t *this);
     
-    const void reset_bkg(void);
     const void draw_background(game_t *game);
     const void handle_input(game_t *this);
     

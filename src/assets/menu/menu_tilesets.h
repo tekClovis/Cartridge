@@ -23,8 +23,6 @@
 #define menu_tilesets_PIVOT_H 80
 extern const metasprite_t* const menu_tilesets_metasprites[1];
 
-BANKREF_EXTERN(menu_tilesets)
-
 extern const palette_color_t menu_tilesets_palettes[8];
 extern const uint8_t menu_tilesets_tiles[2240];
 

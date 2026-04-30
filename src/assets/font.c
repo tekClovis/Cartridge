@@ -6,8 +6,6 @@
 #include <gbdk/platform.h>
 #include <gbdk/metasprites.h>
 
-BANKREF(font)
-
 const palette_color_t font_palettes[4] = {
 	RGB8(241,241,241), RGB8(177,177,177), RGB8( 93, 93, 93), RGB8( 22, 22, 22)
 };

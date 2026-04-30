@@ -7,8 +7,19 @@
 
 #ifndef ENTITIES_H_
     #define ENTITIES_H_
+    #define MAX_PLUG_IN_BYTES 128
     #include <stdint.h>
 
+    typedef struct w3d_ent_plug_in_s {
+        uint8_t angle;
+    } w3d_ent_plug_in_t;
+
+    typedef union {
+        uint8_t data[MAX_PLUG_IN_BYTES];
+        w3d_ent_plug_in_t wolf3d;
+    } active_ent_data_t;
+
+    extern active_ent_data_t g_ent_data;
 
 typedef struct entities_s {
     uint16_t x;
