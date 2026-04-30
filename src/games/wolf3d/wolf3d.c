@@ -27,7 +27,7 @@ static const void init_ent(game_t *game)
             break;
         }
     }
-    game->entities[0].angle = 8;
+    // game->entities[0].angle = 8;
 }
 
 void update_wolf3d(game_t *this)

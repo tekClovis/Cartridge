@@ -10,9 +10,9 @@
 void handle_input(game_t *this)
 {
     if (joypad() & J_LEFT)
-        this->entities[0].angle -= 4;
+        this->entities[0].x = 0;
     if (joypad() & J_RIGHT)
-        this->entities[0].angle += 4;
+        this->entities[0].y = 0;
     // if (joypad() & J_UP){
     //     this->entities[0].x += COS(this->entities[0].angle) << 1;
     //     this->entities[0].y += SIN(this->entities[0].angle) << 1;

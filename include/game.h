@@ -25,6 +25,7 @@
         uint8_t actual_frame; 
         void (*init)(game_t *this);
         void (*update)(game_t *this);
+        void *personal_data;
     };
 
     typedef enum game_id_e {

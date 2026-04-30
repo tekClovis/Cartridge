@@ -21,7 +21,7 @@ typedef struct entities_s {
     uint8_t animation;
     uint8_t sprite_nb;
     uint8_t life;
-    uint16_t angle;
+    void *personal_data;
 } entities_t;
 
 void draw_ent16(const entities_t ent);

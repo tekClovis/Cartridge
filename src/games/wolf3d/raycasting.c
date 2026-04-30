@@ -75,7 +75,7 @@ const uint8_t calc_dist(const uint8_t x1, const uint8_t y1, const uint8_t x2, co
 
 static uint8_t cast_ray(const game_t *game, uint8_t ray_id)
 {
-    const uint8_t angle = game->entities[0].angle + (ray_id - 10) * 8;
+    const uint8_t angle = ray_id;
     const int8_t dir_x = COS(angle);
     const int8_t dir_y = SIN(angle);
     int16_t pos_x = game->entities[0].x;
