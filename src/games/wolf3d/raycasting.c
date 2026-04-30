@@ -6,7 +6,7 @@
 */
 
 #include "game_wolf3d.h"
-
+#include <stdio.h>
 /* raycaster_tiles.c */
 const uint8_t raycaster_tiles[128] = {
     /* TILE_BLANK = 0 */
@@ -60,53 +60,51 @@ static const uint8_t wall_col_map[144] = {
     0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
 };
 
-static const int8_t sin_tab[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, -7, -6, -5, -4, -3, -2, -1};
 
-#define COS(angle) sin_tab[((angle) + 4) >> 4]
-#define SIN(angle) sin_tab[(angle) & 15 >> 4]
-
-const uint8_t calc_dist(const uint8_t x1, const uint8_t y1, const uint8_t x2, const uint8_t y2)
+static uint8_t cast_ray(const game_t *game, int8_t ray_id)
 {
-    uint8_t d = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+    const uint8_t angle = game->entities[0].angle + ray_id - 10 > 255
+        ? game->entities[0].angle + ray_id - 266
+        : game->entities[0].angle + ray_id - 10;
+    // Instead of DDA, we step 1/2 of a tile at a time along our angle
+    int16_t ray_x_sub = game->entities[0].x << 4; // Add extra precision zeroes
+    int16_t ray_y_sub = game->entities[0].y << 4;
 
-    d = (d >> 3) + (d >> 5) + (d >> 7);
-    return d;
-}
+    // Calculate our exact step increment (Scaled by Cos/Sin)
+    int16_t step_x = COS(angle); 
+    int16_t step_y = SIN(angle); 
 
-static uint8_t cast_ray(const game_t *game, uint8_t ray_id)
-{
-    const uint8_t angle = game->entities[0].angle + (ray_id - 10) * 8;
-    const int8_t dir_x = COS(angle);
-    const int8_t dir_y = SIN(angle);
-    int16_t pos_x = game->entities[0].x;
-    int16_t pos_y = game->entities[0].y;
+    uint8_t distance = 0;
 
-    if ((dir_x == 0) && (dir_y == 0))
-        return 8U;
-
-    while (pos_x >= 0 && pos_x < ((int16_t)game->map.width << 3)
-        && pos_y >= 0 && pos_y < ((int16_t)game->map.height << 3)) {
-        pos_x += dir_x;
-        pos_y += dir_y;
-        if (game->map.map[(pos_y >> 3) * game->map.width + (pos_x >> 3)] == WALL) {
-            return calc_dist(game->entities[0].x >> 3, game->entities[0].y >> 3, pos_x >> 3, pos_y >> 3);
+    while (distance < 9) {
+        ray_x_sub += step_x;
+        ray_y_sub += step_y;
+        
+        // Shift back down to calculate exactly which tile we are standing in
+        uint16_t tile_x = ray_x_sub >> (5); 
+        uint16_t tile_y = ray_y_sub >> (5);
+        
+        if (map_level_1.map[(tile_y << 5) + tile_x] == WALL) {
+            return distance;
         }
+        distance++;
     }
-    return 8U;
+    return distance;
 }
 
 const void draw_background(game_t *game)
 {
-    uint8_t ray_dist;
-    uint8_t frame_buffer[20 * 18];
+    uint8_t ray_dist = 0;
+    // uint8_t frame_buffer[20 * 18];
 
+    // move_win(0, 128);
     // reset_bkg();
     for (uint8_t i = 0; i < 20; i++) {
         ray_dist = cast_ray(game, i);
-        if (ray_dist > 7)
+        if (8 < ray_dist)
             ray_dist = 7;
-        for (uint8_t j = 0; j < 18; j++)
-            frame_buffer[(j << 4) + i] = wall_col_map[(ray_dist << 4) + j];
+        // for (uint8_t j = 0; j < 18; j++)
+        //     frame_buffer[(j << 4) + i] = wall_col_map[(ray_dist << 4) + j];
+        // set_bkg_tiles(i, 0, 1, 18, wall_col_map + (ray_dist << 4));
     }
-    set_bkg_tiles(0, 0, 20, 18, frame_buffer);
 }

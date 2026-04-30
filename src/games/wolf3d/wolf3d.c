@@ -20,14 +20,12 @@ static const void init_window(game_t *game)
 
 static const void init_ent(game_t *game)
 {
-    for (uint8_t i = 0; i < game->map.size; i++) {
-        if (game->map.map[i] == SPAWN) {
-            game->entities[0].x = (i % game->map.width) << 3;
-            game->entities[0].y = (i / game->map.width) << 3;
-            break;
-        }
-    }
-    game->entities[0].angle = 8;
+    uint16_t i = 0;
+
+    for (; map_level_1.map[i] != SPAWN &&  i < game->map.size; i++);
+    game->entities[0].x = (i % game->map.width) << 1;
+    game->entities[0].y = (i / game->map.width) << 1;
+    game->entities[0].angle = 20;
 }
 
 void update_wolf3d(game_t *this)
@@ -39,7 +37,10 @@ void update_wolf3d(game_t *this)
 void init_wolf3d(game_t *this)
 {
     this->update = &update_wolf3d;
-    this->map = map_level_1;
+    SWITCH_ROM(BANK(_map_level_1_bank));
+    this->map.size = map_level_1.size;
+    this->map.width = map_level_1.width;
+    this->map.height = map_level_1.height;
     init_graphics();
     init_ent(this);
     init_window(this);
