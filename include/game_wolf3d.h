@@ -26,6 +26,7 @@
     const void draw_background(game_t *game);
     const void handle_input(game_t *this);
     
+    BANKREF_EXTERN(_map_level_1_bank)
     extern const map_t map_level_1;
     extern const uint8_t raycaster_tiles[128];
     extern uint8_t ray_lut[128];
