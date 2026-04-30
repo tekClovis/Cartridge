@@ -105,7 +105,7 @@ static const void define_side(const game_t *game, int i, uint8_t ray_dist)
     return;
 }
 
-static uint8_t cast_ray(const game_t *game, int8_t ray_id)
+static const uint8_t cast_ray(const game_t *game, uint8_t ray_id)
 {
     const uint8_t angle = (uint8_t)(((w3d_ent_plug_in_t *)game->entities[0].personal_data)->angle + ray_id - 10) & 127;
     int8_t rdx = COS(angle);
