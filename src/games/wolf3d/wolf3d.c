@@ -34,8 +34,8 @@ static const void init_ent(game_t *game)
 
 const void update_wolf3d(game_t *this)
 {
-    // handle_input(this);
-    // draw_background(this);
+    handle_input(this);
+    draw_background(this);
 }
 
 const void init_wolf3d(game_t *this)
