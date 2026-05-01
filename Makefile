@@ -28,6 +28,7 @@ TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
 	src/games/utils/anims.c \
+	src/games/utils/globals.c \
 	src/games/menu/menu.c \
 	src/games/menu/init.c \
 	src/games/menu/handle_input.c \
