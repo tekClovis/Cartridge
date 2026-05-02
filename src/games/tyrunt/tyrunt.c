@@ -33,6 +33,13 @@ void init_tyrunt(game_t *this)
 {
     this->update = &update_tyrunt;
 
+    this->entities[0].x = 30;
+}
+
+void handle_input_tyrunt(game_t *this)
+{
+    this->update = &update_tyrunt;
+
     this->personal_data = &g_game_data.tyrunt;
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
     data->velocity_y = 0;
