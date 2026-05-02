@@ -10,12 +10,19 @@
 
     #include "game.h"
 
+    typedef enum {
+        TYRUNT_IDLE,
+        TYRUNT_JUMPING,
+        TYRUNT_FALLING
+    } tyrunt_state_t;
+
     void init_tyrunt(game_t *this);
     void update_tyrunt(game_t *this);
+    void handle_input_tyrunt(game_t *this);
+
     
     const void reset_bkg(void);
     const void draw_background(game_t *game);
-    const void handle_input(game_t *this);
     
 
 #endif /* !GAME_TYRUNT_H_ */
