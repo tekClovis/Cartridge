@@ -139,7 +139,7 @@ static const void handle_direction(game_t *this, uint8_t direction)
     this->entities[0].direction = direction;
 }
 
-void handleInput(game_t *this)
+const void handleInput(game_t *this)
 {
     switch (joypad()) {
         case J_UP:
