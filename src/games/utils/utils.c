@@ -12,6 +12,8 @@
 #include "font.h"
 #include <stdlib.h>
 
+active_game_data_t g_game_data;
+
 static const void clear_sprite_tiles(void) {
     uint8_t i;
     for (i = 0; i < 40; i++) {
