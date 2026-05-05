@@ -23,9 +23,17 @@
         uint8_t last_rays[20];
     } w3d_plug_in_t;
 
+    typedef struct tyrunt_plug_in_s {
+        int8_t velocity_y;
+        uint8_t is_jumping;
+        uint16_t score;
+        uint8_t speed;
+    } tyrunt_plug_in_t;
+
     typedef union {
         uint8_t data[MAX_PLUG_IN_BYTES];
         w3d_plug_in_t wolf3d;
+        tyrunt_plug_in_t tyrunt;
     } active_game_data_t;
 
     extern active_game_data_t g_game_data;
