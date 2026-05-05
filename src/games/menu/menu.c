@@ -14,7 +14,7 @@
 static const rectangle_t infos_rect[3] = {
     {.x = 5, .y = 11, .width = 2, .height = 2},
     {.x = 25, .y = 19, .width = 2, .height = 2},
-    {0}
+    {.x = 12, .y = 37, .width = 2, .height = 2}
 };
 
 static const char game_names[GAME_ID_COUNT][32] = {
@@ -22,7 +22,7 @@ static const char game_names[GAME_ID_COUNT][32] = {
     "MENU        ",
     "WOLF 3D     ",
     "TYRUNT      ",
-    "GAME 3      "
+    "SNAKE       "
 };
 
 static const void show_game_stat(game_t *this)

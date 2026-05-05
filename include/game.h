@@ -32,7 +32,7 @@
         MENU,
         WOLF_3D,
         TYRUNT,
-        GAME_3,
+        SNAKE,
         GAME_ID_COUNT
     } game_id;
 
