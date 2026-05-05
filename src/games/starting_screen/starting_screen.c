@@ -49,7 +49,7 @@ static const void move_cred(game_t *this)
     move_win(this->window[1].x, this->window[1].y);
 }
 
-void update_start_screen(game_t *this)
+const void update_start_screen(game_t *this)
 {
     if (this->actual_frame >> 1 && this->window[0].y > 0){
         this->window[0].y -= 1;
@@ -71,7 +71,7 @@ void update_start_screen(game_t *this)
     }
 }
 
-void init_start_screen(game_t *this)
+const void init_start_screen(game_t *this)
 {
     this->actual_frame = 0;
     this->update = &update_start_screen;

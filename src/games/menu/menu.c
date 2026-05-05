@@ -48,7 +48,7 @@ static const void show_game_stat(game_t *this)
     }
 }
 
-void update_menu(game_t *this)
+const void update_menu(game_t *this)
 {
     handleInput(this);
     if (this->actual_frame >> 4){
