@@ -69,8 +69,7 @@ static const void trying_to_enter_game(game_t *this)
         init_game(this, WOLF_3D);
     } else if (rel_coord_x > 24 && rel_coord_x < 30 && rel_coord_y > 18 && rel_coord_y < 24){
         init_game(this, TYRUNT);
-    }
-    if (rel_coord_x > 12  && rel_coord_x < 18 && rel_coord_y > 37 && rel_coord_y < 43){
+    } else if (rel_coord_x > 12  && rel_coord_x < 18 && rel_coord_y > 37 && rel_coord_y < 43){
         init_game(this, SNAKE);
     }
 }

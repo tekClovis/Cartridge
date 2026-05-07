@@ -10,11 +10,9 @@
 
     #include "game.h"
 
-    void init_snake(game_t *this);
-    void update_snake(game_t *this);
-    
-    const void reset_bkg(void);
-    const void draw_background(game_t *game);
-    const void handle_input(game_t *this);
+void init_snake(game_t *this);
+void update_snake(game_t *this);
+
+static const void handle_input_snake(game_t *this);
 
 #endif /* !GAME_SNAKE_H_ */

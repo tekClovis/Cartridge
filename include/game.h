@@ -30,10 +30,19 @@
         uint8_t speed;
     } tyrunt_plug_in_t;
 
+    typedef struct snake_plug_in_s {
+        uint16_t score;
+        uint8_t speed;
+        enum direction {UP, DOWN, LEFT, RIGHT} direction;
+        uint8_t snake_lenght;
+        // map
+    } snake_plug_in_t;
+
     typedef union {
         uint8_t data[MAX_PLUG_IN_BYTES];
         w3d_plug_in_t wolf3d;
         tyrunt_plug_in_t tyrunt;
+        snake_plug_in_t snake;
     } active_game_data_t;
 
     extern active_game_data_t g_game_data;

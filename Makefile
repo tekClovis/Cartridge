@@ -25,6 +25,8 @@ WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 
 TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
 
+SNAKE_SRC = src/games/Snake/snake.c \
+
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
 	src/games/utils/anims.c \
@@ -41,7 +43,8 @@ SRC = src/games/utils/utils.c \
 	src/assets/starting_screen/pokopie_tileset.c	\
 	src/assets/font.c \
 	$(WOLD3D_SRC) \
-	$(TYRUNT_SRC)
+	$(TYRUNT_SRC) \
+	$(SNAKE_SRC)
 
 OBJ = $(SRC:.c=.o)
 LST = $(OBJ:.o=.lst)

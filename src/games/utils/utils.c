@@ -9,6 +9,7 @@
 #include "game_start_screen.h"
 #include "game_wolf3d.h"
 #include "game_tyrunt.h"
+#include "game_snake.h"
 #include "font.h"
 #include <stdlib.h>
 
@@ -25,6 +26,7 @@ static const void (* const init_game_funcs[GAME_ID_COUNT])(game_t *game) = {
     &init_menu,
     &init_wolf3d,
     &init_tyrunt,
+    &init_snake,
     NULL,
 };
 
