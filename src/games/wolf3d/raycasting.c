@@ -42,29 +42,29 @@ const uint8_t raycaster_tiles[128] = {
 /* distance → tile lookup */
 static const uint8_t wall_shade[8] = {
     0,
-    18,
-    36,
-    54,
-    72,
-    90,
-    108,
-    126,
+    17,
+    35,
+    53,
+    71,
+    89,
+    107,
+    125,
 };
 
 static const uint8_t wall_col_map[144] = {
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     0, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 0,
-    0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 0, 0,
-    0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 0, 0, 0,
-    0, 0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 5, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 1, 0,
+    0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 1, 1, 0,
+    0, 0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 5, 1, 1, 1, 0,
+    0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0,
+    0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 0,
+    0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0,
 };
 
 static uint8_t cast_ray(const game_t *game, int8_t ray_id)
 {
-    const uint8_t angle = (uint8_t)(((w3d_ent_plug_in_t *)game->entities[0].personal_data)->angle + ray_id - 9) & 127;
+    const uint8_t angle = (uint8_t)(((w3d_ent_plug_in_t *)game->entities[0].personal_data)->angle + ray_id - 10) & 127;
     int8_t rdx = COS(angle);
     int8_t rdy = SIN(angle);
     int8_t step_x = (rdx) > 0 ? 1 : -1;
@@ -73,10 +73,14 @@ static uint8_t cast_ray(const game_t *game, int8_t ray_id)
     uint16_t delta_dist_y = ray_lut[rdy > 0 ? rdy : -rdy];
     uint8_t tile_x = FLOAT_TO_INT(game->entities[0].x);
     uint8_t tile_y = FLOAT_TO_INT(game->entities[0].y);
-    int16_t side_dist_x = 0;
-    int16_t side_dist_y = 0;
+    int16_t side_dist_x = step_x > 0
+    ? (INT_TO_FLOAT(tile_x + 1) - game->entities[0].x) * delta_dist_x
+    : (game->entities[0].x - INT_TO_FLOAT(tile_x)) * delta_dist_x;
+    int16_t side_dist_y = step_y > 0
+    ? (INT_TO_FLOAT(tile_y + 1) - game->entities[0].y) * delta_dist_y
+    : (game->entities[0].y - tile_y) * delta_dist_y;
     int8_t side = 0;
-    int8_t distance = 0;
+    int16_t distance = 0;
 
     if (step_x > 0)
         side_dist_x = (game->entities[0].x & 0x80) ? delta_dist_x >> 1 : delta_dist_x;
@@ -121,7 +125,7 @@ const void draw_background(game_t *game)
 
     for (uint8_t i = 0; i < 20; i++) {
         ray_dist = cast_ray(game, i);
-        if (8 < ray_dist)
+        if (ray_dist > 7)
             ray_dist = 7;
         if (raycaster->last_rays[i] == (int8_t)ray_dist)
             continue;
