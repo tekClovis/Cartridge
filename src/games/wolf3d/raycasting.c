@@ -78,18 +78,10 @@ static uint8_t cast_ray(const game_t *game, int8_t ray_id)
     : (game->entities[0].x - INT_TO_FLOAT(tile_x)) * delta_dist_x;
     int16_t side_dist_y = step_y > 0
     ? (INT_TO_FLOAT(tile_y + 1) - game->entities[0].y) * delta_dist_y
-    : (game->entities[0].y - tile_y) * delta_dist_y;
+    : (game->entities[0].y - INT_TO_FLOAT(tile_y)) * delta_dist_y;
     int8_t side = 0;
     int16_t distance = 0;
 
-    if (step_x > 0)
-        side_dist_x = (game->entities[0].x & 0x80) ? delta_dist_x >> 1 : delta_dist_x;
-    else
-        side_dist_x = (game->entities[0].x & 0x80) ? delta_dist_x >> 1 : 0;
-    if (step_y > 0)
-        side_dist_y = (game->entities[0].y & 0x80) ? delta_dist_y >> 1 : delta_dist_y;
-    else
-        side_dist_y = (game->entities[0].y & 0x80) ? delta_dist_y >> 1 : 0;
     side = side_dist_x < side_dist_y; 
     for (; distance < 20; distance++) {
         if (side_dist_x < side_dist_y) {
