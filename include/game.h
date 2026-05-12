@@ -20,7 +20,7 @@
     typedef struct game_s game_t;
 
     typedef struct w3d_plug_in_s {
-        int8_t last_rays[20];
+        uint8_t last_rays[20];
     } w3d_plug_in_t;
 
     typedef struct tyrunt_plug_in_s {
