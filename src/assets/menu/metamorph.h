@@ -22,9 +22,6 @@
 #define metamorph_PIVOT_W 128
 #define metamorph_PIVOT_H 16
 extern const metasprite_t* const metamorph_metasprites[1];
-
-BANKREF_EXTERN(metamorph)
-
 extern const palette_color_t metamorph_palettes[4];
 extern const uint8_t metamorph_tiles[512];
 
