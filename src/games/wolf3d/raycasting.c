@@ -6,7 +6,9 @@
 */
 
 #include "game_wolf3d.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 /* raycaster_tiles.c */
 const uint8_t raycaster_tiles[128] = {
     /* TILE_BLANK = 0 */
@@ -38,29 +40,34 @@ const uint8_t raycaster_tiles[128] = {
 #define TILE_CAP_BOT_NEAR    7U
 
 /* distance → tile lookup */
-static const uint8_t wall_shade[] = {
-    TILE_WALL_FAR,   /* dist 7+ */
-    TILE_WALL_FAR,
-    TILE_WALL_MED,   /* dist 4-5 */
-    TILE_WALL_MED,
-    TILE_WALL_NEAR,  /* dist 1-2 */
-    TILE_WALL_NEAR,
-    TILE_WALL_NEAR,
-    TILE_WALL_NEAR,
+static const uint8_t wall_shade[8] = {
+    0,
+    17,
+    35,
+    53,
+    71,
+    89,
+    107,
+    125,
 };
 
 static const uint8_t wall_col_map[144] = {
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     0, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 0,
-    0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 0, 0,
-    0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 0, 0, 0,
-    0, 0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 5, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 1, 0,
+    0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 1, 1, 0,
+    0, 0, 0, 0, 4, 2, 2, 2, 2, 2, 2, 2, 2, 5, 1, 1, 1, 0,
+    0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 0,
+    0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 0,
+    0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0,
 };
 
-static const uint8_t calc_dist(const uint8_t x1, const uint8_t y1, const uint8_t x2, const uint8_t y2)
+static const int8_t sin_tab[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, -7, -6, -5, -4, -3, -2, -1};
+
+#define COS(angle) sin_tab[((angle) + 4) >> 4]
+#define SIN(angle) sin_tab[(angle) & 15 >> 4]
+
+const uint8_t calc_dist(const uint8_t x1, const uint8_t y1, const uint8_t x2, const uint8_t y2)
 {
     uint8_t d = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
 
@@ -68,9 +75,9 @@ static const uint8_t calc_dist(const uint8_t x1, const uint8_t y1, const uint8_t
     return d;
 }
 
-static const uint8_t cast_ray(const game_t *game, uint8_t ray_id)
+static uint8_t cast_ray(const game_t *game, uint8_t ray_id)
 {
-    const uint8_t angle = ray_id;
+    const uint8_t angle = game->entities[0].angle + (ray_id - 10) * 8;
     const int8_t dir_x = COS(angle);
     const int8_t dir_y = SIN(angle);
     int16_t pos_x = game->entities[0].x;
@@ -92,16 +99,18 @@ static const uint8_t cast_ray(const game_t *game, uint8_t ray_id)
 
 const void draw_background(game_t *game)
 {
-    uint8_t ray_dist;
-    uint8_t frame_buffer[20 * 18];
+    uint8_t ray_dist = 0;
+    w3d_plug_in_t *raycaster = (w3d_plug_in_t *)game->personal_data;
+    move_win(0, 120);
+    SHOW_WIN;
 
-    // reset_bkg();
     for (uint8_t i = 0; i < 20; i++) {
         ray_dist = cast_ray(game, i);
         if (ray_dist > 7)
             ray_dist = 7;
-        for (uint8_t j = 0; j < 18; j++)
-            frame_buffer[(j << 4) + i] = wall_col_map[(ray_dist << 4) + j];
+        if (raycaster->last_rays[i] == (int8_t)ray_dist)
+            continue;
+        raycaster->last_rays[i] = ray_dist;
+        set_bkg_tiles(i, 0, 1, 18, &wall_col_map[wall_shade[ray_dist]]);
     }
-    set_bkg_tiles(0, 0, 20, 18, frame_buffer);
 }

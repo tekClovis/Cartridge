@@ -9,6 +9,7 @@
     #define GAME_TYRUNT_H_
 
     #include "game.h"
+
     typedef enum {
         TYRUNT_IDLE,
         TYRUNT_JUMPING,
@@ -19,6 +20,7 @@
     void update_tyrunt(game_t *this);
     void handle_input_tyrunt(game_t *this);
 
+    
     const void draw_background(game_t *game);
     
 

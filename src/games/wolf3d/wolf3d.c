@@ -6,6 +6,8 @@
 */
 #include "game_wolf3d.h"
 
+uint8_t ray_lut[256];
+
 static const void init_graphics(void)
 {
     set_bkg_data(0, ray_TILE_COUNT, raycaster_tiles);
@@ -20,14 +22,14 @@ static const void init_window(game_t *game)
 
 static const void init_ent(game_t *game)
 {
-    // for (uint8_t i = 0; i < game->map.size; i++) {
-    //     if (game->map.map[i] == SPAWN) {
-    //         game->entities[0].x = (i % game->map.width) << 3;
-    //         game->entities[0].y = (i / game->map.width) << 3;
-    //         break;
-    //     }
-    // }
-    // game->entities[0].angle = 8;
+    uint16_t i = 0;
+    w3d_ent_plug_in_t *plug_in = &g_ent_data.wolf3d;
+
+    plug_in->angle = 0;
+    for (; map_level_1.map[i] != SPAWN &&  i < game->map.size; i++);
+    game->entities[0].x = INT_TO_FLOAT(i % game->map.width);
+    game->entities[0].y = INT_TO_FLOAT(i / game->map.width);
+    game->entities[0].personal_data = plug_in;
 }
 
 const void update_wolf3d(game_t *this)
@@ -38,9 +40,16 @@ const void update_wolf3d(game_t *this)
 
 const void init_wolf3d(game_t *this)
 {
-    // this->update = &update_wolf3d;
-    // // this->map = map_level_1;
-    // init_graphics();
-    // init_ent(this);
-    // init_window(this);
+    for (int i = 0; i < 128; i++)
+        ray_lut[i] = 128 / (i + 1);
+    this->update = &update_wolf3d;
+    this->map.size = map_level_1.size;
+    this->map.width = map_level_1.width;
+    this->map.height = map_level_1.height;
+    init_graphics();
+    init_ent(this);
+    init_window(this);
+    this->personal_data = &g_game_data.wolf3d;
+    for (int i = 0; i < 20; i++)
+        g_game_data.wolf3d.last_rays[i] = -1;
 }

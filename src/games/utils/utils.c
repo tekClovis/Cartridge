@@ -13,7 +13,10 @@
 #include "font.h"
 #include <stdlib.h>
 
+// definition of globals of the Union
 active_game_data_t g_game_data;
+active_ent_data_t g_ent_data;
+
 
 static const void clear_sprite_tiles(void) {
     uint8_t i;
