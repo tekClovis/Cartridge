@@ -112,7 +112,7 @@ static uint8_t cast_ray(const game_t *game, int8_t ray_id)
     int8_t rdy = SIN(angle);
     int8_t step_x = (rdx) > 0 ? 1 : -1;
     int8_t step_y = (rdy) > 0 ? 1 : -1;
-    uint16_t delta_dist_x = ray_lut[rdx > 0 ? rdx : -rdx] ;
+    uint16_t delta_dist_x = ray_lut[rdx > 0 ? rdx : -rdx];
     uint16_t delta_dist_y = ray_lut[rdy > 0 ? rdy : -rdy];
     uint8_t tile_x = FLOAT_TO_INT(game->entities[0].x);
     uint8_t tile_y = FLOAT_TO_INT(game->entities[0].y);
@@ -122,8 +122,8 @@ static uint8_t cast_ray(const game_t *game, int8_t ray_id)
     int16_t side_dist_y = step_y > 0
     ? (INT_TO_FLOAT(tile_y + 1) - game->entities[0].y) * delta_dist_y
     : (game->entities[0].y - INT_TO_FLOAT(tile_y)) * delta_dist_y;
-    side_dist_x >>= 6;
-    side_dist_y >>= 6;
+    side_dist_x >>= 7;
+    side_dist_y >>= 7;
     int8_t side = 0;
     int16_t distance = 0;
 
@@ -149,7 +149,7 @@ static uint8_t cast_ray(const game_t *game, int8_t ray_id)
     if (distance < 0)
         distance = 0;
 
-    return distance;
+    return distance << 1;
 }
 
 
