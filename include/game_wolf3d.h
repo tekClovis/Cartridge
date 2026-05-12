@@ -7,7 +7,7 @@
 
 #ifndef GAME_WOLF3D_H_
     #define GAME_WOLF3D_H_
-    #define ray_TILE_COUNT 128
+    #define ray_TILE_COUNT 17
     #define TRIG_TABLE_SIZE 128
     #define TRIG_CENTER 128
     #define SIN_RAW(angle) (SIN_TABLE[((uint8_t)(angle))])
@@ -27,7 +27,7 @@
     const void handle_input(game_t *this);
     
     extern const map_t map_level_1;
-    extern const uint8_t raycaster_tiles[128];
+    extern const uint8_t raycaster_tiles[272];
     extern uint8_t ray_lut[256];
 
     typedef struct ray_s {

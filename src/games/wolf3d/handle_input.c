@@ -13,28 +13,30 @@
 
 void move_on_dir(game_t *this, const uint8_t angle)
 {
-    const int16_t speed = 128;
     const int16_t cos_angle = COS(angle);
     const int16_t sin_angle = SIN(angle);
-    int16_t dx = (cos_angle << 7) >> 7;
-    int16_t dy = (sin_angle << 7) >> 7;
+    int16_t dx = (cos_angle << 7) >> 8;
+    int16_t dy = (sin_angle << 7) >> 8;
     int16_t next_x = (int16_t)this->entities[0].x + dx;
     int16_t next_y = (int16_t)this->entities[0].y + dy;
+    uint16_t cur_tile_x = FLOAT_TO_INT(this->entities[0].x);
+    uint16_t cur_tile_y = FLOAT_TO_INT(this->entities[0].y);
+    uint16_t next_tile_x = FLOAT_TO_INT(next_x);
+    uint16_t next_tile_y = FLOAT_TO_INT(next_y);
 
-    if (next_y >= 0 && next_y < (int16_t)(this->map.height << 8)) {
-        uint16_t tile_x = FLOAT_TO_INT(next_x);
-        uint16_t tile_y = FLOAT_TO_INT(next_y);
-
-        if (tile_y < this->map.height
-            && this->map.map[(tile_y << 5) + tile_x] != WALL)
+    if (next_y >= 0
+        && next_y < INT_TO_FLOAT(this->map.height)
+        && next_tile_y < this->map.height
+        && cur_tile_x < this->map.width
+        && map_level_1.map[(next_tile_y << 5) + cur_tile_x] != WALL) {
             this->entities[0].y = (uint16_t)next_y;
+            cur_tile_y = next_tile_y;
     }
-    if (next_x >= 0 && next_x < (int16_t)(this->map.width << 8)) {
-        uint16_t tile_x = FLOAT_TO_INT(next_x);
-        uint16_t tile_y = FLOAT_TO_INT(this->entities[0].y);
-
-        if (tile_x < this->map.width
-            && this->map.map[(tile_y << 5) + tile_x] != WALL)
+    if (next_x >= 0
+        && next_x < INT_TO_FLOAT(this->map.width)
+        && next_tile_x < this->map.width
+        && cur_tile_y < this->map.height
+        && map_level_1.map[(cur_tile_y << 5) + next_tile_x] != WALL) {
             this->entities[0].x = (uint16_t)next_x;
     }
     char buf[256] = {0};
