@@ -29,7 +29,7 @@
     BANKREF_EXTERN(_map_level_1_bank)
     extern const map_t map_level_1;
     extern const uint8_t raycaster_tiles[272];
-    extern uint8_t ray_lut[256];
+    extern uint16_t ray_lut[256];
 
     typedef struct ray_s {
         uint8_t distance;

@@ -6,7 +6,7 @@
 */
 #include "game_wolf3d.h"
 
-uint8_t ray_lut[256];
+uint16_t ray_lut[256];
 
 static const void init_graphics(void)
 {
@@ -44,14 +44,13 @@ static const void init_raycasting(game_t *this)
 
 const void update_wolf3d(game_t *this)
 {
-    handle_input(this);
-    draw_background(this);
-}
+    handle_input(this);}
 
 const void init_wolf3d(game_t *this)
 {
-    for (int i = 0; i < 128; i++)
-        ray_lut[i] = 128 / (i + 1);
+    ray_lut[0] = (128u << 8) / 128;
+    for (int i = 1; i < 256; i++)
+        ray_lut[i] = (128u << 8) / i;
     this->update = &update_wolf3d;
     this->map.size = map_level_1.size;
     this->map.width = map_level_1.width;
