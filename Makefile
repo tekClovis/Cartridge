@@ -24,6 +24,7 @@ WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 			 src/assets/wolf3d/map.c
 
 TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
+			 src/assets/tyrunt/gobou_sprites.c
 
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
@@ -83,6 +84,10 @@ fclean: clean
 play: $(EXEC)
 	@printf '$(COL_GREEN)[INFO]$(COL_RESET) Launching game in RetroArch...\n'
 	retroarch -L /usr/lib/x86_64-linux-gnu/libretro/gambatte_libretro.so $(EXEC)
+
+emulicious: $(EXEC)
+	@printf '$(COL_GREEN)[INFO]$(COL_RESET) Launching game in Emulicious...\n'
+	java -jar /home/thomas/Emulicious/Emulicious.jar $(EXEC)
 
 re: clean all
 
