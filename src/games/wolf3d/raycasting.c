@@ -152,8 +152,6 @@ static const uint8_t cast_ray(const game_t *game, uint8_t ray_id)
     return distance;
 }
 
-
-
 const void draw_background(game_t *game)
 {
     uint8_t ray_dist = 0;
