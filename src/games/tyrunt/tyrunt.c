@@ -114,7 +114,7 @@ void animate_player(game_t *this)
             base_tile = 8;
         }
     } else {
-        anim_step = (this->actual_frame / 6) % 3;
+        anim_step = (this->actual_frame / 10) % 3;
         base_tile = anim_step * 4;
     }
     set_sprite_tile(0, base_tile);
