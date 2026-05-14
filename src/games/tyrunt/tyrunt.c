@@ -8,6 +8,7 @@
 #include "game_tyrunt.h"
 #include <stdio.h>
 #include "../../assets/tyrunt/gobou_sprites.h"
+#include "../../assets/tyrunt/gobou_spritesheet.h"
 
 const unsigned char black_obstacle_tiles[] = {
     0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
@@ -44,7 +45,7 @@ void init_tyrunt(game_t *this)
         move_sprite(i, 0, 0);
     }
 
-    set_sprite_data(0, gobou_sprites_TILE_COUNT, gobou_sprites_tiles);
+    set_sprite_data(0, gobou_spritesheet_TILE_COUNT, gobou_spritesheet_tiles);
     
     set_sprite_tile(0, 0);
     set_sprite_tile(1, 2);
@@ -55,10 +56,10 @@ void init_tyrunt(game_t *this)
         set_bkg_tiles(i, 13, 1, 1, &tile_id);
     }
 
-    set_sprite_data(8, 2, black_obstacle_tiles);
+    set_sprite_data(12, 2, black_obstacle_tiles);
     this->entities[1].x = 200; 
     this->entities[1].y = 100;
-    set_sprite_tile(4, 8);
+    set_sprite_tile(4, 12);
 
     reset_win();
     SHOW_WIN;
@@ -71,7 +72,7 @@ void handle_input_tyrunt(game_t *this)
 
     if ((joypad() & J_A) && data->is_jumping == 0) {
         data->is_jumping = 1;
-        data->velocity_y = -6; 
+        data->velocity_y = -8; 
     }
 
     if ((joypad() & J_SELECT)) {
@@ -97,6 +98,26 @@ void update_player(game_t *this)
             data->is_jumping = 0;
         }
     }
+}
+
+void animate_player(game_t *this)
+{
+    tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
+    uint8_t base_tile = 0;
+
+    if (data->is_jumping) {
+        if (data->velocity_y < 0) {
+            base_tile = 4; // Frame de saut
+        } 
+        else {
+            base_tile = 8; // Frame de chute
+        }
+    } else {
+        base_tile = 0; 
+    }
+
+    set_sprite_tile(0, base_tile);
+    set_sprite_tile(1, base_tile + 2);
 }
 
 void update_obstacle(game_t *this)
@@ -132,6 +153,7 @@ void update_tyrunt(game_t *this)
 
     handle_input_tyrunt(this);
     update_player(this);
+    animate_player(this);
     update_obstacle(this);
     SCX_REG += data->speed;
 

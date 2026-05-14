@@ -24,7 +24,8 @@ WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 			 src/assets/wolf3d/map.c
 
 TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
-			 src/assets/tyrunt/gobou_sprites.c
+			 src/assets/tyrunt/gobou_sprites.c \
+			 src/assets/tyrunt/gobou_spritesheet.c \
 
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
