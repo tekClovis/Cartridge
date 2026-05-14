@@ -38,6 +38,8 @@ static const void init_raycasting(game_t *this)
         g_game_data.wolf3d.last_rays[i] = -1;
         g_game_data.wolf3d.rays[i] = -1;
         g_game_data.wolf3d.side[i] = -1;
+        g_game_data.wolf3d.x_tiles_touch[i] = -1;
+        g_game_data.wolf3d.y_tiles_touch[i] = -1;
     }
     this->personal_data = &g_game_data.wolf3d;
 }
@@ -59,4 +61,5 @@ const void init_wolf3d(game_t *this)
     init_ent(this);
     init_window(this);
     init_raycasting(this);
+    draw_background(this);
 }

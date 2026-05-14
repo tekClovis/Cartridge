@@ -23,6 +23,8 @@
         int8_t last_rays[20];
         int8_t rays[20];
         int8_t side[20];
+        int8_t x_tiles_touch[20];
+        int8_t y_tiles_touch[20];
     } w3d_plug_in_t;
 
     typedef struct tyrunt_plug_in_s {

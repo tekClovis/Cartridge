@@ -93,28 +93,37 @@ static uint8_t ray_diff(int8_t a, int8_t b)
 
 static const void display_col(w3d_plug_in_t *raycaster, int i)
 {
-    // uint8_t buffer[18];
+    uint8_t buffer[18];
     int8_t normalized_dist = raycaster->rays[i] > 13 ? 13 : raycaster->rays[i];
+    int8_t x_i = raycaster->x_tiles_touch[i];
+    int8_t y_i = raycaster->y_tiles_touch[i];
 
-    return set_bkg_tiles(i, 0, 1, 18, &wall_col_map[wall_shade[normalized_dist]]);
-    // if (ray_diff(raycaster->rays[i], raycaster->rays[i - 1]) > 5) {
-    //     for (uint8_t j = 0; j < 18; j++){
-    //         if (wall_col_map[wall_shade[normalized_dist] + j] < 2)
-    //             buffer[j] = wall_col_map[wall_shade[normalized_dist] + j];
-    //         else
-    //             buffer[j] = wall_col_map[wall_shade[normalized_dist] + j] + 10;
-    //     }
-    // } else if (i + 1 < 20 && ray_diff(raycaster->rays[i + 1], raycaster->rays[i]) > 5) {
-    //     for (uint8_t j = 0; j < 18; j++){
-    //         if (wall_col_map[wall_shade[normalized_dist] + j] < 2)
-    //             buffer[j] = wall_col_map[wall_shade[normalized_dist] + j];
-    //         else
-    //             buffer[j] = wall_col_map[wall_shade[normalized_dist] + j] + 5;
-    //     }
-    // } else {
-    //     return set_bkg_tiles(i, 0, 1, 18, &wall_col_map[wall_shade[normalized_dist]]);
-    // }
-    // set_bkg_tiles(i, 0, 1, 18, buffer);
+    for (uint8_t j = 0; j < 18; j++)
+        buffer[j] = wall_col_map[wall_shade[normalized_dist] + j];
+    if (i > 0 && raycaster->side[i] != raycaster->side[i -1]){
+        if ((x_i - 1 == raycaster->x_tiles_touch[i - 1]
+            && y_i - 1== raycaster->y_tiles_touch[i - 1])
+            || (x_i - 1 == raycaster->x_tiles_touch[i - 1]
+            && y_i + 1 == raycaster->y_tiles_touch[i - 1])
+            || (x_i + 1 == raycaster->x_tiles_touch[i - 1]
+            && y_i - 1 == raycaster->y_tiles_touch[i - 1])
+            || (x_i + 1 == raycaster->x_tiles_touch[i - 1]
+            && y_i + 1 == raycaster->y_tiles_touch[i - 1])
+            || (x_i == raycaster->x_tiles_touch[i - 1]
+            && y_i == raycaster->y_tiles_touch[i - 1])
+        ) {
+            for (uint8_t j = 0; j < 18; j++){
+                if (wall_col_map[wall_shade[normalized_dist] + j] < 2)
+                    buffer[j] = wall_col_map[wall_shade[normalized_dist] + j];
+                else
+                    buffer[j] = wall_col_map[wall_shade[normalized_dist] + j] + 10;
+            }
+        }
+    } else {
+        set_bkg_tiles(i, 0, 1, 18, &wall_col_map[wall_shade[normalized_dist]]);
+        return;
+    }
+    set_bkg_tiles(i, 0, 1, 18, buffer);
 }
 
 static const uint16_t cast_ray(const game_t *game, uint8_t ray_id)
@@ -130,12 +139,15 @@ static const uint16_t cast_ray(const game_t *game, uint8_t ray_id)
     int32_t delta_dist_y = (int32_t)ray_lut[abs_rdy];
     uint8_t tile_x = FLOAT_TO_INT(game->entities[0].x);
     uint8_t tile_y = FLOAT_TO_INT(game->entities[0].y);
+
     int32_t side_dist_x = (rdx == 0) ? 0x7FFFFFFF : (step_x > 0
     ? (((int32_t)(INT_TO_FLOAT(tile_x + 1) - game->entities[0].x) * delta_dist_x) >> 8)
     : (((int32_t)(game->entities[0].x - INT_TO_FLOAT(tile_x)) * delta_dist_x) >> 8));
+
     int32_t side_dist_y = (rdy == 0) ? 0x7FFFFFFF : (step_y > 0
     ? (((int32_t)(INT_TO_FLOAT(tile_y + 1) - game->entities[0].y) * delta_dist_y) >> 8)
     : (((int32_t)(game->entities[0].y - INT_TO_FLOAT(tile_y)) * delta_dist_y) >> 8));
+
     int8_t side = 0;
     uint8_t steps = 0;
     int32_t distance = 0;
@@ -163,6 +175,8 @@ static const uint16_t cast_ray(const game_t *game, uint8_t ray_id)
         distance = 0;
     distance >>= 6;
     ((w3d_plug_in_t *)game->personal_data)->side[ray_id] = side;
+    ((w3d_plug_in_t *)game->personal_data)->x_tiles_touch[ray_id] = tile_x;
+    ((w3d_plug_in_t *)game->personal_data)->y_tiles_touch[ray_id] = tile_y;
     return (uint16_t)distance;
 }
 
