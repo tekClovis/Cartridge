@@ -72,7 +72,7 @@ void handle_input_tyrunt(game_t *this)
 
     if ((joypad() & J_A) && data->is_jumping == 0) {
         data->is_jumping = 1;
-        data->velocity_y = -8; 
+        data->velocity_y = -5; 
     }
 
     if ((joypad() & J_SELECT)) {
@@ -88,7 +88,7 @@ void update_player(game_t *this)
     if (data->is_jumping) {
         this->entities[0].y += data->velocity_y;
         
-        if (this->actual_frame % 2 == 0) {
+        if (this->actual_frame % 4 == 0) {
             data->velocity_y += 1; 
         }
 
@@ -104,18 +104,19 @@ void animate_player(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
     uint8_t base_tile = 0;
+    uint8_t anim_step = 0;
 
     if (data->is_jumping) {
         if (data->velocity_y < 0) {
-            base_tile = 4; // Frame de saut
+            base_tile = 4;
         } 
         else {
-            base_tile = 8; // Frame de chute
+            base_tile = 8;
         }
     } else {
-        base_tile = 0; 
+        anim_step = (this->actual_frame / 6) % 3;
+        base_tile = anim_step * 4;
     }
-
     set_sprite_tile(0, base_tile);
     set_sprite_tile(1, base_tile + 2);
 }
