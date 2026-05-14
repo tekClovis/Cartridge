@@ -32,6 +32,16 @@ static const void init_ent(game_t *game)
     game->entities[0].personal_data = plug_in;
 }
 
+static const void init_raycasting(game_t *this)
+{
+     for (int i = 0; i < 20; i++){
+        g_game_data.wolf3d.last_rays[i] = -1;
+        g_game_data.wolf3d.rays[i] = -1;
+        g_game_data.wolf3d.side[i] = -1;
+    }
+    this->personal_data = &g_game_data.wolf3d;
+}
+
 const void update_wolf3d(game_t *this)
 {
     handle_input(this);
@@ -49,7 +59,5 @@ const void init_wolf3d(game_t *this)
     init_graphics();
     init_ent(this);
     init_window(this);
-    this->personal_data = &g_game_data.wolf3d;
-    for (int i = 0; i < 20; i++)
-        g_game_data.wolf3d.last_rays[i] = -1;
+    init_raycasting(this);
 }

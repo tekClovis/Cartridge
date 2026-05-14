@@ -21,6 +21,8 @@
 
     typedef struct w3d_plug_in_s {
         int8_t last_rays[20];
+        int8_t rays[20];
+        int8_t side[20];
     } w3d_plug_in_t;
 
     typedef struct tyrunt_plug_in_s {
