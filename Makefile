@@ -21,7 +21,11 @@ LCCFLAGS = -Wa-l -Wl-m -Wl-yt0x1B -Wl-yo$(ROM_BANKS) \
 WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 			 src/games/wolf3d/wolf3d.c \
 			 src/games/wolf3d/handle_input.c \
-			 src/assets/wolf3d/map.c
+			 src/games/wolf3d/entities/player.c \
+			 src/games/wolf3d/entities/ennemy.c \
+			 src/assets/wolf3d/map.c \
+			 src/assets/wolf3d/machop_tiles.c \
+
 
 TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
 
@@ -84,6 +88,6 @@ play: $(EXEC)
 	@printf '$(COL_GREEN)[INFO]$(COL_RESET) Launching game in RetroArch...\n'
 	retroarch -L /usr/lib/x86_64-linux-gnu/libretro/gambatte_libretro.so $(EXEC)
 
-re: clean all
+re: fclean all
 
 .PHONY: all clean play rom-usage

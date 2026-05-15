@@ -21,6 +21,10 @@
 
     typedef struct w3d_plug_in_s {
         int8_t last_rays[20];
+        int8_t rays[20];
+        int8_t side[20];
+        int8_t x_tiles_touch[20];
+        int8_t y_tiles_touch[20];
     } w3d_plug_in_t;
 
     typedef struct tyrunt_plug_in_s {
@@ -41,7 +45,9 @@
         entities_t entities[MAX_ENTITIES];
         window_t window[MAX_WINDOWS];
         map_t map;
-        uint8_t actual_frame; 
+        uint8_t actual_frame;
+        uint16_t frame_counter;
+        uint16_t score;
         const void (*init)(game_t *this);
         const void (*update)(game_t *this);
         void *personal_data;
@@ -65,8 +71,8 @@
     
     //utils
     const void init_game(game_t *game, game_id id);
-    const void printToMap(uint8_t x, uint8_t y, char string[256]);
-    const void printToWin(uint8_t x, uint8_t y, char string[256]);
+    const void printToMap(uint8_t x, uint8_t y, const char string[256]);
+    const void printToWin(uint8_t x, uint8_t y, const char string[256]);
     const void reset_win(void);
     const void reset_bkg(void);
     const int8_t point_in_rect(const uint8_t x, const uint8_t y,
