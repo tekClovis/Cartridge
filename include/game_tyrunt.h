@@ -9,11 +9,6 @@
     #define GAME_TYRUNT_H_
 
     #include "game.h"
-    typedef enum {
-        TYRUNT_IDLE,
-        TYRUNT_JUMPING,
-        TYRUNT_FALLING
-    } tyrunt_state_t;
 
     void init_tyrunt(game_t *this);
     void update_tyrunt(game_t *this);

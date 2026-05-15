@@ -10,18 +10,22 @@
 #include "../../assets/tyrunt/gobou_sprites.h"
 #include "../../assets/tyrunt/gobou_spritesheet.h"
 
-const unsigned char black_obstacle_tiles[] = {
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+// Sol texturé
+const unsigned char textured_ground_tiles[] = {
+    0xFF, 0xBD, 0xFF, 0xDB, 0xFF, 0xE7, 0xFF, 0xBD,
+    0xFF, 0xDB, 0xFF, 0xE7, 0xFF, 0xBD, 0xFF, 0xDB
 };
 
-const unsigned char black_ground_tiles[] = {
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF
+// Un nuage
+const unsigned char cloud_tiles[] = {
+    0x00,0x00, 0x00,0x00, 0x0E,0x0E, 0x1F,0x1F, 0x3F,0x3F, 0x7F,0x7F, 0xFF,0xFF, 0x00,0x00,
+    0x00,0x00, 0x30,0x30, 0x70,0x70, 0xF8,0xF8, 0xFC,0xFC, 0xFE,0xFE, 0xFF,0xFF, 0x00,0x00
+};
+
+// Rocher
+const unsigned char rock_tiles[] = {
+    0x00,0x00, 0x00,0x00, 0x00,0x00, 0x18,0x18, 0x3C,0x3C, 0x7E,0x66, 0xFF,0xDB, 0xFF,0xFF,
+    0xFF,0xC3, 0xFF,0xBD, 0xFF,0xFF, 0xFF,0x7E, 0xFF,0xFF, 0x7E,0x3C, 0x3C,0x18, 0x00,0x00
 };
 
 void init_tyrunt(game_t *this)
@@ -35,30 +39,40 @@ void init_tyrunt(game_t *this)
     data->score = 0;
     data->speed = 1;
 
-    this->entities[0].x = 24;
-    this->entities[0].y = 100; 
-
     SCX_REG = 0;
     SCY_REG = 0;
 
     for (uint8_t i = 0; i < 40; i++) {
         move_sprite(i, 0, 0);
+        set_sprite_prop(i, 0);
     }
 
+    // Gobou
     set_sprite_data(0, gobou_spritesheet_TILE_COUNT, gobou_spritesheet_tiles);
-    
     set_sprite_tile(0, 0);
     set_sprite_tile(1, 2);
+    this->entities[0].x = 24;
+    this->entities[0].y = 104; 
 
-    set_bkg_data(0, 2, black_ground_tiles);
+    // Sol
+    set_bkg_data(0, 1, textured_ground_tiles);
     for (uint8_t i = 0; i < 32; i++) {
         unsigned char tile_id = 0; 
         set_bkg_tiles(i, 13, 1, 1, &tile_id);
+        set_bkg_tiles(i, 14, 1, 1, &tile_id);
     }
 
-    set_sprite_data(12, 2, black_obstacle_tiles);
+    // Nuages
+    set_bkg_data(1, 2, cloud_tiles);
+    unsigned char cloud_map[2] = {1, 2};
+    set_bkg_tiles(3, 3, 2, 1, cloud_map);
+    set_bkg_tiles(14, 5, 2, 1, cloud_map);
+    set_bkg_tiles(24, 2, 2, 1, cloud_map);
+
+    // Rocher
+    set_sprite_data(12, 2, rock_tiles);
     this->entities[1].x = 200; 
-    this->entities[1].y = 100;
+    this->entities[1].y = 104;
     set_sprite_tile(4, 12);
 
     reset_win();
@@ -92,8 +106,8 @@ void update_player(game_t *this)
             data->velocity_y += 1; 
         }
 
-        if (this->entities[0].y >= 100) {
-            this->entities[0].y = 100;
+        if (this->entities[0].y >= 104) {
+            this->entities[0].y = 104;
             data->velocity_y = 0;
             data->is_jumping = 0;
         }
