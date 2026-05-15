@@ -11,7 +11,7 @@
 #include <gb/gb.h>
 
 
-void move_on_dir(game_t *this, const uint8_t angle)
+static const void move_on_dir(game_t *this, const uint8_t angle)
 {
     const int16_t cos_angle = COS(angle);
     const int16_t sin_angle = SIN(angle);
@@ -48,6 +48,16 @@ void move_on_dir(game_t *this, const uint8_t angle)
     // printToWin(0,1, buf);
 }
 
+
+static const void print_score_life(game_t *this){
+    char buffer[32] = {0};
+
+    sprintf(buffer, " SCORE %d%d\nHP %d%d",
+            (this->score / 10), (this->score % 0x0A),
+            (this->entities[0].life / 10), (this->entities[0].life % 0x0A));
+    printToWin(0, 0, buffer);
+}
+
 const void handle_input(game_t *this)
 {
     uint8_t *angle = &((w3d_ent_plug_in_t *)this->entities[0].personal_data)->angles[0];
@@ -73,6 +83,12 @@ const void handle_input(game_t *this)
         move_on_dir(this, (*angle + 64) & 127);
         this->actual_frame = 0;
         draw_background(this);
+        return;
+    }
+    if (input & J_A  && this->actual_frame > 9){
+        this->score += 1;
+        print_score_life(this);
+            this->actual_frame = 0;
         return;
     }
 }

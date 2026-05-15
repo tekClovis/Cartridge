@@ -21,7 +21,7 @@ static const void clear_sprite_tiles(void) {
     uint8_t i;
     for (i = 0; i < 40; i++) {
         set_sprite_tile(i, font_BLANK_TILE);
-}
+    }
 }
 static const void (* const init_game_funcs[GAME_ID_COUNT])(game_t *game) = {
     &init_start_screen,

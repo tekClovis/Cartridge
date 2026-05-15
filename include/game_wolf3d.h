@@ -19,6 +19,8 @@
     #define INT_TO_FLOAT(value) (value << 8)
     #define DECIMAL_TO_FLOAT(value) (value << 8)
     #define FLOAT_TO_INT(value) (value >> 8)
+    #define PLAYER_ENTITY_ID 0
+    #define POKEMON_ENTITY_ID 1
     #include "game.h"
     const void init_wolf3d(game_t *this);
     const void initialize_ennemies(game_t *game);

@@ -87,6 +87,6 @@ play: $(EXEC)
 	@printf '$(COL_GREEN)[INFO]$(COL_RESET) Launching game in RetroArch...\n'
 	retroarch -L /usr/lib/x86_64-linux-gnu/libretro/gambatte_libretro.so $(EXEC)
 
-re: clean all
+re: fclean all
 
 .PHONY: all clean play rom-usage

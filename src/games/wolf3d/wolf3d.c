@@ -6,6 +6,8 @@
 */
 #include "game_wolf3d.h"
 #include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 
 uint16_t ray_lut[256];
@@ -17,12 +19,16 @@ static const void init_graphics(void)
 
 static const void init_window(game_t *game)
 {
-    char buffer[256] = {0};
+    char buffer[32] = {0};
 
     game->window[0].x = 0;
     game->window[0].y = 0;
-    sprintf(buffer, "SCORE: %d HP: %d", (int)game->score, (int)game->entities[0].life);
+    game->score = 1;
+    sprintf(buffer, " SCORE %d%d\nHP %d%d",
+            (game->score / 10), (game->score % 0x0A),
+            (game->entities[0].life / 10), (game->entities[0].life % 0x0A));
     move_win(game->window[0].x, game->window[0].y);
+    printToWin(0, 0, buffer);
 
 }
 
