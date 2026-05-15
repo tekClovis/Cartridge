@@ -35,6 +35,7 @@ TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
 			 src/assets/tyrunt/gobou_spritesheet.c \
 			 src/assets/tyrunt/tree_sprite.c \
 			 src/assets/tyrunt/geodude_spritesheet.c \
+			 src/assets/tyrunt/tylton_spritesheet.c \
 
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
