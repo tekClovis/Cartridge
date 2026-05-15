@@ -91,7 +91,7 @@ const void handle_input(game_t *this)
         this->score += 1;
         print_score_life(this);
             this->actual_frame = 0;
-        anim_machop(this);
+        anim_weapon(this);
         return;
     }
 }
