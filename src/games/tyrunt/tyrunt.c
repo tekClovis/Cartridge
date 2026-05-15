@@ -7,7 +7,6 @@
 
 #include "game_tyrunt.h"
 #include <stdio.h>
-#include "../../assets/tyrunt/gobou_sprites.h"
 #include "../../assets/tyrunt/gobou_spritesheet.h"
 
 // Sol texturé
