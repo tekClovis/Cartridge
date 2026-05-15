@@ -179,6 +179,6 @@ void update_tyrunt(game_t *this)
     move_sprite(1, x + 8, y);
 
     char score_str[20];
-    sprintf(score_str, "SCORE %d", data->score);
+    sprintf(score_str, "SCORE %d    ", data->score);
     printToWin(2, 0, score_str);
 }
