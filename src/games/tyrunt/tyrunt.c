@@ -8,6 +8,7 @@
 #include "game_tyrunt.h"
 #include <stdio.h>
 #include "../../assets/tyrunt/gobou_spritesheet.h"
+#include "../../assets/tyrunt/tylton_spritesheet.h"
 #include "../../assets/tyrunt/tree_sprite.h"
 
 // Sol texturé
