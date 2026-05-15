@@ -66,10 +66,19 @@ void init_tyrunt(game_t *this)
 
     // Arbre
     set_sprite_data(12, tree_sprite_TILE_COUNT, tree_sprite_tiles);
-    this->entities[1].x = 200;
+    this->entities[1].x = 180;
     this->entities[1].y = 104;
     set_sprite_tile(4, 12);
     set_sprite_tile(5, 14);
+
+    // Tylton
+    set_sprite_data(16, tylton_spritesheet_TILE_COUNT, tylton_spritesheet_tiles);
+    set_sprite_tile(8, 16);
+    set_sprite_tile(9, 18);
+    this->entities[2].x = 250;
+    this->entities[2].y = 70;
+    move_sprite(8, this->entities[2].x, this->entities[2].y);
+    move_sprite(9, this->entities[2].x + 8, this->entities[2].y);
 
     reset_win();
     SHOW_WIN;
@@ -131,13 +140,15 @@ void animate_player(game_t *this)
     set_sprite_tile(1, base_tile + 2);
 }
 
-void update_obstacle(game_t *this)
+void update_tree(game_t *this)
 {
+
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
+
     this->entities[1].x -= data->speed;
 
-    if (this->entities[1].x == 0 || this->entities[1].x > 200) {
-        this->entities[1].x = 200;
+    if (this->entities[1].x == 0 || this->entities[1].x > 180) {
+        this->entities[1].x = 180;
         data->score += 1;
         
         if (data->score % 5 == 0) {
@@ -154,9 +165,41 @@ void update_obstacle(game_t *this)
         
         data->score = 0;
         data->speed = 1;
-        this->entities[1].x = 200;
+        this->entities[1].x = 180;
         SCX_REG -= data->speed; 
     }
+}
+
+void update_tylton(game_t *this)
+{
+    tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
+
+    this->entities[2].x -= data->speed;
+
+    if (this->entities[2].x == 0 || this->entities[2].x > 250) {
+        this->entities[2].x = 250;
+        data->score += 1;
+    }
+
+    move_sprite(8, this->entities[2].x, this->entities[2].y);
+    move_sprite(9, this->entities[2].x + 8, this->entities[2].y);
+
+    if (this->entities[0].x + 12 > this->entities[2].x &&
+        this->entities[0].x < this->entities[2].x + 12 &&
+        this->entities[0].y + 16 > this->entities[2].y &&
+        this->entities[0].y < this->entities[2].y + 12) {
+        
+        data->score = 0;
+        data->speed = 1;
+        this->entities[2].x = 250;
+        SCX_REG -= data->speed; 
+    }
+}
+
+void update_obstacle(game_t *this)
+{
+    update_tree(this);
+    update_tylton(this); 
 }
 
 void update_tyrunt(game_t *this)
