@@ -77,18 +77,21 @@ const void handle_input(game_t *this)
         move_on_dir(this, *angle);
         this->actual_frame = 0;
         draw_background(this);
+        anim_machop(this);
         return;
     }
     if (input & J_DOWN && this->actual_frame > 5){
         move_on_dir(this, (*angle + 64) & 127);
         this->actual_frame = 0;
         draw_background(this);
+        anim_machop(this);
         return;
     }
     if (input & J_A  && this->actual_frame > 9){
         this->score += 1;
         print_score_life(this);
             this->actual_frame = 0;
+        anim_machop(this);
         return;
     }
 }

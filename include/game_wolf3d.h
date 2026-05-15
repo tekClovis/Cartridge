@@ -32,6 +32,7 @@
     
     const void draw_background(game_t *game);
     const void handle_input(game_t *this);
+    const void anim_machop(game_t *this);
     
     BANKREF_EXTERN(_map_level_1_bank)
     extern const map_t map_level_1;

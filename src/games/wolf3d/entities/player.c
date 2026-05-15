@@ -7,6 +7,13 @@
 
 #include "game_wolf3d.h"
 
+const void anim_machop(game_t *this)
+{
+    this->entities[1].animation = !this->entities[1].animation;
+    set_sprite_tile(0, this->entities[1].sprite_tile[0 + (this->entities[1].animation << 1)]);
+    set_sprite_tile(1, this->entities[1].sprite_tile[1 + (this->entities[1].animation << 1)]);
+}
+
 const void init_player(game_t *game)
 {
     uint16_t i = 0;
@@ -18,13 +25,13 @@ const void init_player(game_t *game)
     game->entities[0].x = INT_TO_FLOAT(i % game->map.width);
     game->entities[0].y = INT_TO_FLOAT(i / game->map.width);
 
-    game->entities[1].sprite_nb = 4;
-    for (i = 0; i < 4; i++){
+    game->entities[1].sprite_nb = 2;
+    for (i = 0; i < 2; i++){
         game->entities[1].sprite_ids[i] = i;
+        game->entities[1].sprite_ids[i + 2] = i;
         game->entities[1].sprite_tile[i] = i * 2;
+        game->entities[1].sprite_tile[i + 2] = (i + 2) * 2;
         set_sprite_tile(i, i * 2);
+        move_sprite(i, 110 + 8 * i, 142);
     }
-
-    move_sprite(1, 148, 138);
-    move_sprite(2, 140, 138);
 }

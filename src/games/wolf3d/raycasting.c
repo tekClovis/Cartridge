@@ -177,8 +177,6 @@ const void draw_background(game_t *game)
 {
     uint16_t ray_dist = 0;
     w3d_plug_in_t *raycaster = (w3d_plug_in_t *)game->personal_data;
-    move_win(0, 120);
-    SHOW_WIN;
 
     for (uint8_t i = 0; i < 20; i++) {
         ray_dist = cast_ray(game, i);

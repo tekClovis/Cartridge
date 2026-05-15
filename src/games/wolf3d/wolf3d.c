@@ -23,12 +23,13 @@ static const void init_window(game_t *game)
     char buffer[32] = {0};
 
     game->window[0].x = 0;
-    game->window[0].y = 0;
+    game->window[0].y = 124;
     sprintf(buffer, " SCORE %d%d\nHP %d%d",
             (game->score / 10), (game->score % 0x0A),
             (game->entities[0].life / 10), (game->entities[0].life % 0x0A));
     move_win(game->window[0].x, game->window[0].y);
-    printToWin(2, 0, buffer);
+    SHOW_WIN;
+    printToWin(0, 0, buffer);
 
 }
 
