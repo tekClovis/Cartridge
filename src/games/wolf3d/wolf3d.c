@@ -15,6 +15,7 @@ uint16_t ray_lut[256];
 static const void init_graphics(void)
 {
     set_bkg_data(0, ray_TILE_COUNT, raycaster_tiles);
+    set_sprite_data(0, machop_tiles_TILE_COUNT, machop_tiles_tiles);
 }
 
 static const void init_window(game_t *game)

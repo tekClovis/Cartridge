@@ -8,6 +8,7 @@
 #ifndef GAME_WOLF3D_H_
     #define GAME_WOLF3D_H_
     #define ray_TILE_COUNT 17
+    #define machop_tiles_TILE_COUNT 8
     #define TRIG_TABLE_SIZE 128
     #define TRIG_CENTER 128
     #define SIN_RAW(angle) (SIN_TABLE[((uint8_t)(angle))])
@@ -22,6 +23,7 @@
     #define PLAYER_ENTITY_ID 0
     #define POKEMON_ENTITY_ID 1
     #include "game.h"
+
     const void init_wolf3d(game_t *this);
     const void initialize_ennemies(game_t *game);
     const void init_player(game_t *game);
@@ -35,6 +37,8 @@
     extern const map_t map_level_1;
     extern const uint8_t raycaster_tiles[272];
     extern uint16_t ray_lut[256];
+    extern const palette_color_t machop_tiles_palettes[4];
+    extern const uint8_t machop_tiles_tiles[128];
 
     typedef struct ray_s {
         uint8_t distance;
