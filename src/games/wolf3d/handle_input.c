@@ -50,7 +50,7 @@ void move_on_dir(game_t *this, const uint8_t angle)
 
 const void handle_input(game_t *this)
 {
-    uint8_t *angle = &((w3d_ent_plug_in_t *)this->entities[0].personal_data)->angle;
+    uint8_t *angle = &((w3d_ent_plug_in_t *)this->entities[0].personal_data)->angles[0];
     uint8_t input = joypad();
 
     if (input & J_LEFT){

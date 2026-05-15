@@ -26,7 +26,7 @@ const void reset_bkg(void)
     }
 }
 
-const void printToMap(uint8_t x, uint8_t y, char string[256])
+const void printToMap(uint8_t x, uint8_t y, const char string[256])
 {
     int pc = 0;
 
@@ -45,7 +45,7 @@ const void printToMap(uint8_t x, uint8_t y, char string[256])
     }
 }
 
-const void printToWin(uint8_t x, uint8_t y, char string[256])
+const void printToWin(uint8_t x, uint8_t y, const char string[256])
 {
     int pc = 0;
 

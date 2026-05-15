@@ -84,13 +84,6 @@ static const uint8_t wall_col_map[256] = {
     0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 4, 1, 1, 1, 1, 1, 1, 0,
 };
 
-static uint8_t ray_diff(int8_t a, int8_t b)
-{
-    int16_t diff = (int16_t)a - (int16_t)b;
-
-    return (uint8_t)(diff < 0 ? -diff : diff);
-}
-
 static const void display_col(w3d_plug_in_t *raycaster, int i)
 {
     uint8_t buffer[18];
@@ -128,7 +121,7 @@ static const void display_col(w3d_plug_in_t *raycaster, int i)
 
 static const uint16_t cast_ray(const game_t *game, uint8_t ray_id)
 {
-    const uint8_t angle = (uint8_t)(((w3d_ent_plug_in_t *)game->entities[0].personal_data)->angle + ray_id - 10) & 127;
+    const uint8_t angle =(((w3d_ent_plug_in_t *)game->entities[0].personal_data)->angles[0] + ray_id - 10) & 127;
     int16_t rdx = COS(angle);
     int16_t rdy = SIN(angle);
     int8_t step_x = (rdx > 0) ? 1 : (rdx < 0 ? -1 : 0);

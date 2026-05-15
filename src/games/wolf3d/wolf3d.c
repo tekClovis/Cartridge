@@ -5,6 +5,8 @@
 ** wolf3d
 */
 #include "game_wolf3d.h"
+#include <stdio.h>
+#include <string.h>
 
 uint16_t ray_lut[256];
 
@@ -15,21 +17,23 @@ static const void init_graphics(void)
 
 static const void init_window(game_t *game)
 {
+    char buffer[256] = {0};
+
     game->window[0].x = 0;
     game->window[0].y = 0;
+    sprintf(buffer, "SCORE: %d HP: %d", (int)game->score, (int)game->entities[0].life);
     move_win(game->window[0].x, game->window[0].y);
+
 }
 
 static const void init_ent(game_t *game)
 {
-    uint16_t i = 0;
-    w3d_ent_plug_in_t *plug_in = &g_ent_data.wolf3d;
 
-    plug_in->angle = 0;
-    for (; map_level_1.map[i] != SPAWN &&  i < game->map.size; i++);
-    game->entities[0].x = INT_TO_FLOAT(i % game->map.width);
-    game->entities[0].y = INT_TO_FLOAT(i / game->map.width);
-    game->entities[0].personal_data = plug_in;
+    for (int i = 0; i < MAX_ENTITIES; i++){
+        g_ent_data.wolf3d.angles[i] = 0;
+    }
+    init_player(game);
+    initialize_ennemies(game);
 }
 
 static const void init_raycasting(game_t *this)
@@ -42,11 +46,13 @@ static const void init_raycasting(game_t *this)
         g_game_data.wolf3d.y_tiles_touch[i] = -1;
     }
     this->personal_data = &g_game_data.wolf3d;
+    draw_background(this);
 }
 
 const void update_wolf3d(game_t *this)
 {
-    handle_input(this);}
+    handle_input(this);
+}
 
 const void init_wolf3d(game_t *this)
 {
@@ -61,5 +67,4 @@ const void init_wolf3d(game_t *this)
     init_ent(this);
     init_window(this);
     init_raycasting(this);
-    draw_background(this);
 }
