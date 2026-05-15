@@ -170,6 +170,20 @@ void update_tree(game_t *this)
     }
 }
 
+void animate_tylton(game_t *this)
+{
+
+    uint8_t anim_step = (this->actual_frame / 15) % 2;
+
+    if (anim_step == 0) {
+        set_sprite_tile(8, 16);
+        set_sprite_tile(9, 18);
+    } else {
+        set_sprite_tile(8, 20);
+        set_sprite_tile(9, 22);
+    }
+}
+
 void update_tylton(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -194,6 +208,7 @@ void update_tylton(game_t *this)
         this->entities[2].x = 250;
         SCX_REG -= data->speed; 
     }
+    animate_tylton(this);
 }
 
 void update_obstacle(game_t *this)
