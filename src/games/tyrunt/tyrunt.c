@@ -23,5 +23,6 @@ void update_tyrunt(game_t *this)
     animate_player(this);
     update_obstacle(this);
     update_score(this);
+    update_bonus(this);
     SCX_REG += data->speed;
 }

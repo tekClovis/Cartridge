@@ -9,6 +9,7 @@
 #include "../../assets/tyrunt/gobou_spritesheet.h"
 #include "../../assets/tyrunt/tylton_spritesheet.h"
 #include "../../assets/tyrunt/tree_sprite.h"
+#include "../../assets/tyrunt/pokeball_sprite.h"
 
 const unsigned char textured_ground_tiles[] = {
     0xFF, 0xBD, 0xFF, 0xDB, 0xFF, 0xE7, 0xFF, 0xBD,
@@ -21,6 +22,15 @@ const unsigned char cloud_tiles[] = {
     0x00, 0x00, 0x30, 0x30, 0x70, 0x70, 0xF8, 0xF8,
     0xFC, 0xFC, 0xFE, 0xFE, 0xFF, 0xFF, 0x00, 0x00
 };
+
+static void init_bonus(game_t *this)
+{
+    set_sprite_data(24, pokeball_sprite_TILE_COUNT, pokeball_sprite_tiles);
+    set_sprite_tile(10, 24);
+    this->entities[3].x = 250;
+    this->entities[3].y = 104;
+    move_sprite(10, 0, 0);
+}
 
 static void init_mudkip(game_t *this)
 {
@@ -105,4 +115,5 @@ void init_tyrunt(game_t *this)
     init_clouds();
     init_tree(this);
     init_tylton(this);
+    init_bonus(this);
 }
