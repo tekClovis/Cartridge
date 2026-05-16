@@ -17,6 +17,14 @@
     const void draw_background(game_t *game);
 
     void update_score(game_t *this);
+    void update_player(game_t *this);
+    void animate_player(game_t *this);
+    void update_tree(game_t *this);
+    void update_tylton(game_t *this);
+    void animate_tylton(game_t *this);
+    void manage_spawner(game_t *this);
+    uint8_t collide(unsigned int px, unsigned int py,
+        unsigned int ox, unsigned int oy);
     
 
 #endif /* !GAME_TYRUNT_H_ */

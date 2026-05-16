@@ -16,8 +16,10 @@ const unsigned char textured_ground_tiles[] = {
 };
 
 const unsigned char cloud_tiles[] = {
-    0x00,0x00, 0x00,0x00, 0x0E,0x0E, 0x1F,0x1F, 0x3F,0x3F, 0x7F,0x7F, 0xFF,0xFF, 0x00,0x00,
-    0x00,0x00, 0x30,0x30, 0x70,0x70, 0xF8,0xF8, 0xFC,0xFC, 0xFE,0xFE, 0xFF,0xFF, 0x00,0x00
+    0x00, 0x00, 0x00, 0x00, 0x0E, 0x0E, 0x1F, 0x1F,
+    0x3F, 0x3F, 0x7F, 0x7F, 0xFF, 0xFF, 0x00, 0x00,
+    0x00, 0x00, 0x30, 0x30, 0x70, 0x70, 0xF8, 0xF8,
+    0xFC, 0xFC, 0xFE, 0xFE, 0xFF, 0xFF, 0x00, 0x00
 };
 
 static void init_mudkip(game_t *this)
@@ -26,7 +28,7 @@ static void init_mudkip(game_t *this)
     set_sprite_tile(0, 0);
     set_sprite_tile(1, 2);
     this->entities[0].x = 24;
-    this->entities[0].y = 104; 
+    this->entities[0].y = 104;
 }
 
 static void init_ground(void)
@@ -34,7 +36,7 @@ static void init_ground(void)
     unsigned char tile_id = 0;
 
     set_bkg_data(0, 1, textured_ground_tiles);
-    for (uint8_t i = 0; i < 32; i++) { 
+    for (uint8_t i = 0; i < 32; i++) {
         set_bkg_tiles(i, 13, 1, 1, &tile_id);
         set_bkg_tiles(i, 14, 1, 1, &tile_id);
     }
@@ -42,7 +44,8 @@ static void init_ground(void)
 
 static void init_tylton(game_t *this)
 {
-    set_sprite_data(16, tylton_spritesheet_TILE_COUNT, tylton_spritesheet_tiles);
+    set_sprite_data(16, tylton_spritesheet_TILE_COUNT,
+        tylton_spritesheet_tiles);
     set_sprite_tile(8, 16);
     set_sprite_tile(9, 18);
     this->entities[2].x = 250;
