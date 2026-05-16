@@ -33,6 +33,7 @@
         uint8_t is_jumping;
         uint16_t score;
         uint8_t speed;
+        int16_t spawn_timer;
     } tyrunt_plug_in_t;
 
     typedef union {

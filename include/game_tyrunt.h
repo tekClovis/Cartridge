@@ -16,6 +16,8 @@
 
     
     const void draw_background(game_t *game);
+
+    void update_score(game_t *this);
     
 
 #endif /* !GAME_TYRUNT_H_ */
