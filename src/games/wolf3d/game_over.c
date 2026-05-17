@@ -27,18 +27,6 @@ const void update_game_over(game_t *this)
     }
 }
 
-static const void save_score(game_t *this)
-{
-    uint8_t game_id = 0;
-
-    SWITCH_RAM(0);
-    ENABLE_RAM;
-    if (this->score > high_scores[WOLF_3D - 2]){
-        high_scores[WOLF_3D - 2] = this->score;
-    }   
-    DISABLE_RAM;
-}
-
 static const void display_game_over(game_t *this, uint8_t victory)
 {
     char buffer[256] = {0};
@@ -65,7 +53,7 @@ const void set_game_over(game_t *this, uint8_t victory)
 
     fade_out();
     reset_bkg();
-    save_score(this);
+    set_high_score(WOLF_3D, this->score);
     display_game_over(this, victory);
     HIDE_WIN;
     clear_sprite_tiles();
