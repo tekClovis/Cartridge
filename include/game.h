@@ -11,6 +11,7 @@
     #include "window.h"
     #include "map.h"
     #include "font.h"
+    #include "save.h"
     #include <gb/gb.h>
     #define MAX_ENTITIES 16
     #define MAX_WINDOWS 2

@@ -14,15 +14,17 @@ ROM_BANKS = 16
 # MBC5 + RAM + BATTERY: -Wl-yt0x1B
 # ROM Size 256KB: -Wl-yo16 (16 banks)
 LCCFLAGS = -Wa-l -Wl-m -Wl-yt0x1B -Wl-yo$(ROM_BANKS) \
-	-Wf--opt-code-speed -Wf--opt-code-size \
+	-Wf--opt-code-speed -Wf--opt-code-size -Wl-ya1 -Wm-yoA \
 	-Wf--max-allocs-per-node5000 \
-	-Iinclude
+	-Iinclude\
+	-Isrc/save
 
 WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 			 src/games/wolf3d/wolf3d.c \
 			 src/games/wolf3d/handle_input.c \
 			 src/games/wolf3d/entities/player.c \
 			 src/games/wolf3d/entities/ennemy.c \
+			 src/games/wolf3d/game_over.c \
 			 src/games/wolf3d/utils.c \
 			 src/assets/wolf3d/map.c \
 			 src/assets/wolf3d/machop_tiles.c \
@@ -74,7 +76,8 @@ SYM = $(OBJ:.o=.sym)
 all: $(EXEC)
 
 $(EXEC): $(OBJ)
-	$(LCC) $(LCCFLAGS) -o $@ $(OBJ)
+	$(LCC) $(LCCFLAGS) -Wf-ba0 -c -o src/save/save.o src/save/save.c
+	$(LCC) $(LCCFLAGS) -o $@ $(OBJ) src/save/save.o
 	@$(MAKE) --no-print-directory rom-usage
 	@printf '$(COL_GREEN)[INFO]$(COL_RESET) Build successful: $(COL_BOLD)%s$(COL_RESET)\n' "$@"
 

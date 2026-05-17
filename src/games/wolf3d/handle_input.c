@@ -10,44 +10,6 @@
 #include <string.h>
 #include <gb/gb.h>
 
-const void update_game_over(game_t *this)
-{
-    if (joypad() & J_START){
-        init_game(this, WOLF_3D);
-        return;
-    }
-    if (joypad() & J_SELECT){
-        init_game(this, MENU);
-        return;
-    }
-    if (this->actual_frame > 10){
-        this->actual_frame = 0;
-        blink_bg();
-    }
-}
-
-static const void set_game_over(game_t *this, uint8_t victory)
-{
-    char buffer[256] = {0};
-
-    fade_out();
-    reset_bkg();
-    sprintf(buffer, "%s", victory ? "VICTORY" : "DEFEAT");
-    printToMap(7, 2, buffer);
-    sprintf(buffer, "GAME OVER");
-    printToMap(6, 6, buffer);
-    sprintf(&buffer[0], "SCORE          %d%d%d",
-        (this->score / 100), ((this->score % 100) / 10), (this->score % 10));
-    printToMap(1, 10, buffer);
-    sprintf(buffer, "<=> RESTART");
-    printToMap(5, 16, buffer);
-    clear_sprite_tiles();
-    HIDE_WIN;
-    fade_in();
-    this->update = &update_game_over;
-    this->game_over = 1;
-}
-
 static const uint8_t move_on_dir(game_t *this, const uint8_t angle)
 {
     const int16_t cos_angle = COS(angle);
@@ -131,6 +93,10 @@ static const uint8_t handle_move(game_t *this, uint8_t angle, uint8_t input)
 
 static const uint8_t handle_action(game_t *this, uint8_t input)
 {
+    if (input & J_SELECT) {
+        init_game(this, MENU);
+        return 1;
+    }
     if ((input & J_A) && this->actual_frame > 9) {
         this->score += 1;
         print_score_life(this);
