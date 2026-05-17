@@ -17,7 +17,7 @@ active_game_data_t g_game_data;
 active_ent_data_t g_ent_data;
 
 
-static const void clear_sprite_tiles(void) {
+const void clear_sprite_tiles(void) {
     uint8_t i;
     HIDE_SPRITES;
     for (i = 0; i < 40; i++) {

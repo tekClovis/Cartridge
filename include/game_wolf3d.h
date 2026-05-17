@@ -9,6 +9,7 @@
     #define GAME_WOLF3D_H_
     #define ray_TILE_COUNT 17
     #define machop_tiles_TILE_COUNT 8
+    #define gun_tileset_TILE_COUNT 8
     #define TRIG_TABLE_SIZE 128
     #define TRIG_CENTER 128
     #define SIN_RAW(angle) (SIN_TABLE[((uint8_t)(angle))])
@@ -33,13 +34,17 @@
     const void draw_background(game_t *game);
     const void handle_input(game_t *this);
     const void anim_machop(game_t *this);
-    
-    BANKREF_EXTERN(_map_level_1_bank)
+    const void anim_weapon(game_t *this);
+    const void print_score_life(game_t *this);
+
     extern const map_t map_level_1;
     extern const uint8_t raycaster_tiles[272];
     extern uint16_t ray_lut[256];
     extern const palette_color_t machop_tiles_palettes[4];
     extern const uint8_t machop_tiles_tiles[128];
+    extern const metasprite_t* const gun_tileset_metasprites[1];
+    extern const palette_color_t gun_tileset_palettes[4];
+    extern const uint8_t gun_tileset_tiles[160];
 
     typedef struct ray_s {
         uint8_t distance;

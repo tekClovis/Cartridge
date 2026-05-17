@@ -16,20 +16,20 @@ static const void init_graphics(void)
 {
     set_bkg_data(0, ray_TILE_COUNT, raycaster_tiles);
     set_sprite_data(0, machop_tiles_TILE_COUNT, machop_tiles_tiles);
+    set_sprite_data(machop_tiles_TILE_COUNT, gun_tileset_TILE_COUNT, gun_tileset_tiles);
 }
 
 static const void init_window(game_t *game)
 {
     char buffer[32] = {0};
 
-    game->window[0].x = 0;
-    game->window[0].y = 124;
-    sprintf(buffer, " SCORE %d%d\nHP %d%d",
-            (game->score / 10), (game->score % 0x0A),
-            (game->entities[0].life / 10), (game->entities[0].life % 0x0A));
-    move_win(game->window[0].x, game->window[0].y);
+    move_bkg(0, 0);
+    game->window[1].x = 0;
+    game->window[1].y = 124;
+    print_score_life(game);
+    move_win(game->window[1].x, game->window[1].y);
     SHOW_WIN;
-    printToWin(0, 0, buffer);
+    printToWin(1, 0, buffer);
 
 }
 
@@ -70,6 +70,8 @@ const void init_wolf3d(game_t *this)
     this->map.size = map_level_1.size;
     this->map.width = map_level_1.width;
     this->map.height = map_level_1.height;
+    this->score = 500;
+    this->game_over = 0;
     init_graphics();
     init_ent(this);
     init_window(this);

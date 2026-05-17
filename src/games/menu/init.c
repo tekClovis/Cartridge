@@ -50,6 +50,7 @@ static const void init_entities(game_t *this)
         this->entities[0].sprite_tile[i] = i * 2;
         set_sprite_tile(i, i * 2);
     }
+    this->game_over = 0;
     draw_ent16(this->entities[0]);
 }
 
@@ -58,6 +59,8 @@ static const void init_graphiques(void)
     set_sprite_data(0, metamorph_TILE_COUNT, metamorph_tiles); 
     set_bkg_data(0, menu_tilesets_TILE_COUNT, menu_tilesets_tiles);
     set_bkg_submap(0, 0, 32, 32, map_menu, map_menu_width);
+    move_win(0, 144);
+    SHOW_WIN;
 }
 
 const void init_menu(game_t *this)

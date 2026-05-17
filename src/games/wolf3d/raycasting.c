@@ -84,17 +84,8 @@ static const uint8_t wall_col_map[256] = {
     0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 4, 1, 1, 1, 1, 1, 1, 0,
 };
 
-static const void display_col(w3d_plug_in_t *raycaster, int i)
-{
-    uint8_t buffer[18];
-    int8_t normalized_dist = raycaster->rays[i] > 13 ? 13 : raycaster->rays[i];
-    int8_t x_i = raycaster->x_tiles_touch[i];
-    int8_t y_i = raycaster->y_tiles_touch[i];
-
-    for (uint8_t j = 0; j < 18; j++)
-        buffer[j] = wall_col_map[wall_shade[normalized_dist] + j];
-    if (i > 0 && raycaster->side[i] != raycaster->side[i -1]){
-        if ((x_i - 1 == raycaster->x_tiles_touch[i - 1]
+static const uint8_t detect_corner(w3d_plug_in_t *raycaster, int i, int16_t x_i, int16_t y_i){
+    return (x_i - 1 == raycaster->x_tiles_touch[i - 1]
             && y_i - 1== raycaster->y_tiles_touch[i - 1])
             || (x_i - 1 == raycaster->x_tiles_touch[i - 1]
             && y_i + 1 == raycaster->y_tiles_touch[i - 1])
@@ -103,18 +94,44 @@ static const void display_col(w3d_plug_in_t *raycaster, int i)
             || (x_i + 1 == raycaster->x_tiles_touch[i - 1]
             && y_i + 1 == raycaster->y_tiles_touch[i - 1])
             || (x_i == raycaster->x_tiles_touch[i - 1]
-            && y_i == raycaster->y_tiles_touch[i - 1])
-        ) {
-            for (uint8_t j = 0; j < 18; j++){
-                if (wall_col_map[wall_shade[normalized_dist] + j] < 2)
-                    buffer[j] = wall_col_map[wall_shade[normalized_dist] + j];
-                else
-                    buffer[j] = wall_col_map[wall_shade[normalized_dist] + j] + 10;
-            }
-        }
-    } else {
-        set_bkg_tiles(i, 0, 1, 18, &wall_col_map[wall_shade[normalized_dist]]);
+            && y_i == raycaster->y_tiles_touch[i - 1]);
+}
+
+static const void display_exit_col(int i, uint8_t normalized_dist)
+{
+    uint8_t buffer[18];
+
+    for (uint8_t j = 0; j < 18; j++){
+        if (wall_col_map[wall_shade[normalized_dist] + j] != 1
+             && wall_col_map[wall_shade[normalized_dist] + j] != 0)
+            buffer[j] = 0;
+        else
+            buffer[j] = 2;
+    }
+    set_bkg_tiles(i, 0, 1, 18, buffer);
+}
+
+static const void display_col(w3d_plug_in_t *raycaster, int i)
+{
+    uint8_t buffer[18];
+    int8_t normalized_dist = raycaster->rays[i] > 13 ? 13 : raycaster->rays[i];
+    int16_t x_i = raycaster->x_tiles_touch[i];
+    int16_t y_i = raycaster->y_tiles_touch[i];
+
+    if (map_level_1.map[(y_i << 5) + x_i] == EXIT){
+        display_exit_col(i, normalized_dist);
         return;
+    }
+    for (uint8_t j = 0; j < 18; j++)
+        buffer[j] = wall_col_map[wall_shade[normalized_dist] + j];
+    if (i > 0 && raycaster->side[i] != raycaster->side[i -1]
+        && detect_corner(raycaster, i, x_i, y_i)){
+        for (uint8_t j = 0; j < 18; j++){
+            if (wall_col_map[wall_shade[normalized_dist] + j] < 2)
+                buffer[j] = wall_col_map[wall_shade[normalized_dist] + j];
+            else
+                buffer[j] = wall_col_map[wall_shade[normalized_dist] + j] + 10;
+        }
     }
     set_bkg_tiles(i, 0, 1, 18, buffer);
 }
@@ -157,7 +174,7 @@ static const uint16_t cast_ray(const game_t *game, uint8_t ray_id)
         }
         if (tile_x >= game->map.width || tile_y >= game->map.height)
             break;
-        if (map_level_1.map[(tile_y << 5) + (tile_x)] == WALL)
+        if (map_level_1.map[(tile_y << 5) + (tile_x)]& (WALL | EXIT))
             break;
     }
     if (side == 0)
