@@ -23,6 +23,7 @@ WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 			 src/games/wolf3d/handle_input.c \
 			 src/games/wolf3d/entities/player.c \
 			 src/games/wolf3d/entities/ennemy.c \
+			 src/games/wolf3d/utils.c \
 			 src/assets/wolf3d/map.c \
 			 src/assets/wolf3d/machop_tiles.c \
 			 src/assets/wolf3d/gun_tileset.c

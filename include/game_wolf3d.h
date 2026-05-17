@@ -35,6 +35,7 @@
     const void handle_input(game_t *this);
     const void anim_machop(game_t *this);
     const void anim_weapon(game_t *this);
+    const void print_score_life(game_t *this);
 
     extern const map_t map_level_1;
     extern const uint8_t raycaster_tiles[272];

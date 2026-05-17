@@ -48,6 +48,7 @@
         uint8_t actual_frame;
         uint16_t frame_counter;
         uint16_t score;
+        uint8_t game_over;
         const void (*init)(game_t *this);
         const void (*update)(game_t *this);
         void *personal_data;
@@ -75,6 +76,7 @@
     const void printToWin(uint8_t x, uint8_t y, const char string[256]);
     const void reset_win(void);
     const void reset_bkg(void);
+    const void clear_sprite_tiles(void);
     const int8_t point_in_rect(const uint8_t x, const uint8_t y,
         const rectangle_t *rect);
     //anims
