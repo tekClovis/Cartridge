@@ -7,13 +7,34 @@
 
 #include "game_tyrunt.h"
 
+void give_bonus(game_t *this)
+{
+    tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
+    uint8_t random_bonus = DIV_REG % 4;
+
+    switch (random_bonus) {
+        case 0:
+            data->score += 5;
+            break;
+        case 1:
+            data->invincible_timer = 300;
+            break;
+        case 2:
+            data->double_jumps_left = 1;
+            break;
+        case 3:
+            data->slow_timer = 300;
+            break;
+    }
+}
+
 void check_bonus_collide(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
 
     if (collide(this->entities[0].x, this->entities[0].y,
             this->entities[3].x, this->entities[3].y)) {
-        data->score += 5;
+        give_bonus(this);
         this->entities[3].x = 250;
         move_sprite(10, 0, 0);
     }

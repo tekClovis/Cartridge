@@ -11,6 +11,8 @@ void check_tree_collide(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
 
+    if (data->invincible_timer > 0)
+        return;
     if (collide(this->entities[0].x, this->entities[0].y,
             this->entities[1].x, this->entities[1].y)) {
         data->score = 0;
