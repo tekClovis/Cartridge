@@ -53,7 +53,7 @@ const void set_game_over(game_t *this, uint8_t victory)
 
     fade_out();
     reset_bkg();
-    save_score(this);
+    set_high_score(WOLF_3D, this->score);
     display_game_over(this, victory);
     HIDE_WIN;
     clear_sprite_tiles();
