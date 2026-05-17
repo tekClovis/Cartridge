@@ -95,6 +95,7 @@ static void init_game_data(game_t *this)
     data->invincible_timer = 0;
     data->double_jumps_left = 1;
     data->slow_timer = 0;
+    data->last_displayed_bonus = 9;
     SCX_REG = 0;
     SCY_REG = 0;
     for (uint8_t i = 0; i < 40; i++) {
