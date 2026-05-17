@@ -40,10 +40,23 @@
         uint8_t last_displayed_bonus;
     } tyrunt_plug_in_t;
 
+    typedef struct snake_plug_in_s {
+        uint16_t score;
+        uint8_t speed;
+        uint8_t direction;
+        uint8_t snake_length;
+        uint8_t move_delay;
+        uint8_t food_x;
+        uint8_t food_y;
+        uint8_t body_x[30];
+        uint8_t body_y[30];
+    } snake_plug_in_t;
+
     typedef union {
         uint8_t data[MAX_PLUG_IN_BYTES];
         w3d_plug_in_t wolf3d;
         tyrunt_plug_in_t tyrunt;
+        snake_plug_in_t snake;
     } active_game_data_t;
 
     extern active_game_data_t g_game_data;

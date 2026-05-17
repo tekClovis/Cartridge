@@ -10,6 +10,16 @@
 
     #include "game.h"
 
+    #define SNAKE_MAX_LENGTH 30
+    #define SNAKE_FOOD_SPRITE_ID 30
+    #define SNAKE_GRID_WIDTH 20
+    #define SNAKE_GRID_HEIGHT 18
+
+    #define SNAKE_UP 0
+    #define SNAKE_RIGHT 1
+    #define SNAKE_DOWN 2
+    #define SNAKE_LEFT 3
+
 void init_snake(game_t *this);
 void update_snake(game_t *this);
 
