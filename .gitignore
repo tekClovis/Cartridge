@@ -8,5 +8,4 @@ tilemap_studio
 *.lst
 *.ihx
 .venv
-*.md
 tilemap-studio/*
