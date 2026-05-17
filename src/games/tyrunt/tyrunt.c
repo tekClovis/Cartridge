@@ -26,6 +26,7 @@ void trigger_game_over(game_t *this)
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
     char score_str[20];
 
+    set_high_score(TYRUNT, data->score);
     this->update = &update_gameover;
     HIDE_SPRITES;
     reset_win();
