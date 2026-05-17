@@ -37,7 +37,6 @@
     const void anim_weapon(game_t *this);
     const void print_score_life(game_t *this);
     const void set_game_over(game_t *this, uint8_t victory);
-    const void set_high_score(game_id id, uint16_t score);
 
     extern const map_t map_level_1;
     extern const uint8_t raycaster_tiles[272];

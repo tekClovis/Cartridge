@@ -84,7 +84,9 @@
     const void reset_bkg(void);
     const void clear_sprite_tiles(void);
     const int8_t point_in_rect(const uint8_t x, const uint8_t y,
-        const rectangle_t *rect);
+    const rectangle_t *rect);
+    const void set_high_score(game_id id, uint16_t score);
+    
     //anims
     const void blink_sprite(void);
     const void blink_bg(void);
