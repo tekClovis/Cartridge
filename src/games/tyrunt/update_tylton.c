@@ -15,7 +15,6 @@ void check_tylton_collide(game_t *this)
         return;
     if (collide(this->entities[0].x, this->entities[0].y,
             this->entities[2].x, this->entities[2].y)) {
-        data->score = 0;
         data->speed = 1;
         this->entities[2].x = 250;
         SCX_REG -= data->speed;
