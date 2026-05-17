@@ -29,6 +29,9 @@
         uint16_t score;
         uint8_t speed;
         int16_t spawn_timer;
+        uint16_t invincible_timer;
+        uint8_t double_jumps_left;
+        uint16_t slow_timer;
     } tyrunt_plug_in_t;
 
     typedef union {
