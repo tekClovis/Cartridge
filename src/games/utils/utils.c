@@ -56,10 +56,12 @@ const int8_t point_in_rect(const uint8_t x, const uint8_t y,
 
 const void set_high_score(game_id id, uint16_t score)
 {
+    if (id < WOLF_3D || id > TYRUNT)
+        return;
     SWITCH_RAM(0);
     ENABLE_RAM;
-    if (score > high_scores[WOLF_3D - 2]){
-        high_scores[WOLF_3D - 2] = score;
-    }   
+    if (score > high_scores[id - 2]){
+        high_scores[id - 2] = score;
+    }
     DISABLE_RAM;
 }
