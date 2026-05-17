@@ -108,6 +108,10 @@ play: $(EXEC)
 	@printf '$(COL_GREEN)[INFO]$(COL_RESET) Launching game in RetroArch...\n'
 	retroarch -L /usr/lib/x86_64-linux-gnu/libretro/gambatte_libretro.so $(EXEC)
 
-re: fclean all
+emulicious: $(EXEC)
+	@printf '$(COL_GREEN)[INFO]$(COL_RESET) Launching game in Emulicious...\n'
+	java -jar /home/thomas/Emulicious/Emulicious.jar $(EXEC)
+
+re: clean all
 
 .PHONY: all clean play rom-usage

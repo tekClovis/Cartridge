@@ -28,7 +28,6 @@
         unsigned int ox, unsigned int oy);
     void update_bonus(game_t *this);
     void trigger_game_over(game_t *this);
-    const void set_high_score(game_id id, uint16_t score);
 
     
 
