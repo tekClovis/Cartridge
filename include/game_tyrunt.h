@@ -27,6 +27,8 @@
     uint8_t collide(unsigned int px, unsigned int py,
         unsigned int ox, unsigned int oy);
     void update_bonus(game_t *this);
+    void trigger_game_over(game_t *this);
+
     
 
 #endif /* !GAME_TYRUNT_H_ */

@@ -21,6 +21,7 @@ void check_tylton_collide(game_t *this)
         SCX_REG -= data->speed;
         move_sprite(8, 0, 0);
         move_sprite(9, 0, 0);
+        trigger_game_over(this);
     }
 }
 
