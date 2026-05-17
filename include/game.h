@@ -32,6 +32,7 @@
         uint16_t invincible_timer;
         uint8_t double_jumps_left;
         uint16_t slow_timer;
+        uint8_t last_displayed_bonus;
     } tyrunt_plug_in_t;
 
     typedef union {
