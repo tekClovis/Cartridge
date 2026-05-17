@@ -27,8 +27,6 @@ void check_tree_score(game_t *this)
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
 
     if (this->entities[1].x == 0 || this->entities[1].x > 250) {
-        if (data->score % 10 == 0)
-            data->speed += 1;
         this->entities[1].x = 250;
         data->score += 1;
         move_sprite(4, 0, 0);
