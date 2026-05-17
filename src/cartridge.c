@@ -9,16 +9,6 @@
 #include <gb/sgb.h>
 #include <string.h>
 
-static const void check_save(void)
-{
-    ENABLE_RAM;
-    for (uint8_t i = 0; i < 3; i++) {
-        if (high_scores[i] == 12345)
-            high_scores[i] = 0;
-    }
-    DISABLE_RAM;
-}
-
 static const void init(game_t *game)
 {
     HIDE_BKG;
@@ -29,7 +19,6 @@ static const void init(game_t *game)
     cpu_fast();
     memset(game, 0, sizeof(*game));
     set_bkg_data(209, font_TILE_COUNT, font_tiles);
-    check_save();
     init_game(game, MENU);
     SHOW_BKG;
     SHOW_SPRITES;

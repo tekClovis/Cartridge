@@ -42,8 +42,11 @@ static const void show_game_stat(game_t *this)
         move_win(0, this->window[1].y);
     }
     if (game_id && this->window[1].y == 144){
+        SWITCH_RAM(0);
+        ENABLE_RAM;
         sprintf(buffer_score, "HIGH SCORE     %d%d%d",
             high_scores[game_id - 2] / 100, (high_scores[game_id - 2] % 100) / 10,  high_scores[game_id - 2] % 10);
+        DISABLE_RAM;
         printToWin(1, 0, (char *)game_names[game_id]);
         printToWin(1, 2, buffer_score);
     }

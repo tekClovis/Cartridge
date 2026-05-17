@@ -7,4 +7,6 @@
 
 #pragma once
 
+#include <gbdk/platform.h>
+
 extern uint16_t high_scores[3];

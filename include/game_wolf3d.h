@@ -36,6 +36,7 @@
     const void anim_machop(game_t *this);
     const void anim_weapon(game_t *this);
     const void print_score_life(game_t *this);
+    const void set_game_over(game_t *this, uint8_t victory);
 
     extern const map_t map_level_1;
     extern const uint8_t raycaster_tiles[272];

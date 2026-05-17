@@ -4,7 +4,8 @@
 ** File description:
 ** save
 */
+#include <stdlib.h>
+#include <stdint.h>
+#include <gbdk/platform.h>
 
-#include <gb/gb.h>
-
-uint16_t high_scores[3];
+uint16_t AT(0xA000) high_scores[3];
