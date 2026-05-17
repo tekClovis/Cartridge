@@ -23,10 +23,11 @@ static const void init_window(game_t *game)
 {
     char buffer[32] = {0};
 
-    game->window[0].x = 0;
-    game->window[0].y = 124;
+    move_bkg(0, 0);
+    game->window[1].x = 0;
+    game->window[1].y = 124;
     print_score_life(game);
-    move_win(game->window[0].x, game->window[0].y);
+    move_win(game->window[1].x, game->window[1].y);
     SHOW_WIN;
     printToWin(1, 0, buffer);
 

@@ -51,6 +51,8 @@ static const void show_game_stat(game_t *this)
 const void update_menu(game_t *this)
 {
     handleInput(this);
+    if (this->game_over)
+        return;
     if (this->actual_frame >> 4){
         this->entities[0].animation = !this->entities[0].animation;
         this->entities[0].sprite_tile[0] += this->entities[0].animation ? 4 : -4;
