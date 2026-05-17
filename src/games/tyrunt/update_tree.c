@@ -21,6 +21,7 @@ void check_tree_collide(game_t *this)
         SCX_REG -= data->speed;
         move_sprite(4, 0, 0);
         move_sprite(5, 0, 0);
+        trigger_game_over(this);
     }
 }
 

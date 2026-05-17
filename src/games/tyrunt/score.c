@@ -11,7 +11,7 @@
 static void update_difficulty(tyrunt_plug_in_t *data)
 {
     if (data->slow_timer > 0) {
-        data->speed = 1; 
+        data->speed = 1;
         return;
     }
     if (data->score < 15)

@@ -93,7 +93,7 @@ static void init_game_data(game_t *this)
     data->speed = 1;
     data->spawn_timer = 0;
     data->invincible_timer = 0;
-    data->double_jumps_left = 1;
+    data->double_jumps_left = 0;
     data->slow_timer = 0;
     data->last_displayed_bonus = 9;
     SCX_REG = 0;
@@ -104,6 +104,7 @@ static void init_game_data(game_t *this)
     }
     reset_win();
     SHOW_WIN;
+    SHOW_SPRITES;
     move_win(7, 120);
 }
 
