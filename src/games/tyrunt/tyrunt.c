@@ -31,7 +31,7 @@ void trigger_game_over(game_t *this)
     reset_win();
     move_win(7, 0);
     printToWin(5, 2, "GAME OVER!");
-    sprintf(score_str, "SCORE: %d", data->score);
+    sprintf(score_str, "SCORE %d", data->score);
     printToWin(6, 4, score_str);
     printToWin(2, 7, "PRESS A TO REPLAY");
     printToWin(0, 9, "PRESS SELECT TO MENU");
