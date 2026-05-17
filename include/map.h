@@ -13,6 +13,7 @@
         VOID,
         WALL,
         SPAWN,
+        EXIT,
         TILE_EFFECT_COUNT
     } tile_id;
     typedef struct map_s {

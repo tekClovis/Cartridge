@@ -11,7 +11,7 @@
     #include <stdint.h>
 
     typedef struct w3d_ent_plug_in_s {
-        uint8_t angle;
+        uint8_t angles[16];
     } w3d_ent_plug_in_t;
 
     typedef union {

@@ -9,6 +9,17 @@
 #include <gb/sgb.h>
 #include <string.h>
 
+static const void check_save(void)
+{
+    SWITCH_RAM(0);
+    ENABLE_RAM;
+    for (uint8_t i = 0; i < 3; i++) {
+        if (high_scores[i] > 999)
+            high_scores[i] = 0;
+    }
+    DISABLE_RAM;
+}
+
 static const void init(game_t *game)
 {
     HIDE_BKG;
@@ -19,7 +30,8 @@ static const void init(game_t *game)
     cpu_fast();
     memset(game, 0, sizeof(*game));
     set_bkg_data(209, font_TILE_COUNT, font_tiles);
-    init_game(game, WOLF_3D);
+    check_save();
+    init_game(game, START_SCREEN);
     SHOW_BKG;
     SHOW_SPRITES;
     DISPLAY_ON;

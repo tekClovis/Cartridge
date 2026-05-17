@@ -18,11 +18,13 @@ active_game_data_t g_game_data;
 active_ent_data_t g_ent_data;
 
 
-static const void clear_sprite_tiles(void) {
+const void clear_sprite_tiles(void) {
     uint8_t i;
+    HIDE_SPRITES;
     for (i = 0; i < 40; i++) {
         set_sprite_tile(i, font_BLANK_TILE);
-}
+    }
+    SHOW_SPRITES;
 }
 static const void (* const init_game_funcs[GAME_ID_COUNT])(game_t *game) = {
     &init_start_screen,
@@ -52,4 +54,16 @@ const int8_t point_in_rect(const uint8_t x, const uint8_t y,
 {
     return (x >= rect->x && x < rect->x + rect->width &&
         y >= rect->y && y < rect->y + rect->height);
+}
+
+const void set_high_score(game_id id, uint16_t score)
+{
+    if (id < WOLF_3D || id > TYRUNT)
+        return;
+    SWITCH_RAM(0);
+    ENABLE_RAM;
+    if (score > high_scores[id - 2]){
+        high_scores[id - 2] = score;
+    }
+    DISABLE_RAM;
 }
