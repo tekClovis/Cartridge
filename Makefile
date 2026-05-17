@@ -16,7 +16,8 @@ ROM_BANKS = 16
 LCCFLAGS = -Wa-l -Wl-m -Wl-yt0x1B -Wl-yo$(ROM_BANKS) \
 	-Wf--opt-code-speed -Wf--opt-code-size \
 	-Wf--max-allocs-per-node5000 \
-	-Iinclude
+	-Iinclude\
+	-Isrc/save
 
 WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 			 src/games/wolf3d/wolf3d.c \
@@ -34,6 +35,7 @@ TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
 	src/games/utils/anims.c \
+	src/save/save.c \
 	src/games/menu/menu.c \
 	src/games/menu/init.c \
 	src/games/menu/handle_input.c \

@@ -29,20 +29,25 @@ static const void show_game_stat(game_t *this)
 {
     uint8_t rel_coord_x = this->entities[0].x >> 3;
     uint8_t rel_coord_y = this->entities[0].y >> 3;
-    game_id _game_id = 0;
+    game_id game_id = 0;
+    char buffer_score[256] = {0};
 
     for (uint8_t i = 0; infos_rect[i].width != 0; i++)
         if (point_in_rect(rel_coord_x, rel_coord_y, &infos_rect[i])){
-            _game_id = i + 2;
+            game_id = i + 2;
             break;
         }
-    if (_game_id == 0 && this->window[1].y < 144){
+    if (game_id == 0 && this->window[1].y < 144){
         this->window[1].y += 1;
         move_win(0, this->window[1].y);
     }
-    if (_game_id && this->window[1].y == 144)
-        printToWin(1, 0, (char *)game_names[_game_id]);
-    if (_game_id && this->window[1].y > 120){
+    if (game_id && this->window[1].y == 144){
+        sprintf(buffer_score, "HIGH SCORE     %d%d%d",
+            high_scores[game_id - 2] / 100, (high_scores[game_id - 2] % 100) / 10,  high_scores[game_id - 2] % 10);
+        printToWin(1, 0, (char *)game_names[game_id]);
+        printToWin(1, 2, buffer_score);
+    }
+    if (game_id && this->window[1].y > 120){
         this->window[1].y -= 1;
         move_win(0, this->window[1].y);
     }

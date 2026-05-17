@@ -131,6 +131,10 @@ static const uint8_t handle_move(game_t *this, uint8_t angle, uint8_t input)
 
 static const uint8_t handle_action(game_t *this, uint8_t input)
 {
+    if (input & J_SELECT) {
+        init_game(this, MENU);
+        return 1;
+    }
     if ((input & J_A) && this->actual_frame > 9) {
         this->score += 1;
         print_score_life(this);
