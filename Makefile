@@ -30,6 +30,21 @@ WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 
 
 TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
+			 src/games/tyrunt/score.c \
+			 src/games/tyrunt/handle_input.c \
+			 src/games/tyrunt/init.c \
+			 src/games/tyrunt/animation.c \
+			 src/games/tyrunt/spawner.c \
+			 src/games/tyrunt/update_player.c \
+			 src/games/tyrunt/update_tree.c \
+			 src/games/tyrunt/update_tylton.c \
+			 src/games/tyrunt/update_bonus.c \
+			 src/games/tyrunt/utils.c \
+			 src/assets/tyrunt/gobou_spritesheet.c \
+			 src/assets/tyrunt/tree_sprite.c \
+			 src/assets/tyrunt/geodude_spritesheet.c \
+			 src/assets/tyrunt/tylton_spritesheet.c \
+			 src/assets/tyrunt/pokeball_sprite.c \
 
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
@@ -89,7 +104,5 @@ fclean: clean
 play: $(EXEC)
 	@printf '$(COL_GREEN)[INFO]$(COL_RESET) Launching game in RetroArch...\n'
 	retroarch -L /usr/lib/x86_64-linux-gnu/libretro/gambatte_libretro.so $(EXEC)
-
-re: fclean all
 
 .PHONY: all clean play rom-usage
