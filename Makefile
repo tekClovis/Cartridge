@@ -26,9 +26,10 @@ WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 			 src/games/wolf3d/entities/ennemy.c \
 			 src/games/wolf3d/game_over.c \
 			 src/games/wolf3d/utils.c \
-			 src/assets/wolf3d/map.c \
-			 src/assets/wolf3d/machop_tiles.c \
-			 src/assets/wolf3d/gun_tileset.c
+		 src/assets/wolf3d/map.c \
+		 src/assets/wolf3d/machop_tiles.c \
+		 src/assets/wolf3d/gun_tileset.c \
+		 src/assets/wolf3d/pnj_tileset.c
 
 
 TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
@@ -48,8 +49,6 @@ TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
 			 src/assets/tyrunt/tylton_spritesheet.c \
 			 src/assets/tyrunt/pokeball_sprite.c \
 
-SNAKE_SRC = src/games/Snake/snake.c \
-
 SRC = src/games/utils/utils.c \
 	src/games/utils/print.c \
 	src/games/utils/anims.c \
@@ -66,8 +65,7 @@ SRC = src/games/utils/utils.c \
 	src/assets/starting_screen/pokopie_tileset.c	\
 	src/assets/font.c \
 	$(WOLD3D_SRC) \
-	$(TYRUNT_SRC) \
-	$(SNAKE_SRC)
+	$(TYRUNT_SRC)
 
 OBJ = $(SRC:.c=.o)
 LST = $(OBJ:.o=.lst)

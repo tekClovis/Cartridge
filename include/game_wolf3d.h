@@ -37,6 +37,7 @@
     const void anim_weapon(game_t *this);
     const void print_score_life(game_t *this);
     const void set_game_over(game_t *this, uint8_t victory);
+    const void set_high_score(game_id id, uint16_t score);
 
     extern const map_t map_level_1;
     extern const uint8_t raycaster_tiles[272];
@@ -46,19 +47,6 @@
     extern const metasprite_t* const gun_tileset_metasprites[1];
     extern const palette_color_t gun_tileset_palettes[4];
     extern const uint8_t gun_tileset_tiles[160];
-
-    typedef struct ray_s {
-        uint8_t distance;
-        uint8_t height;
-        uint8_t sub_tile_id;
-
-    } ray_t;
-
-    typedef struct raycaster_s {
-        ray_t rays[20];
-        ray_t last_rays[20];
-    } raycaster_t;
-
     static const uint8_t SIN_TABLE[TRIG_TABLE_SIZE] = {
             128, 134, 140, 147, 153, 159, 165, 171, 177, 182, 188, 193, 199, 204, 209, 213,
             218, 222, 226, 230, 234, 237, 240, 243, 245, 248, 250, 251, 253, 254, 254, 255,

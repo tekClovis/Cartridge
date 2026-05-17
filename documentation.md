@@ -33,7 +33,8 @@
 2. **Menu** - Game selection interface with high score display
 3. **Wolf3D** - 3D first-person raycasting game with enemy AI
 4. **Tyrunt** - 2D platformer with obstacles, bonuses, and score system
-5. **Game 3** - Placeholder for future game
+5. **Snake** - Classic top-down snake game (add-on)
+6. **Game 3** - Placeholder for future game
 
 
 ### Key Features
@@ -123,8 +124,7 @@ cartridge/
     ├── save/               # Save system (high scores)
     │   ├── save.c
     │   └── save.h
-    ├── assets/             # Compiled asset data
-    │   ├── font.asm
+    ├── assets/
     │   ├── font.c
     │   ├── menu/           # Menu assets (tilesets, tilemaps)
     │   ├── starting_screen/# Starting screen assets
@@ -133,10 +133,11 @@ cartridge/
         ├── menu/           # Main menu
         │   ├── init.c      # Menu initialization
         │   ├── menu.c      # Menu update and rendering
-        │   ├── handle_input.c
-        │   └── handle_input.lst
+        │   └── handle_input.c
         ├── starting_screen/# Opening animation
         │   └── starting_screen.c
+        ├── Snake/
+        │   └── snake.c
         ├── tyrunt/         # Platformer game
         │   ├── init.c
         │   ├── tyrunt.c    # Main game loop
@@ -307,9 +308,32 @@ typedef struct {
 } tyrunt_plug_in_t;
 ```
 
-### 5. Placeholder Game 3
-- **Status**: Not yet implemented
-- **Type**: Reserved for future game
+### 5. Snake (`src/games/Snake/`)
+- **Purpose**: Classic top-down Snake game where the player grows by eating apples and avoids collisions.
+- **Key Files**:
+  - `snake.c`: Main game loop and logic
+  - `snake.asm`: Compiled asset/object data (generated)
+  - `snake.lst`: Linker/listing output
+  - `include/game_snake.h`: Game-specific declarations (input/mode identifiers)
+
+#### Gameplay
+- Grid-based playfield with wrap/no-wrap modes
+- Apple spawning, snake growth, self-collision detection
+- Increasing speed / difficulty over time
+- Controls: D-pad for direction; `A` to pause/select
+
+#### Integration Notes
+- Implement `init_game()` and `update_game()` following the game's interface in `include/game.h`.
+- Add `src/games/Snake/snake.c` to the Makefile `OBJ` list so it's compiled and linked into the ROM.
+- Register the new game in the menu selection code (`src/games/menu/menu.c` / `handle_input.c`) so it appears in the menu.
+- High-score persistence: update `src/save/save.c` / `save.h` to allocate an extra slot in the `high_scores[]` array (currently `uint16_t high_scores[3]`) or migrate to a dynamic layout to accommodate the Snake score.
+
+#### Assets
+- Prefer compact tilesets (8x8) and reuse existing font tiles where possible to save VRAM.
+
+#### Notes
+- Because the current save system defaults to 3 slots, include a migration or clear routine when expanding slots to avoid corrupt reads.
+
 
 ---
 
