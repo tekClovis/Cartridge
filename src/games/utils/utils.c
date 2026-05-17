@@ -53,3 +53,13 @@ const int8_t point_in_rect(const uint8_t x, const uint8_t y,
     return (x >= rect->x && x < rect->x + rect->width &&
         y >= rect->y && y < rect->y + rect->height);
 }
+
+const void set_high_score(game_id id, uint16_t score)
+{
+    SWITCH_RAM(0);
+    ENABLE_RAM;
+    if (score > high_scores[WOLF_3D - 2]){
+        high_scores[WOLF_3D - 2] = score;
+    }   
+    DISABLE_RAM;
+}

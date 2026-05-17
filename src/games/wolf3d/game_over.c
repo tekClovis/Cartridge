@@ -27,18 +27,6 @@ const void update_game_over(game_t *this)
     }
 }
 
-static const void save_score(game_t *this)
-{
-    uint8_t game_id = 0;
-
-    SWITCH_RAM(0);
-    ENABLE_RAM;
-    if (this->score > high_scores[WOLF_3D - 2]){
-        high_scores[WOLF_3D - 2] = this->score;
-    }   
-    DISABLE_RAM;
-}
-
 static const void display_game_over(game_t *this, uint8_t victory)
 {
     char buffer[256] = {0};
