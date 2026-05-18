@@ -44,7 +44,6 @@ static const void init_entities(game_t *this)
     this->entities[0].y = 32 << 2;
     this->entities[0].x_sprite = 80;
     this->entities[0].y_sprite = 72;
-    this->entities[0].animation = 0;
     this->actual_frame = 0;
     for (int i = 0; i < 2; i++){
         this->entities[0].sprite_ids[i] = i;
