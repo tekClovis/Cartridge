@@ -10,9 +10,8 @@
 void give_bonus(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
-    uint8_t random_bonus = DIV_REG % 4;
 
-    switch (random_bonus) {
+    switch (DIV_REG % 4) {
         case 0:
             data->score += 5;
             break;

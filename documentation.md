@@ -34,7 +34,6 @@
 3. **Wolf3D** - 3D first-person raycasting game with enemy AI
 4. **Tyrunt** - 2D platformer with obstacles, bonuses, and score system
 5. **Snake** - Classic top-down snake game (add-on)
-6. **Game 3** - Placeholder for future game
 
 
 ### Key Features

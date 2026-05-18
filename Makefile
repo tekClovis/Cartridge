@@ -29,7 +29,6 @@ WOLD3D_SRC = src/games/wolf3d/raycasting.c \
 		 src/assets/wolf3d/map.c \
 		 src/assets/wolf3d/machop_tiles.c \
 		 src/assets/wolf3d/gun_tileset.c \
-		 src/assets/wolf3d/pnj_tileset.c
 
 
 TYRUNT_SRC = src/games/tyrunt/tyrunt.c \
@@ -56,6 +55,7 @@ SRC = src/games/utils/utils.c \
 	src/games/menu/init.c \
 	src/games/menu/handle_input.c \
 	src/games/starting_screen/starting_screen.c \
+	src/games/Snake/snake.c \
 	src/entities/entities.c \
 	src/cartridge.c \
 	src/assets/menu/menu_tilemap.c \
