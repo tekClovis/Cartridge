@@ -26,13 +26,13 @@ const void clear_sprite_tiles(void) {
     }
     SHOW_SPRITES;
 }
-
 static const void (* const init_game_funcs[GAME_ID_COUNT])(game_t *game) = {
     &init_start_screen,
     &init_menu,
     &init_wolf3d,
     &init_tyrunt,
     &init_snake,
+    NULL,
 };
 
 const void init_game(game_t *game, game_id id){
