@@ -5,8 +5,17 @@
 ** tyrunt
 */
 
+/**
+ * @file update_tylton.c
+ * @brief Tylton obstacle movement, scoring and collision.
+ */
+
 #include "game_tyrunt.h"
 
+/**
+ * @brief End the game if the player hits Tylton while not invincible.
+ * @param this Game state.
+ */
 void check_tylton_collide(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -24,6 +33,10 @@ void check_tylton_collide(game_t *this)
     }
 }
 
+/**
+ * @brief Deactivate Tylton once it leaves the screen and award 1 point.
+ * @param this Game state.
+ */
 void check_tylton_score(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -36,6 +49,11 @@ void check_tylton_score(game_t *this)
     }
 }
 
+/**
+ * @brief Move the active Tylton, then check score and collision and animate it.
+ * @param this Game state.
+ * @note Tylton moves one pixel faster than the scroll speed on every third frame.
+ */
 void update_tylton(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;

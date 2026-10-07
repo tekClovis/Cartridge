@@ -1,3 +1,8 @@
+/**
+ * @file pokopie_tilemap.c
+ * @brief Background tile indices (into pokopie_tileset_tiles) for the starting screen, 20x18.
+ */
+
 
 
 unsigned char pokopie_tilemap[360] = {

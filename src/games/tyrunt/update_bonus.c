@@ -5,8 +5,18 @@
 ** tyrunt
 */
 
+/**
+ * @file update_bonus.c
+ * @brief Bonus pickup movement, collision and effects.
+ */
+
 #include "game_tyrunt.h"
 
+/**
+ * @brief Apply a random bonus chosen from DIV_REG.
+ * @param this Game state.
+ * @note Outcomes: +5 score, 300 frames invincible, one double jump, 300 frames slow.
+ */
 void give_bonus(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -27,6 +37,10 @@ void give_bonus(game_t *this)
     }
 }
 
+/**
+ * @brief Grant the bonus and deactivate it if the player touches it.
+ * @param this Game state.
+ */
 void check_bonus_collide(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -39,6 +53,10 @@ void check_bonus_collide(game_t *this)
     }
 }
 
+/**
+ * @brief Deactivate the bonus once it has left the left edge of the screen.
+ * @param this Game state.
+ */
 void check_bonus_missed(game_t *this)
 {
     if (this->entities[3].x == 0 || this->entities[3].x > 250) {
@@ -47,6 +65,10 @@ void check_bonus_missed(game_t *this)
     }
 }
 
+/**
+ * @brief Scroll the active bonus left by the current speed and check pickup or miss.
+ * @param this Game state.
+ */
 void update_bonus(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;

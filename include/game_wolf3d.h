@@ -5,30 +5,45 @@
 ** game_wolf3d
 */
 
+/**
+ * @file game_wolf3d.h
+ * @brief Wolf3D game entry points, fixed-point and trigonometry macros, assets.
+ */
+
 #ifndef GAME_WOLF3D_H_
     #define GAME_WOLF3D_H_
     #define ray_TILE_COUNT 17
     #define machop_tiles_TILE_COUNT 8
     #define gun_tileset_TILE_COUNT 8
+    /** Number of entries in SIN_TABLE and COS_TABLE. */
     #define TRIG_TABLE_SIZE 128
+    /** Offset stored in the tables: table value minus this is the signed result. */
     #define TRIG_CENTER 128
     #define SIN_RAW(angle) (SIN_TABLE[((uint8_t)(angle))])
     #define COS_RAW(angle) (COS_TABLE[((uint8_t)(angle))])
+    /** @name Trigonometry on 8-bit angles (angle is truncated to uint8_t) @{ */
     #define SIN(angle) (((int16_t)SIN_RAW(angle) - TRIG_CENTER))
     #define COS(angle) (((int16_t)COS_RAW(angle) - TRIG_CENTER))
     #define SIN_Q8_8(angle) (((int16_t)SIN_RAW(angle) - TRIG_CENTER) << 8)
     #define COS_Q8_8(angle) (((int16_t)COS_RAW(angle) - TRIG_CENTER) << 8)
+    /** @} */
+    /** @name Fixed-point conversions (8 fractional bits) @{ */
     #define INT_TO_FLOAT(value) (value << 8)
     #define DECIMAL_TO_FLOAT(value) (value << 8)
     #define FLOAT_TO_INT(value) (value >> 8)
+    /** @} */
+    /** Index of the player in game_t.entities. */
     #define PLAYER_ENTITY_ID 0
+    /** Index of the enemy in game_t.entities. */
     #define POKEMON_ENTITY_ID 1
     #include "game.h"
 
+    /** @brief Initialise the Wolf3D game. */
     const void init_wolf3d(game_t *this);
     const void initialize_ennemies(game_t *game);
     const void init_player(game_t *game);
 
+    /** @brief Per-frame update of the Wolf3D game. */
     const void update_wolf3d(game_t *this);
     
     const void draw_background(game_t *game);
@@ -36,6 +51,10 @@
     const void anim_machop(game_t *this);
     const void anim_weapon(game_t *this);
     const void print_score_life(game_t *this);
+    /**
+     * @brief End the game.
+     * @param victory Non-zero if the player won.
+     */
     const void set_game_over(game_t *this, uint8_t victory);
     const void set_high_score(game_id id, uint16_t score);
 

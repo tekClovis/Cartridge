@@ -4,12 +4,24 @@
 ** File description:
 ** handle-input
 */
+/**
+ * @file handle_input.c
+ * @brief Wolf3D joypad handling: turning, walking with wall collision, actions.
+ */
+
 #include "game_wolf3d.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <gb/gb.h>
 
+/**
+ * @brief Move the player along an angle, sliding along walls (axes tested separately).
+ * @param this Game state.
+ * @param angle Direction in 0..127 (128 steps per turn).
+ * @return 1 if the game ended (exit reached or score 0), 0 otherwise.
+ * @note Each successful move costs 2 score points (floored at 0); a score of 0 is a defeat.
+ */
 static const uint8_t move_on_dir(game_t *this, const uint8_t angle)
 {
     const int16_t cos_angle = COS(angle);
@@ -55,6 +67,7 @@ static const uint8_t move_on_dir(game_t *this, const uint8_t angle)
     return 0;
 }
 
+/** @brief Turn by 8 angle steps on LEFT/RIGHT and redraw. @return 1 if the player turned. */
 static const uint8_t handle_turn(game_t *this, uint8_t *angle, uint8_t input)
 {
     if (input & J_LEFT) {
@@ -70,6 +83,10 @@ static const uint8_t handle_turn(game_t *this, uint8_t *angle, uint8_t input)
     return 0;
 }
 
+/**
+ * @brief Walk forward (UP) or backward (DOWN), rate-limited to actual_frame > 5.
+ * @return 1 if the input was consumed.
+ */
 static const uint8_t handle_move(game_t *this, uint8_t angle, uint8_t input)
 {
     if ((input & J_UP) && this->actual_frame > 5) {
@@ -91,6 +108,10 @@ static const uint8_t handle_move(game_t *this, uint8_t angle, uint8_t input)
     return 0;
 }
 
+/**
+ * @brief SELECT returns to the menu; A or B (actual_frame > 9) attacks, +1 score.
+ * @return 1 if the input was consumed.
+ */
 static const uint8_t handle_action(game_t *this, uint8_t input)
 {
     if (input & J_SELECT) {
@@ -116,6 +137,10 @@ static const uint8_t handle_action(game_t *this, uint8_t input)
 
 
 
+/**
+ * @brief Process one frame of joypad input; turn, move and action are mutually exclusive.
+ * @param this Game state.
+ */
 const void handle_input(game_t *this)
 {
     uint8_t *angle = &((w3d_ent_plug_in_t *)this->entities[0].personal_data)->angles[0];

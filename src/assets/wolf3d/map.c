@@ -7,6 +7,15 @@
 
 #include "map.h"
 
+/**
+ * @file map.c
+ * @brief Wolf3D level 1 tile map (32x32, row-major, one tile_id per byte).
+ */
+
+/**
+ * @brief Level 1 layout: 0 = VOID, 1 = WALL, 2 = SPAWN, 3 = EXIT (see tile_id in map.h).
+ * @note Consumers index it with `(y << 5) + x`, so width must stay 32.
+ */
 const map_t map_level_1 = {
     .map = {
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,

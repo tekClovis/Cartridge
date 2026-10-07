@@ -1,3 +1,7 @@
+/** @file starting_screen.c
+ * @brief Title screen: scrolls the logo in, then waits for START.
+ */
+
 /*
 ** EPITECH PROJECT, 2026
 ** cartridge
@@ -12,6 +16,7 @@
 #include <gb/cgb.h>
 
 
+/** @brief Switch to the MENU game when START is held. */
 static const void handle_input(game_t *this)
 {
     if (joypad() & J_START){
@@ -32,6 +37,7 @@ static const uint16_t spritetiles[9] =
     222,
 };
 
+/** @brief Place the 9 sprites ("PRESS " + 3 tiles 220-222) on one row at y=104. */
 static const void init_sprites(void)
 {
     SPRITES_8x8;
@@ -49,6 +55,12 @@ static const void move_cred(game_t *this)
     move_win(this->window[1].x, this->window[1].y);
 }
 
+/**
+ * @brief Per-frame update: scroll the background up, then run the idle phase.
+ * @param this Game state; window[0].y is the background scroll, window[1] the credits window.
+ * @note Once the scroll reaches 0, sprites and credits are shown once, then input and credits
+ *       scrolling run every frame; blink_sprite runs only when actual_frame >> 4 is non-zero.
+ */
 const void update_start_screen(game_t *this)
 {
     if (this->actual_frame >> 1 && this->window[0].y > 0){
@@ -71,6 +83,10 @@ const void update_start_screen(game_t *this)
     }
 }
 
+/**
+ * @brief Set up the title screen and install update_start_screen as the update callback.
+ * @param this Game state; window[0] is set to (0, 96) and window[1] to (160, 128).
+ */
 const void init_start_screen(game_t *this)
 {
     this->actual_frame = 0;

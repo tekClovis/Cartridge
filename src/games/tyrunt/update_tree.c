@@ -5,8 +5,17 @@
 ** tyrunt
 */
 
+/**
+ * @file update_tree.c
+ * @brief Tree obstacle movement, scoring and collision.
+ */
+
 #include "game_tyrunt.h"
 
+/**
+ * @brief End the game if the player hits the tree while not invincible.
+ * @param this Game state.
+ */
 void check_tree_collide(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -24,6 +33,10 @@ void check_tree_collide(game_t *this)
     }
 }
 
+/**
+ * @brief Deactivate the tree once it leaves the screen and award 1 point.
+ * @param this Game state.
+ */
 void check_tree_score(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -36,6 +49,10 @@ void check_tree_score(game_t *this)
     }
 }
 
+/**
+ * @brief Move the active tree left by the current speed, then check score and collision.
+ * @param this Game state.
+ */
 void update_tree(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
