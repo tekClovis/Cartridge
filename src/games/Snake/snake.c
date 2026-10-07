@@ -5,6 +5,8 @@
 ** snake
 */
 
+/** @file snake.c @brief Snake game: grid movement, food spawning, scoring and game over. */
+
 #include "game_snake.h"
 #include <gb/gb.h>
 #include <stdio.h>
@@ -37,6 +39,7 @@ static const unsigned char snake_tiles[] = {
 static const uint8_t snake_start_x = 10;
 static const uint8_t snake_start_y = 6;
 
+/** @brief Return 1 if tile (x, y) is occupied by one of the first snake_length segments. */
 static uint8_t snake_is_on_body(const snake_plug_in_t *data, uint8_t x, uint8_t y)
 {
     for (uint8_t i = 0; i < data->snake_length; i++) {
@@ -46,6 +49,7 @@ static uint8_t snake_is_on_body(const snake_plug_in_t *data, uint8_t x, uint8_t 
     return 0;
 }
 
+/** @brief Move the sprites of unused body slots off screen. */
 static void snake_hide_unused_sprites(const snake_plug_in_t *data)
 {
     for (uint8_t i = data->snake_length; i < SNAKE_MAX_LENGTH; i++) {
@@ -53,6 +57,10 @@ static void snake_hide_unused_sprites(const snake_plug_in_t *data)
     }
 }
 
+/**
+ * @brief Place the food on a tile derived from the frame counter, score and length.
+ * @note No RNG is used. Tries at most 255 candidates to avoid the body, then keeps the last one.
+ */
 static void snake_spawn_food(game_t *this, snake_plug_in_t *data)
 {
     uint8_t x;
@@ -133,6 +141,7 @@ const void init_snake(game_t *this)
     move_win(7, 120);
 }
 
+/** @brief Hide the score window and return to the menu. */
 static void snake_game_over(game_t *this)
 {
     HIDE_WIN;
@@ -167,6 +176,7 @@ const void update_snake(game_t *this)
             break;
     }
 
+    /* next_* are unsigned: moving past 0 wraps to 255, caught by the bounds check below. */
     uint8_t collides_with_body = 0;
     uint8_t tail_index = data->snake_length - 1;
 
@@ -176,6 +186,8 @@ const void update_snake(game_t *this)
         return;
     }
 
+    /* Eating: the tail does not move, so the whole body counts as an obstacle. Otherwise
+     * the tail tile is about to be vacated and is excluded. */
     if (next_x == data->food_x && next_y == data->food_y) {
         collides_with_body = snake_is_on_body(data, next_x, next_y);
     } else {
@@ -214,6 +226,7 @@ const void update_snake(game_t *this)
     snake_draw(data);
 }
 
+/** @brief Read the joypad: SELECT quits, d-pad turns the snake (180 degree turns are ignored). */
 static const void handle_input_snake(game_t *this)
 {
     uint8_t input = joypad();

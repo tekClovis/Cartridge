@@ -5,11 +5,17 @@
 ** raycasting
 */
 
+/**
+ * @file raycasting.c
+ * @brief DDA raycaster drawing the 3D view as 20 background tile columns.
+ */
+
 #include "game_wolf3d.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 /* raycaster_tiles.c */
+/** @brief Background tile data: blank, wall shades, caps, plus right/left-edge variants. */
 const uint8_t raycaster_tiles[272] = {
         /* TILE_BLANK = 0 */
     0x00,0x00, 0x00,0x00, 0x00,0x00, 0x00,0x00, 0x00,0x00, 0x00,0x00, 0x00,0x00, 0x00,0x00,
@@ -50,6 +56,7 @@ const uint8_t raycaster_tiles[272] = {
 };
 
 /* distance → tile lookup */
+/** @brief Offset into wall_col_map of the 18-tile column for each distance step. */
 static const uint8_t wall_shade[14] = {
     0,
     18,
@@ -67,6 +74,7 @@ static const uint8_t wall_shade[14] = {
     234,
 };
 
+/** @brief Per-distance column layouts (18 rows each) of tile indices. */
 static const uint8_t wall_col_map[256] = {
     2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0,
     3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 0,
@@ -84,6 +92,7 @@ static const uint8_t wall_col_map[256] = {
     0, 0, 0, 0, 0, 0, 3, 2, 2, 2, 4, 1, 1, 1, 1, 1, 1, 0,
 };
 
+/** @brief Tell whether the previous ray hit the same or a diagonally adjacent tile. */
 static const uint8_t detect_corner(w3d_plug_in_t *raycaster, int i, int16_t x_i, int16_t y_i){
     return (x_i - 1 == raycaster->x_tiles_touch[i - 1]
             && y_i - 1== raycaster->y_tiles_touch[i - 1])
@@ -97,6 +106,7 @@ static const uint8_t detect_corner(w3d_plug_in_t *raycaster, int i, int16_t x_i,
             && y_i == raycaster->y_tiles_touch[i - 1]);
 }
 
+/** @brief Draw a column for an EXIT tile: only the sky/floor rows are filled, wall rows blank. */
 static const void display_exit_col(int i, uint8_t normalized_dist)
 {
     uint8_t buffer[18];
@@ -111,6 +121,10 @@ static const void display_exit_col(int i, uint8_t normalized_dist)
     set_bkg_tiles(i, 0, 1, 18, buffer);
 }
 
+/**
+ * @brief Draw ray i as one 18-tile background column.
+ * @note Wall edges where the hit side changes get the shifted (+10) edge tiles.
+ */
 static const void display_col(w3d_plug_in_t *raycaster, int i)
 {
     uint8_t buffer[18];
@@ -136,6 +150,13 @@ static const void display_col(w3d_plug_in_t *raycaster, int i)
     set_bkg_tiles(i, 0, 1, 18, buffer);
 }
 
+/**
+ * @brief Cast one ray and record its hit in the plug-in data (side, x/y_tiles_touch).
+ * @param game Game state.
+ * @param ray_id Ray 0..19; its angle is the player's angle + ray_id - 10.
+ * @return Distance to the hit, fixed-point scaled down by 6 bits.
+ * @note Stops after 80 steps or when leaving the map.
+ */
 static const uint16_t cast_ray(const game_t *game, uint8_t ray_id)
 {
     const uint8_t angle =(((w3d_ent_plug_in_t *)game->entities[0].personal_data)->angles[0] + ray_id - 10) & 127;
@@ -190,6 +211,11 @@ static const uint16_t cast_ray(const game_t *game, uint8_t ray_id)
     return (uint16_t)distance;
 }
 
+/**
+ * @brief Cast all 20 rays and redraw only the columns whose distance changed.
+ * @param game Game state.
+ * @note Distances are clamped to 26.
+ */
 const void draw_background(game_t *game)
 {
     uint16_t ray_dist = 0;

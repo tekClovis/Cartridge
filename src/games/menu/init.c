@@ -1,9 +1,7 @@
-/*
-** EPITECH PROJECT, 2026
-** cartridge
-** File description:
-** init
-*/
+/**
+ * @file init.c
+ * @brief Menu setup: map, graphics, window and player entity.
+ */
 
 #include "game.h"
 #include "game_menu.h"
@@ -63,6 +61,10 @@ static const void init_graphiques(void)
     SHOW_WIN;
 }
 
+/**
+ * @brief Initialise the menu game and set its update callback to update_menu().
+ * @note Loads sprite and background tiles and shows the window layer (hidden below the screen).
+ */
 const void init_menu(game_t *this)
 {
     this->update = &update_menu;

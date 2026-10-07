@@ -5,8 +5,18 @@
 ** tyrunt
 */
 
+/**
+ * @file animation.c
+ * @brief Sprite frame selection for the player and the Tylton enemy.
+ */
+
 #include "game_tyrunt.h"
 
+/**
+ * @brief Pick the player's sprite tiles from its jump state and the frame counter.
+ * @param this Game state; `personal_data` must point to the tyrunt data.
+ * @note Rising uses tile 4, falling tile 8, running cycles tiles 0/4/8 every 10 frames.
+ */
 void animate_player(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -27,6 +37,10 @@ void animate_player(game_t *this)
     set_sprite_tile(1, base_tile + 2);
 }
 
+/**
+ * @brief Alternate the Tylton sprite between its two frames every 15 frames.
+ * @param this Game state.
+ */
 void animate_tylton(game_t *this)
 {
 

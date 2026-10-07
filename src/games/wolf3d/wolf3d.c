@@ -4,12 +4,18 @@
 ** File description:
 ** wolf3d
 */
+/**
+ * @file wolf3d.c
+ * @brief Wolf3D game setup and per-frame update.
+ */
+
 #include "game_wolf3d.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
+/** @brief Ray step lookup, (128 << 8) / i, filled by init_wolf3d. */
 uint16_t ray_lut[256];
 
 static const void init_graphics(void)
@@ -19,6 +25,7 @@ static const void init_graphics(void)
     set_sprite_data(machop_tiles_TILE_COUNT, gun_tileset_TILE_COUNT, gun_tileset_tiles);
 }
 
+/** @brief Place the HUD window at y = 124 and print the score. */
 static const void init_window(game_t *game)
 {
     char buffer[32] = {0};
@@ -56,11 +63,16 @@ static const void init_raycasting(game_t *this)
     draw_background(this);
 }
 
+/** @brief Per-frame update: process input. */
 const void update_wolf3d(game_t *this)
 {
     handle_input(this);
 }
 
+/**
+ * @brief Initialise Wolf3D: lookup table, map size, score (500), graphics, entities, HUD, view.
+ * @param this Game state.
+ */
 const void init_wolf3d(game_t *this)
 {
     ray_lut[0] = (128u << 8) / 128;

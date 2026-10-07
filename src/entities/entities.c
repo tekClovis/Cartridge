@@ -1,20 +1,25 @@
-/*
-** EPITECH PROJECT, 2026
-** cartridge
-** File description:
-** entities
-*/
+/**
+ * @file entities.c
+ * @brief Move the hardware sprites that make up an entity.
+ */
 #include "entities.h"
 #include <gb/gb.h>
 
-// function for 8x16 Sprrite displaying mode
+/**
+ * @brief Place an entity's sprites side by side (8x16 sprite mode).
+ * @param ent Entity; sprite i is drawn at x_sprite + 8 * i, y_sprite + 8.
+ */
 void draw_ent16(const entities_t ent){
     for (uint8_t i = 0; i < ent.sprite_nb; i++){
         move_sprite(ent.sprite_ids[i], ent.x_sprite + 8 * i, ent.y_sprite + 8);
     }
 }
 
-//off mapping for 8x8 sprites to be centered on the entity position
+/**
+ * @brief Place an entity's sprites using fixed offsets (8x8 sprite mode).
+ * @param ent Entity; each sprite's tile is set to its own sprite id.
+ * @warning Offsets exist for 4 sprites only; sprite_nb above 4 reads past the table.
+ */
 void draw_ent8(const entities_t ent){
     int8_t off_mapping[8] = {-8, -8, 0, -8, 0, -8, 0, 0};
 

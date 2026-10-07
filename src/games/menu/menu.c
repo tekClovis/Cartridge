@@ -1,9 +1,7 @@
-/*
-** EPITECH PROJECT, 2026
-** cartridge
-** File description:
-** menu
-*/
+/**
+ * @file menu.c
+ * @brief Menu per-frame update and the high-score popup.
+ */
 #include "game.h"
 #include "game_menu.h"
 #include <string.h>
@@ -25,6 +23,12 @@ static const char game_names[GAME_ID_COUNT][32] = {
     "SNAKE       "
 };
 
+/**
+ * @brief Slide the window popup in while the player is on a game door, out otherwise.
+ *
+ * Once fully hidden (y == 144) and on a door, the game name and high score are read from
+ * cartridge RAM bank 0 and printed to the window.
+ */
 static const void show_game_stat(game_t *this)
 {
     uint8_t rel_coord_x = this->entities[0].x >> 3;
@@ -56,6 +60,10 @@ static const void show_game_stat(game_t *this)
     }
 }
 
+/**
+ * @brief Run one menu frame: input, player walk animation, popup and sprite drawing.
+ * @note Returns right after input when a game was selected (game_over set).
+ */
 const void update_menu(game_t *this)
 {
     handleInput(this);
