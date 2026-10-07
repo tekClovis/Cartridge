@@ -5,6 +5,11 @@
 ** tyrunt
 */
 
+/**
+ * @file init.c
+ * @brief Sprite, background and state setup for the tyrunt game.
+ */
+
 #include "game_tyrunt.h"
 #include "../../assets/tyrunt/gobou_spritesheet.h"
 #include "../../assets/tyrunt/tylton_spritesheet.h"
@@ -83,6 +88,7 @@ static void init_clouds(void)
     set_bkg_tiles(24, 2, 2, 1, cloud_map);
 }
 
+/** Reset counters and timers, clear scroll and sprites, and set up the HUD window. */
 static void init_game_data(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -108,6 +114,11 @@ static void init_game_data(game_t *this)
     move_win(7, 120);
 }
 
+/**
+ * @brief Install the tyrunt update callback and (re)initialise the whole game.
+ * @param this Game state; `personal_data` is pointed at the global tyrunt data.
+ * @note Entities 0..3 are player, tree, Tylton and bonus; x = 250 marks an inactive obstacle.
+ */
 void init_tyrunt(game_t *this)
 {
     tyrunt_plug_in_t *data = NULL;

@@ -5,8 +5,14 @@
 ** tyrunt
 */
 
+/**
+ * @file spawner.c
+ * @brief Spawning of obstacles and bonuses on the right edge of the screen.
+ */
+
 #include "game_tyrunt.h"
 
+/** Place the bonus at x = 160 when DIV_REG is a multiple of 600, at one of two heights. */
 static void spawn_bonus(game_t *this)
 {
     if (DIV_REG % 600 == 0) {
@@ -25,6 +31,10 @@ static void manage_bonus(game_t *this)
         spawn_bonus(this);
 }
 
+/**
+ * @brief Choose an inactive obstacle, preferring tree or Tylton at random via DIV_REG.
+ * @return Entity index (1 tree, 2 Tylton), or 0 if both are already on screen.
+ */
 static uint8_t get_obstacle_to_spawn(game_t *this)
 {
     uint8_t primary = 2;
@@ -41,6 +51,12 @@ static uint8_t get_obstacle_to_spawn(game_t *this)
     return 0;
 }
 
+/**
+ * @brief Spawn a bonus and, after a cooldown, one obstacle at x = 160.
+ * @param this Game state.
+ * @note No obstacle spawns while another is between x = 80 and 250. The next cooldown is
+ *       80 to 119 frames, randomised from DIV_REG.
+ */
 void manage_spawner(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;

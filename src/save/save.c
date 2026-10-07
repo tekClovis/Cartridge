@@ -1,9 +1,7 @@
-/*
-** EPITECH PROJECT, 2026
-** cartridge
-** File description:
-** save
-*/
+/**
+ * @file save.c
+ * @brief Save RAM storage for high scores.
+ */
 #include <stdlib.h>
 #include <stdint.h>
 #include <gbdk/platform.h>

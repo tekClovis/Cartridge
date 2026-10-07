@@ -1,9 +1,7 @@
-/*
-** EPITECH PROJECT, 2026
-** cartridge
-** File description:
-** menu_tilemap
-*/
+/**
+ * @file menu_tilemap.c
+ * @brief Menu background tilemap: 32x64 tile indices (row-major) plus its dimensions.
+ */
 #include "game_menu.h"
 
 const uint8_t map_menu[2048] = {

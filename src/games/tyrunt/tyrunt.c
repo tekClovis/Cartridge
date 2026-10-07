@@ -5,9 +5,18 @@
 ** tyrunt
 */
 
+/**
+ * @file tyrunt.c
+ * @brief Main loop, timers and game-over screen of the tyrunt game.
+ */
+
 #include "game_tyrunt.h"
 #include <stdio.h>
 
+/**
+ * @brief Game-over callback: A restarts the game, SELECT returns to the menu.
+ * @param this Game state.
+ */
 void update_gameover(game_t *this)
 {
     if (joypad() & J_A) {
@@ -21,6 +30,10 @@ void update_gameover(game_t *this)
     }
 }
 
+/**
+ * @brief Save the high score, switch to the game-over screen and swap the update callback.
+ * @param this Game state.
+ */
 void trigger_game_over(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -38,6 +51,10 @@ void trigger_game_over(game_t *this)
     printToWin(0, 9, "PRESS SELECT TO MENU");
 }
 
+/**
+ * @brief Run the spawner and update the tree and Tylton obstacles.
+ * @param this Game state.
+ */
 void update_obstacle(game_t *this)
 {
     manage_spawner(this);
@@ -45,6 +62,10 @@ void update_obstacle(game_t *this)
     update_tylton(this);
 }
 
+/**
+ * @brief Decrement the invincibility and slow-mode timers by one frame.
+ * @param this Game state.
+ */
 void update_timers(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;
@@ -55,6 +76,11 @@ void update_timers(game_t *this)
         data->slow_timer -= 1;
 }
 
+/**
+ * @brief Per-frame update of the running game; scrolls the background by the current speed.
+ * @param this Game state.
+ * @note Returns early when an obstacle hit switched `update` to the game-over callback.
+ */
 void update_tyrunt(game_t *this)
 {
     tyrunt_plug_in_t *data = (tyrunt_plug_in_t *)this->personal_data;

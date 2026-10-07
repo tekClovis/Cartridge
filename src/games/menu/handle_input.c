@@ -1,9 +1,7 @@
-/*
-** EPITECH PROJECT, 2026
-** cartridge
-** File description:
-** handle_input
-*/
+/**
+ * @file handle_input.c
+ * @brief Joypad handling for the menu: player movement, background scrolling, game entry.
+ */
 
 #include "game.h"
 #include "game_menu.h"
@@ -11,6 +9,7 @@
 #include <stdio.h>
 
 
+/** @brief Scroll the background horizontally and update the player sprite's screen x. */
 static const void scroll_x(game_t *this, uint8_t action)
 {
     uint8_t rel_coord_x = this->entities[0].x >> 3 < 10 ? 10 : this->entities[0].x >> 3;
@@ -36,6 +35,7 @@ static const void scroll_x(game_t *this, uint8_t action)
         this->entities[0].x_sprite -= 11 << 3;
 }
 
+/** @brief Scroll the background vertically and update the player sprite's screen y. */
 static const void scroll_y(game_t *this, uint8_t action)
 {
     uint8_t rel_coord_x = this->entities[0].x >> 3 < 11 ? 11 : this->entities[0].x >> 3;
@@ -60,6 +60,11 @@ static const void scroll_y(game_t *this, uint8_t action)
         this->entities[0].y_sprite -= 13  << 3;
 }
 
+/**
+ * @brief Start the game whose door tile area contains the player, if any.
+ * @note init_game() swaps the update callback; game_over only makes update_menu() return
+ *       early for the rest of this frame.
+ */
 static const void trying_to_enter_game(game_t *this)
 {
     uint8_t rel_coord_x = this->entities[0].x >> 3;
@@ -144,6 +149,11 @@ static const void handle_direction(game_t *this, uint8_t direction)
     this->entities[0].direction = direction;
 }
 
+/**
+ * @brief Read the joypad and apply one frame of menu input.
+ * @note D-pad moves the player; A or START enters the game under the player.
+ *       Only a single pressed button is handled (exact joypad() match).
+ */
 const void handleInput(game_t *this)
 {
     switch (joypad()) {

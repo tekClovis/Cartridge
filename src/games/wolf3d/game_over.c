@@ -5,12 +5,23 @@
 ** game_over
 */
 
+/**
+ * @file game_over.c
+ * @brief Wolf3D end screen (victory or defeat) and its input handling.
+ */
+
 #include "game_wolf3d.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <gb/gb.h>
 
+/**
+ * @brief Per-frame update of the end screen.
+ * @param this Game state.
+ * @note START restarts Wolf3D, SELECT returns to the menu; otherwise the background blinks
+ *       every time actual_frame exceeds 10.
+ */
 const void update_game_over(game_t *this)
 {
     if (joypad() & J_START){
@@ -27,6 +38,7 @@ const void update_game_over(game_t *this)
     }
 }
 
+/** @brief Print the result, score and saved high score (read from cartridge RAM bank 0). */
 static const void display_game_over(game_t *this, uint8_t victory)
 {
     char buffer[256] = {0};
@@ -47,6 +59,11 @@ static const void display_game_over(game_t *this, uint8_t victory)
     printToMap(5, 16, buffer);
 }
 
+/**
+ * @brief Switch to the end screen: fade, save the high score, draw the result.
+ * @param this Game state; update is replaced by update_game_over and game_over set to 1.
+ * @param victory Non-zero for "VICTORY", 0 for "DEFEAT".
+ */
 const void set_game_over(game_t *this, uint8_t victory)
 {
     char buffer[256] = {0};

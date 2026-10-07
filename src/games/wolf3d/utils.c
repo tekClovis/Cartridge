@@ -5,10 +5,16 @@
 ** utils
 */
 
+/**
+ * @file utils.c
+ * @brief Wolf3D HUD helper.
+ */
+
 #include "game_wolf3d.h"
 #include <stdio.h>
 #include <string.h>
 
+/** @brief Print the 3-digit score and 2-digit HP on the window layer. */
 const void print_score_life(game_t *this){
     char buffer[32] = {0};
 

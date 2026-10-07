@@ -5,10 +5,13 @@
 ** map
 */
 
+/** @file map.h @brief Tile map types. */
+
 #ifndef MAP_H_
     #define MAP_H_
     #include <stdint.h>
 
+    /** Tile kinds stored in map_t.map. */
     typedef const enum tile_effect {
         VOID,
         WALL,
@@ -16,6 +19,7 @@
         EXIT,
         TILE_EFFECT_COUNT
     } tile_id;
+    /** Tile map; map holds width * height tile ids (size = number of tiles used). */
     typedef struct map_s {
         uint8_t map[1024];
         uint16_t width;

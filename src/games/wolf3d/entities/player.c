@@ -5,8 +5,14 @@
 ** player
 */
 
+/**
+ * @file player.c
+ * @brief Wolf3D player and hand/weapon sprites.
+ */
+
 #include "game_wolf3d.h"
 
+/** @brief Toggle the walking animation frame of the hand sprites (entity 1). */
 const void anim_machop(game_t *this)
 {
     this->entities[1].animation = !this->entities[1].animation;
@@ -14,6 +20,7 @@ const void anim_machop(game_t *this)
     set_sprite_tile(1, this->entities[1].sprite_tile[1 + (this->entities[1].animation << 1)]);
 }
 
+/** @brief Toggle the attack animation frame of the weapon sprites (entity 0). */
 const void anim_weapon(game_t *this)
 {
     this->entities[0].animation = !this->entities[0].animation;
@@ -21,6 +28,10 @@ const void anim_weapon(game_t *this)
     set_sprite_tile(this->entities[0].sprite_ids[1], this->entities[0].sprite_tile[1 + (this->entities[0].animation << 1)]);
 }
 
+/**
+ * @brief Place the player on the SPAWN tile (100 HP) and set up both sprite pairs.
+ * @param game Game state.
+ */
 const void init_player(game_t *game)
 {
     uint16_t i = 0;
