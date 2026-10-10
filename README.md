@@ -1,4 +1,4 @@
-# POKOPIE
+# Cartridge
 
 Game Boy Color multi-game ROM (EPITECH 2026 project): a title screen, a walkable menu, and three
 games (Wolf3D, Tyrunt, Snake) with high scores saved in battery-backed cartridge RAM. Written in C
