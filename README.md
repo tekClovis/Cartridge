@@ -1,5 +1,9 @@
 # Cartridge
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tekClovis/tekClovis/main/gif/cartridge.gif" width="640" alt="Cartridge" />
+</p>
+
 Game Boy Color multi-game ROM (EPITECH 2026 project): a title screen, a walkable menu, and three
 games (Wolf3D, Tyrunt, Snake) with high scores saved in battery-backed cartridge RAM. Written in C
 with GBDK-2020; the ROM is 256 KB (16 banks) on an MBC5 + RAM + battery cartridge. How the modules
